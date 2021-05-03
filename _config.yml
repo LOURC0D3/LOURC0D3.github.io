@@ -24,7 +24,7 @@ nav_exclude:                                            # The following paths ar
 
 ### Author Info ###
 author:
-  name              : John Doe
+  name              : LOURC0D3
   image             : https://i.imgur.com/TO2GQwz.png
 #  behance           : your_username
 # dribbble          : your_username
@@ -67,9 +67,9 @@ disqus:
 
 ### Analytics ###
 analytics:
-  enabled: false                                        # Set true to enable analytics
+  enabled: true                                        # Set true to enable analytics
   google:
-    tracking_id: your-google-tracking-id
+    tracking_id: G-Z4RVD4FENP
 
 
 ### Defaults for collections ###
