@@ -2,7 +2,7 @@
 source              : ../
 collections_dir     : docs
 data_dir            : docs/_data
-baseurl             : "/portfolYOU-test"
+baseurl             : ""
 repository          : YoussefRaafatNasry/portfolYOU
 
 
