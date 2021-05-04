@@ -16,8 +16,8 @@
 
 - name: Assembly
   percentage: 70
-  color: secondary
+  color: dark
 
 - name: Linux Shell
   percentage: 70
-  color: dark
+  color: secondary
