@@ -1,8 +1,8 @@
 ### Site Settings ###
 title               : LOURC0D3's Computer Note
 description         : >-
-                      I'm interested in   
-                      Software Develmonet, System Hacking,   
+                      I'm interested in<br>
+                      Software Develmonet, System Hacking,<br>      
                       Reversing, Network Hacking, Forensic.
 baseurl             : ""                     # Change to empty quotes if you are hosting your site at <your-username>.github.io directly
 repository          : LOURC0D3/LOURC0D3.github.io     # Change to <your-username>/<your-username>.github.io (or remove it if you don't need remote projects)
