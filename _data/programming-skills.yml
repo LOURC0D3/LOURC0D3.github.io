@@ -6,6 +6,18 @@
   percentage: 80
   color:
 
+- name: AutoHotKey
+  percentage: 80
+  color: yellow
+
+- name: Batch
+  percentage: 80
+  color: green
+
 - name: Assembly
   percentage: 70
   color: dark
+
+- name: Linux Shell
+  percentage: 70
+  color: black
