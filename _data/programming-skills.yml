@@ -4,20 +4,20 @@
 
 - name: Python
   percentage: 80
-  color:
+  color: warning
 
 - name: AutoHotKey
   percentage: 80
-  color: yellow
+  color: success
 
 - name: Batch
   percentage: 80
-  color: green
+  color: info
 
 - name: Assembly
   percentage: 70
-  color: dark
+  color: success
 
 - name: Linux Shell
   percentage: 70
-  color: black
+  color: secondary
