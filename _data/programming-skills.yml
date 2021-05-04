@@ -20,4 +20,4 @@
 
 - name: Linux Shell
   percentage: 70
-  color: light
+  color: dark
