@@ -1,15 +1,11 @@
-- title: 한국게임과학고등학교 재학
-  from: 2014
-  to: 2018
-  description: Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-               sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-               Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-               nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
-               reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+- title: 한국게임과학고등학교 재학중
+  from: 2019
+  to: 현재
+  description: 빨리 졸업하고 싶다.
 
-- title: Software Engineer, Google, UK
-  from: 2018
-  to: present
+- title: TeamH4C 팀원
+  from: 2020
+  to: 현재
   description: Lorem ipsum dolor sit amet, consectetur adipiscing elit,
                sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
                Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
