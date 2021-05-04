@@ -1,7 +1,16 @@
-- name: Adobe Photoshop
+- name: cocos2d
   percentage: 95
-  color: info
+  color: danger
 
-- name: Adobe Illustrator
+- name: Unity
+  percentage: 90
+  color: warning
+
+- name: MFC
   percentage: 90
   color: success
+
+- name: AndroidStudio
+  percentage: 70
+  color: info
+
