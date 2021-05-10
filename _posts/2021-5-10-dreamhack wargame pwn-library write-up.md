@@ -3,10 +3,11 @@ title: Dreamhack wargame pwn-library write-up
 tags: [Dreamhack, pwnable, pwn-library]
 style: 
 color: 
-description: Let's pwn
+description: 힙 영역에서 발생하는 취약점을 알아보자. 
 ---
 
 ## Code Analysis
+---
 ~~~ c
 #include <stdio.h>
 #include <string.h>
@@ -244,6 +245,7 @@ Flag 파일의 위치는
 <br>
 
 ## Vulnerability Analysis
+---
 c에서 메모리를 할당할 때 이전에 free된 메모리 중 같은 사이즈의 메모리가 존재하였으면 그 위치에 다시 메모리를 할당한다.<br> 이 취약점을 UAF(Use After Free)라고 한다.<br>
 return_book 함수에서는 book.content를 NULL문자로 채우지만 return된 책을 다시 읽을 수 없게하는 조치를 취하지 않았다. <br>
 따라서 borrow_book 함수를 통해 메모리를 할당 하고, return_book 함수를 통해 메모리를 free한다. 그리고 steal_book 함수를 통해 이전에 free된 책의 사이즈와 동일하게 사이즈를 정해주고 할당하게 되면 우리는 Flag를 읽을 수 있을 것이다. <br>
@@ -251,6 +253,7 @@ return_book 함수에서는 book.content를 NULL문자로 채우지만 return된
 <br><br>
 
 ## Exploit
+---
 ![img2](/assets/pwn-library/2.png)
 1번 책을 빌린 후
 ![img3](/assets/pwn-library/3.png)
@@ -263,6 +266,7 @@ read_book 함수를 통해 return된 책을 읽으면 Flag가 등장한다.
 <br>
 
 ### Good Game!
+EZ
 
 
 
