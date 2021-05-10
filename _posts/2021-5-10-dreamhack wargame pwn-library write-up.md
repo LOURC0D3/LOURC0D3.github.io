@@ -3,7 +3,7 @@ title: Dreamhack wargame pwn-library write-up
 tags: [Dreamhack, pwnable, pwn-library]
 style: 
 color: 
-description: 힙 영역에서 발생하는 취약점을 알아보자. 
+description: heap 영역에서 발생하는 취약점을 알아보자. 
 ---
 
 ## Code Analysis
