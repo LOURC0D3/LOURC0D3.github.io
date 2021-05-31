@@ -2,7 +2,7 @@
 name: 현재 진행중인 프로젝트
 tools: [nothing, important]
 image: https://cdn.theatlantic.com/thumbor/V1yZ1VSUFr5fBIho1WxsA0oPWeU=/0x104:2000x1229/720x405/media/img/mt/2017/10/.png/original.png
-description: 돈의 노예
+description: 돈의 노예가 된 김찬인
 ---
 
 # 요즘 하는 일
@@ -10,11 +10,10 @@ description: 돈의 노예
 고3인데 공부는 안하고 외주 받아서 돈 버는 중
 <br>
 돈 한번 벌어보니까 또 하게 됨
-
-<br>
 <br>
 
 # 지금까지 했던 외주
+<br>
 
 ### 디스코드 봇 제작
 - 음악봇
@@ -25,6 +24,7 @@ description: 돈의 노예
 - 가사 출력 기능
 - 더 있는데 기억이 안 남
 - 돈 많이 받음
+
 ---
 <br>
 
