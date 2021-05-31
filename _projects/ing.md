@@ -1,6 +1,6 @@
 ---
 name: 현재 진행중인 프로젝트
-tools: [nothing, important]
+tools: [About, Me]
 image: https://cdn.theatlantic.com/thumbor/V1yZ1VSUFr5fBIho1WxsA0oPWeU=/0x104:2000x1229/720x405/media/img/mt/2017/10/.png/original.png
 description: 돈의 노예가 된 김찬인
 ---
