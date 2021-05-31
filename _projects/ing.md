@@ -5,17 +5,17 @@ image: https://cdn.theatlantic.com/thumbor/V1yZ1VSUFr5fBIho1WxsA0oPWeU=/0x104:20
 description: 돈의 노예가 된 김찬인
 ---
 
-## 요즘 하는 일
-
+# 요즘 하는 일
+---
 고3인데 공부는 안하고 외주 받아서 돈 버는 중
 <br>
 돈 한번 벌어보니까 또 하게 됨
 
----
 
 <br>
 
-## 지금까지 했던 외주
+# 지금까지 했던 외주
+---
 
 ### 디스코드 봇 제작
 - 음악봇
