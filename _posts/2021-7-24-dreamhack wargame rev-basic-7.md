@@ -8,6 +8,10 @@ description: Reverse Engineering 통해 코드를 분석해보자.
 
 ## Code Analysis
 --- 
-``` c
-집 가서 올려야징 헤헤
+``` python
+while True:
+    time.sleep(1)
+    if chanin_arrive_at_home is True:
+        break
 ```
+집 가서 올려야징 헤헤
