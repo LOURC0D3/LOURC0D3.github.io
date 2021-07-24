@@ -3,7 +3,11 @@ title: Dreamhack wargame rev-basic-7 write-up
 tags: [Dreamhack, reversing, basic]
 style: 
 color: 
-description: reversing을 통해 코드를 분석해보자.
+description: Reverse Engineering 통해 코드를 분석해보자.
 ---
 
 ## Code Analysis
+--- 
+``` c
+집 가서 올려야징 헤헤
+```
