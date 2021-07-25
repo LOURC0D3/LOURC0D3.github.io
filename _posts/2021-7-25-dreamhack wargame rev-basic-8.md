@@ -21,6 +21,7 @@ ida로 소스를 까보자.
 ![img3](/assets/rev-basic-8/3.png)
 브레이크포인트 걸고 연산 루틴으로 진입해보자.
 ![img4](/assets/rev-basic-8/4.png)
+<br>
 ![img5](/assets/rev-basic-8/5.png)
 여기서 직접적인 연산을 하는 거 같다. <br>
 imul -> and <br>
