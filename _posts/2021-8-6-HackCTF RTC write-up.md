@@ -1,13 +1,10 @@
 ---
-title: Return to csu exploit
-tags: [pwnable, RTC, ROP]
+title: HackCTF RTC write-up
+tags: [pwnable, HackCTF, RTC]
 style: 
 color: 
 description: stack 영역에서 발생하는 취약점을 알아보자. 
 ---
-<br>
-지인 분이 RTC 바이너리 주셔서 풀어봤다. <br>
-신기한 기법이라 재미있게 풀었다. <br>
 
 ## Code Analysis
 ---
@@ -41,7 +38,7 @@ pwndbg> checksec
 <br>
 
 gdb로 __libc_csu_init 함수를 열어보자.
-``` nasm
+```
 pwndbg> disass __libc_csu_init
 Dump of assembler code for function __libc_csu_init:
    0x0000000000400660 <+0>:	push   r15
@@ -84,7 +81,7 @@ End of assembler dump.
 우리가 봐야 할 부분은 __libc_csu_init+64 부분부터이다.<br>
 64bit 바이너리에서는 인자를 전달할 때 rdi rsi rdx 순으로 레지스터에 값을 전달한 후 함수를 호출한다.<br>
 
-```nasm
+```
 0x00000000004006a0 <+64>:	mov    rdx,r13
 0x00000000004006a3 <+67>:	mov    rsi,r14
 0x00000000004006a6 <+70>:	mov    edi,r15d
