@@ -82,7 +82,7 @@ void main(){
     vuln();
 }
 ```
-
+<br>
 ![img1](/assets/srop64/1.png)
 
 익스하고 글 쓰고 잘려했는데 pop rax 가젯이 안 보인다. 왜지
