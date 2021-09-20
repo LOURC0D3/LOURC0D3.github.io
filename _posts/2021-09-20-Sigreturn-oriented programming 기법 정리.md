@@ -1,5 +1,5 @@
 ---
-title: 2021-09-20-Sigreturn-oriented programming 기법 정리
+title: Sigreturn-oriented programming 기법 정리
 tags: [pwnable, HackCTF, srop, x64]
 style: 
 color: 
