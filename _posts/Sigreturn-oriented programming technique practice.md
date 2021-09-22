@@ -243,7 +243,7 @@ uid=1000(lourcode) gid=1000(lourcode) groups=1000(lourcode),4(adm),24(cdrom),27(
 
 
 ## 참고
-[Lazeca](https://www.lazenca.net/display/TEC/02.SROP%28Sigreturn-oriented+programming%29+-+x64#id-02.SROP(Sigreturnorientedprogramming)x64-FindGadgets)
+[Lazeca](https://www.lazenca.net/display/TEC/02.SROP%28Sigreturn-oriented+programming%29+-+x64)
 <br>
 
 ### GG
