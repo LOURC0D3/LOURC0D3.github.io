@@ -240,12 +240,14 @@ lourcode@lourcode:~/ShareFolder/example$ python srop64.py
 $ id
 uid=1000(lourcode) gid=1000(lourcode) groups=1000(lourcode),4(adm),24(cdrom),27(sudo),30(dip),46(plugdev),116(lpadmin),126(sambashare)
 ```
-
+쉘을 획득했다.<br><br>
 
 ## 참고
+
 [Lazeca](https://www.lazenca.net/display/TEC/02.SROP%28Sigreturn-oriented+programming%29+-+x64)
 <br>
 
 ### GG
+
 I'm so stupid
 
