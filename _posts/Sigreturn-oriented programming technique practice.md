@@ -207,6 +207,7 @@ lourcode@lourcode:/lib/x86_64-linux-gnu$ ROPgadget --binary libc-2.27.so | grep 
 Code Segment와 Stack Segment의 값은 x86과 x64가 다르므로 주의해야한다.
 
 ### x64 CS, SS
+
 |Purpose|Segment|
 |---|---|
 |User Code|0x33|
