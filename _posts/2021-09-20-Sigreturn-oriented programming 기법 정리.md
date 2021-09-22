@@ -12,9 +12,42 @@ description: Sigreturn-oriented programming 기법에 대해 알아보자
 해당 기법을 이용하여 원하는 시스템 함수를 호출할 수 있습니다.
 
 <br>
-sigreturn() 시스템 함수는 restore_sigcontext()함수를 호출하는데, 이 함수를 통해서 레지스터에 원하는 값을 복사할 수 있다.<br>
+sigreturn() 시스템 함수는 restore_sigcontext()함수를 호출하는데, sigcontext 구조체의 값을 통해 함수에 전달된다. 이 과정을 통해서 레지스터에 원하는 값을 복사할 수 있다.<br>
 이를 통해 rax에 원하는 syscall 번호를 넣고 syscall을 할 수 있다.
 <br>
+<br>
+
+아래는 restore_sigcontext() 함수의 소스이다.
+
+``` c
+static int restore_sigcontext(struct pt_regs *regs, struct sigcontext __user *sc, unsigned long uc_flags){
+...
+#ifdef CONFIG_X86_64
+        COPY(r8);
+        COPY(r9);
+        COPY(r10);
+        COPY(r11);
+        COPY(r12);
+        COPY(r13);
+        COPY(r14);
+        COPY(r15);
+#endif /* CONFIG_X86_64 */
+ 
+        COPY_SEG_CPL3(cs);
+        COPY_SEG_CPL3(ss);
+ 
+#ifdef CONFIG_X86_64
+        /*
+         * Fix up SS if needed for the benefit of old DOSEMU and
+         * CRIU.
+         */
+        if (unlikely(!(uc_flags & UC_STRICT_RESTORE_SS) &&
+                 user_64bit_mode(regs)))
+            force_valid_ss(regs);
+#endif
+...
+}
+```
 <br>
 
 아래는 sigcontext 구조체 형태이다.
@@ -84,6 +117,7 @@ void main(){
 }
 ```
 <br>
+
 ![img1](/assets/srop64/1.png)
 
 익스하고 글 쓰고 잘려했는데 pop rax 가젯이 안 보인다. 왜지
@@ -92,3 +126,6 @@ void main(){
 ![img2](/assets/srop64/2.png)
 pop rax 가젯 없어서 라젠카에 올라온 익스 코드가 터짐 <br>
 내가 잘 몰라서 어케하는지 모르는건가 
+
+### 2021 09 22 
+libc 버전이 달라서 그런거 깨달음
