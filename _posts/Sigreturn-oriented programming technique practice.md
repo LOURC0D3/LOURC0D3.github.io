@@ -1,5 +1,5 @@
 ---
-title: Sigreturn-oriented programming 기법 정리
+title: Sigreturn-oriented programming technique practice
 tags: [pwnable, HackCTF, srop, x64]
 style: 
 color: 
