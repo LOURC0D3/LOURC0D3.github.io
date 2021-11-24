@@ -43,7 +43,7 @@ author:
 # twitch            : your_username
 #  twitter           : your_username
 # vimeo             : your_username
-youtube           : your_channel_name
+# youtube           : JJooni
 # keybase           : your_username
 
 
@@ -87,6 +87,9 @@ defaults:
   - scope:
       path: ""
       type: "posts"
+  - scope:
+      path: ""
+      type: "tistory"
     values:
       comments: false                                   # Set to true to enable disqus comments
 
