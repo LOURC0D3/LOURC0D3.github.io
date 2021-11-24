@@ -87,9 +87,6 @@ defaults:
   - scope:
       path: ""
       type: "posts"
-  - scope:
-      path: ""
-      type: "tistory"
     values:
       comments: false                                   # Set to true to enable disqus comments
 
