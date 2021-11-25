@@ -74,9 +74,9 @@ analytics:
 
 ### Defaults for collections ###
 defaults:
-  - scope:
-      path: ""
-      type: "projects"
+  # - scope:
+  #     path: ""
+  #     type: "projects"
     values:
       layout: "page"
   - scope:                                              # For Documentation Only
