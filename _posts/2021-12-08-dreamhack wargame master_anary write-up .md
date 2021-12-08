@@ -276,7 +276,7 @@ uid=1000(master_canary) gid=1000(master_canary) groups=1000(master_canary)
 ### Good Game!
 EZ<br><br>
 
-*처음에 18.04로 exploit을 시도했다가 실패했다.<br>오프셋을 맞게 구했는데도 로컬에서 조차 쉘을 따지 못하였다.<br>버전을 꼭 맞춰야할 거 같다.*
+*처음에 18.04로 exploit을 시도했다가 실패했다.<br>오프셋을 맞게 구했는데도 로컬에서조차 쉘을 따지 못하였다.<br>버전을 꼭 맞춰야할 거 같다.*
 <br><br>
 
 너무 힘들었다..<br>
