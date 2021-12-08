@@ -199,7 +199,7 @@ $8 = 2280
 ```
 buf와 master canary의 offset은 2280임을 구하였다.<br><br>
 
-> master canary를 변조하는 방법도 있는데, 이 방법을 쓰지 못하는 이유가 있다.<br> 우리가 덮을 수 있는 master canary는 thread에 있는 master canary 이다. 따라서 main thread에서의 master canary는 변조되지 않는다.
+> master canary를 변조하는 방법도 있는데, 이 방법을 쓰지 못하는 이유가 있다.<br> 우리가 덮을 수 있는 master canary는 thread에 있는 master canary 이다.<br>따라서 main thread에서의 master canary는 변조되지 않는다.
 
 <br>
 
