@@ -132,7 +132,7 @@ Dump of assembler code for function thread_routine:
    0x0000000000400a66 <+11>:	mov    rax,QWORD PTR fs:0x28
 => 0x0000000000400a6f <+20>:	mov    QWORD PTR [rbp-0x8],rax
 ```
-thread_routine에서 rax에 담겨진 master canary 이다.<br><br>
+thread_routine에서 rax에 담겨진 것이 master canary 이다.<br><br>
 ``` sh
 $rax   : 0xc118d900b1f1cd00
 .
