@@ -1,9 +1,7 @@
 ### Site Settings ###
 title               : LOURC0D3's Notepad
 description         : >-
-                      I'm interested in<br>
-                      Software Development, System Hacking,<br>      
-                      Reversing, Network Hacking, Forensic.
+                      Pwner
 baseurl             : ""                     # Change to empty quotes if you are hosting your site at <your-username>.github.io directly
 repository          : LOURC0D3/LOURC0D3.github.io     # Change to <your-username>/<your-username>.github.io (or remove it if you don't need remote projects)
 remote_theme        : YoussefRaafatNasry/portfolYOU
