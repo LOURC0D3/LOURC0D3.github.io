@@ -10,8 +10,8 @@ weight: 3
 
 Hi I am **{{ site.author.name }}** :wave:,<br>
 
-[Notion](https://lourcode.notion.site/Hello-World-0e74d0f5917b4b31b17406360a3e2c10)<br>
-[Comeit Software Website](https://comeitsoftware.com)
+- [Notion](https://lourcode.notion.site/Hello-World-0e74d0f5917b4b31b17406360a3e2c10)
+- [Comeit Software Website](https://comeitsoftware.com)
 
 <div class="row">
 {% include about/skills.html title="Programming Skills" source=site.data.programming-skills %}
