@@ -9,6 +9,7 @@ weight: 3
 
 
 Hi I am **{{ site.author.name }}** :wave:,<br>
+Contant : lourcode@gmail.com <br>
 
 - [Notion](https://lourcode.notion.site/Hello-World-0e74d0f5917b4b31b17406360a3e2c10)
 - [Comeit Software Website](https://comeitsoftware.com)
