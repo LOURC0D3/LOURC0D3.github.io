@@ -1,6 +1,6 @@
 ---
-title: Dreamhack wargame rtld write-up
-tags: [Dreamhack, pwnable, rtld]
+title: X-MAS CTF The grinch write-up
+tags: [X-MAS, CTF, reversing]
 style: 
 color: 
 description: Reverse Engineering 통해 코드를 분석해보자.
