@@ -6,6 +6,14 @@
   percentage: 95
   color: warning
 
+- name: Assembly
+  percentage: 90
+  color: dark
+
+- name: Linux Shell
+  percentage: 90
+  color: secondary
+  
 - name: Java
   percentage: 80
   color: success
@@ -14,10 +22,4 @@
   percentage: 80
   color: info
 
-- name: Assembly
-  percentage: 90
-  color: dark
 
-- name: Linux Shell
-  percentage: 90
-  color: secondary
