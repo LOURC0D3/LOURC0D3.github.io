@@ -95,3 +95,8 @@ keybase:
   url   : https://www.keybase.io/
   icon  : fab fa-keybase
   color : 66ccff
+
+notion:
+  url   : https://notion.lourcode.kr
+  icon  : fas fa-1x fa-link
+  color : 00a98f
