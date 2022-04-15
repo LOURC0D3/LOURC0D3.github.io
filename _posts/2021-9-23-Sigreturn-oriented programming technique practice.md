@@ -3,7 +3,7 @@ title: Sigreturn-oriented programming technique practice
 tags: [pwnable, srop, x64]
 style: 
 color: 
-description: Sigreturn-oriented programming 기법에 대해 알아보자
+description: Let's look at Sigreturn-oriented programming technique
 ---
 <br>
 

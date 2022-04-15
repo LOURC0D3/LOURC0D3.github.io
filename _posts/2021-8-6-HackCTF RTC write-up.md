@@ -3,7 +3,7 @@ title: HackCTF RTC write-up
 tags: [pwnable, HackCTF, RTC]
 style: 
 color: 
-description: stack 영역에서 발생하는 취약점을 알아보자. 
+description: Let's look at vulnerabilities that occur in the stack area.
 ---
 
 ## Code Analysis

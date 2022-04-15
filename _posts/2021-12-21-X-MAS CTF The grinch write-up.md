@@ -3,7 +3,7 @@ title: X-MAS CTF The grinch write-up
 tags: [X-MAS, CTF, reversing]
 style: 
 color: 
-description: Reverse Engineering 통해 코드를 분석해보자.
+description: Let's analyze the code through Reverse Engineering.
 ---
 
 ## Code Analysis
