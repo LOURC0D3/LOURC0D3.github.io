@@ -1,39 +1,30 @@
-- title: K-Shield Jr 4th Security incident analysis and response course
+- title: K-Shield Jr 4th Security Incident Analysis & Response course
   from: 2020.4
-  to: 2020.6
-  description: 해킹 시작
+  to: 2020.7
 
-- title: TeamH4C 팀원
+- title: TeamH4C Member
   from: 2020
-  to: Now
-  description: 많은 것을 배워가는 중
+  to: 2022
 
-- title: 제 21회 해킹캠프 참가자
+- title: 21th Hacking Camp Participant
   from: 2020
-  to: 2020
-  description: 첫 해킹 세미나
 
-- title: 제 2회 TeamH4C CTF 문제 출제자
+- title: 제 2회 TeamH4C CTF Problem Maker
   from: 2020
-  to: 2020
-  description: 리버싱, 포렌식 출제
 
-- title: 제 2회 TeamH4C 웹 세미나 발표자
+- title: 제 2회 TeamH4C Seminar Presenters 
   from: 2020
-  to: 2020
-  description: Network Hacking is too fun! 발표
+  description: Lecture on "Network Hacking is too fun!"
 
-- title: G.I.S.C (Game Science High School Information Security Club) 창설 및 회장
+- title: G.I.S.C (Korea Game Science High School Information Security Club) Foundation & President
   from: 2020
-  to: 2020
   description: 해킹 강의
 
-- title: G.I.S.C (Game Science High School Information Security Club) 2기 회장
+- title: G.I.S.C (Game Science High School Information Security Club) 2nd president
   from: 2021
-  to: 2021
   description: 해킹 강의
 
-- title: Comeit Software CEO & Founder
+- title: Comeit Software Founder & CEO
   from: 2021.9
   to: Now
   description: 소프트웨어 외주 전문업체 창업 및 대표
@@ -44,3 +35,5 @@
   description: 리버싱 출제
 
 - title: Department of Information Security, Soonchunhyang Univ.
+
+- title: Security First System Hacking Regular Team Member
