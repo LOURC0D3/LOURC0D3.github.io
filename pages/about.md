@@ -9,7 +9,7 @@ weight: 3
 
 
 Hi I am **{{ site.author.name }}** :wave:,<br><br>
-Contact : lourcode@gmail.com <br>
+Contact : pwn@lourcode.me <br>
 
 - [Notion](https://notion.lourcode.kr)
 - [Comeit Software Website](https://comeitsoftware.com)
