@@ -3,7 +3,7 @@ title: HackCTF RTC write-up
 tags: [pwnable, HackCTF, RTC]
 style: 
 color: 
-description: Let's look at vulnerabilities that occur in the stack area.
+description: Let's look at vulnerabilities that occur in the stack area
 ---
 
 ## Code Analysis
