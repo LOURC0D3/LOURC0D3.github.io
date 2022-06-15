@@ -6,8 +6,6 @@ color:
 description: Let's learning about Fuzzing and AFL
 ---
 
-# 1 2주차 - AFL 및 Fuzzing101 - Xpdf exploit
-
 ## 퍼징
 
 ---
@@ -15,7 +13,7 @@ description: Let's learning about Fuzzing and AFL
 ### 퍼징이란 무엇일까?
 
 퍼징 (Fuzzing, Fuzz testing) : 자동화 소프트웨어 테스팅 기법
-프로그램에 대한 입력으로 유효하지 않거나 예상치 못한 랜덤한 데이터를 삽입한다.
+프로그램에 대한 입력으로 유효하지 않거나 예상치 못한 랜덤한 데이터를 삽입한다.<br>
 
 손으로 생성할 수 없는 많은 테스트를 실행하거나 복잡한 입력을 처리해야 하는 프로그램을 테스트한다.
 
