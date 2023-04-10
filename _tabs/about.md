@@ -4,7 +4,7 @@ icon: fas fa-info-circle
 order: 4
 ---
 
-## CHAN IN KIM
+## CHAN IN KIM (a.k.a. LOURCODE)
 
 TOOR (Team of offensive Research)
 
@@ -17,4 +17,5 @@ TOOR (Team of offensive Research)
 - Department of Information Security, Soonchunhyang Univ
 
 ### Bug Reports
-- CVE-2023-29439
+- Wordpress Plugins
+    - CVE-2023-29439
