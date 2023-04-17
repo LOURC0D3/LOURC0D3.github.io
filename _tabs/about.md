@@ -4,7 +4,7 @@ icon: fas fa-info-circle
 order: 4
 ---
 
-## CHAN IN KIM (a.k.a. LOURCODE)
+## CHAN IN KIM (LOURCODE)
 
 @TOOR (Team of offensive Research)
 
