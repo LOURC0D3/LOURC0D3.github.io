@@ -6,7 +6,7 @@ order: 4
 
 ## CHAN IN KIM (a.k.a. LOURCODE)
 
-TOOR (Team of offensive Research)
+@TOOR (Team of offensive Research)
 
 ### Interests
 - Computer Science
