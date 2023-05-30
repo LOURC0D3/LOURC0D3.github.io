@@ -21,3 +21,5 @@ order: 4
     - CVE-2023-29439
     - CVE-2023-30491
     - CVE-2023-32961
+- macOS 3rd-party Apps
+    - CVE-2023-34190
