@@ -39,7 +39,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          commit_message: Update Importer posts
+          commit_message: "[배포] Notion 변경 사항 저장"
           branch: main
           commit_user_name: importer-bot 🤖
           commit_user_email: actions@github.com
