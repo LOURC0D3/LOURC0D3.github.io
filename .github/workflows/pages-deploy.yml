@@ -47,12 +47,7 @@ jobs:
     needs: importer
     runs-on: ubuntu-latest
 
-    steps: 
-      - name: Sleep for 30 seconds
-        uses: jakejarvis/wait-action@master
-        with:
-          time: '30s'
-          
+    steps:           
       - name: Checkout
         uses: actions/checkout@v3
         with:
