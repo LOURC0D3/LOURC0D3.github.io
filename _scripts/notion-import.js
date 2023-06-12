@@ -71,7 +71,7 @@ const n2m = new NotionToMarkdown({ notionClient: notion });
 			for (const t of tags) {
 				fmtags += t + ', '
 			}
-            fmtags += ']
+            fmtags += ']'
 		}
 		if (cats.length > 0) {
 			fmcats += '\ncategories: ['
