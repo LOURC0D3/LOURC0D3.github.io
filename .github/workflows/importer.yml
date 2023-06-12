@@ -22,14 +22,13 @@ jobs:
           NOTION_TOKEN: ${{ secrets.NOTION_TOKEN }}
           DATABASE_ID: ${{ secrets.DATABASE_ID }}
 
-      - uses: stefanzweifel/git-auto-commit-action@v4
+      - name: Auto Commit And push
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          commit_message: Update Importer posts
-          branch: main
-          commit_user_name: importer-bot 🤖
-          commit_user_email: actions@github.com
-          commit_author: importer-bot 🤖 <actions@github.com>
-        
-      - uses: LOURC0D3/LOURC0D3.github.io/.github/workflows/pages-deploy.yml@v1
+        run: |
+          git add.
+          git config --local user.email "LOURC0D3@gmail.com"
+          git config --local user.name "LOURC0D3"
+          git commit -m "Load Notion Contents"
+          git push --force
+          
