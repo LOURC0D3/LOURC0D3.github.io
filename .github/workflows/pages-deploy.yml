@@ -1,13 +1,10 @@
 name: "Build and Deploy"
 on:
-  push:
-    branches:
-      - main
-    paths-ignore:
-      - .gitignore
-      - README.md
-      - LICENSE
-
+  repository_dispatch:
+    types: [RUN_WORKFLOW_DISPATCH]
+  schedule:
+    - cron: "0 1 * * *"
+      
 permissions:
   contents: read
   pages: write
@@ -19,7 +16,34 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
+  importer:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@master
+
+      - uses: actions/setup-node@v2
+        with:
+          node-version: "17"
+
+      - run: npm install
+
+      - run: node _scripts/notion-import.js
+        env:
+          NOTION_TOKEN: ${{ secrets.NOTION_TOKEN }}
+          DATABASE_ID: ${{ secrets.DATABASE_ID }}
+
+      - uses: stefanzweifel/git-auto-commit-action@v4
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          commit_message: Update Importer posts
+          branch: main
+          commit_user_name: importer-bot 🤖
+          commit_user_email: actions@github.com
+          commit_author: importer-bot 🤖 <actions@github.com>
   build:
+    needs: importer
     runs-on: ubuntu-latest
 
     steps: 
