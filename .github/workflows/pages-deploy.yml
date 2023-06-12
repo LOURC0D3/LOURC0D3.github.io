@@ -26,8 +26,9 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: debug
-        run: echo ${{ env.default_branch }}
+      - name: Change Default Branch
+        run: git config --global init.defaultBranch main
+        
       - name: Checkout
         uses: actions/checkout@v3
         with:
