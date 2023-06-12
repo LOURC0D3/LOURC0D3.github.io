@@ -1,12 +1,5 @@
 name: "Build and Deploy"
 on:
-  push:
-    branches:
-      - main
-    paths-ignore:
-      - .gitignore
-      - README.md
-      - LICENSE
   schedule:
     - cron: "0 1 * * *"
 
