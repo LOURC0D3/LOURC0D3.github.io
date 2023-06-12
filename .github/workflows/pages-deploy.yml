@@ -33,15 +33,16 @@ jobs:
           NOTION_TOKEN: ${{ secrets.NOTION_TOKEN }}
           DATABASE_ID: ${{ secrets.DATABASE_ID }}
 
-      - name: Auto Commit And push
+      - uses: stefanzweifel/git-auto-commit-action@v4
         env:
           GITHUB_TOKEN: ${{ secrets.WORKFLOW_TOKEN }}
-        run: |
-          git add .
-          git config --local user.email "LOURC0D3@gmail.com"
-          git config --local user.name "LOURC0D3"
-          git commit -m "[Bot] Load Notion Contents"
-          git push --force
+        with:
+          commit_message: Update Importer posts
+          branch: main
+          commit_user_name: importer-bot 🤖
+          commit_user_email: actions@github.com
+          commit_author: importer-bot 🤖 <actions@github.com>
+ 
   build:
     needs: importer
     runs-on: ubuntu-latest
