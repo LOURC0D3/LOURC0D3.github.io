@@ -33,7 +33,6 @@ jobs:
           NOTION_TOKEN: ${{ secrets.NOTION_TOKEN }}
           DATABASE_ID: ${{ secrets.DATABASE_ID }}
 
-      - uses: stefanzweifel/git-auto-commit-action@v4
       - name: Auto Commit And push
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
