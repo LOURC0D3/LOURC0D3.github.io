@@ -92,7 +92,7 @@ write.start()
 ```
 
 
-![](https://s3.us-west-2.amazonaws.com/secure.notion-static.com/d2846947-305e-47b1-8008-3a62bb7be1a9/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA_2023-06-12_%E1%84%8B%E1%85%A9%E1%84%8C%E1%85%A5%E1%86%AB_1.06.36.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20230612%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20230612T113133Z&X-Amz-Expires=3600&X-Amz-Signature=c5a36698ca3c1734cea3d34a07f38c8be2b33ae089d3f42c3f6f9bb82eec01e0&X-Amz-SignedHeaders=host&x-id=GetObject)
+![](https://s3.us-west-2.amazonaws.com/secure.notion-static.com/d2846947-305e-47b1-8008-3a62bb7be1a9/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA_2023-06-12_%E1%84%8B%E1%85%A9%E1%84%8C%E1%85%A5%E1%86%AB_1.06.36.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20230612%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20230612T113317Z&X-Amz-Expires=3600&X-Amz-Signature=c9205fe3882f10cf317205f491b611da26d51afb8c2e7fd4ec7336126e74748f&X-Amz-SignedHeaders=host&x-id=GetObject)
 
 
 플래그를 획득하였다.
