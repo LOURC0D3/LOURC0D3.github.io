@@ -88,6 +88,8 @@ title: ${title}${fmtags}${fmcats}
 `
 		const mdblocks = await n2m.pageToMarkdown(id);
 		const md = n2m.toMarkdownString(mdblocks);
+        
+        console.log(md);
 
 		//writing to file
 		const ftitle = `${date}-${title.replaceAll(' ', '-').toLowerCase()}.md`
