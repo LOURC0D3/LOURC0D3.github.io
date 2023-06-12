@@ -3,7 +3,7 @@ on:
   repository_dispatch:
     types: [RUN_WORKFLOW_DISPATCH]
   schedule:
-    - cron: "0 1 * * *"
+    - cron: "0 * * * *"
       
 permissions:
   contents: write
