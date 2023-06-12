@@ -59,7 +59,7 @@ const n2m = new NotionToMarkdown({ notionClient: notion });
 		for (const t of pcats) {
 			const n = t?.['name']
 			if (n) {
-				tags.push(n)
+				cats.push(n)
 			}
 		}
 		
