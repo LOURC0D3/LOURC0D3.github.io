@@ -42,11 +42,6 @@ jobs:
           commit_user_name: importer-bot 🤖
           commit_user_email: actions@github.com
           commit_author: importer-bot 🤖 <actions@github.com>
-        
-      - name: Sleep for 30 seconds
-        uses: jakejarvis/wait-action@master
-        with:
-          time: '30s'
  
   build:
     needs: importer
