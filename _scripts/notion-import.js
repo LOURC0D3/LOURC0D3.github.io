@@ -90,7 +90,7 @@ title: ${title}${fmtags}${fmcats}
 		const md = n2m.toMarkdownString(mdblocks)['parent'];
 		
 		//writing to file
-		const ftitle = `${date}-${title.replaceAll(' ', '-').toLowerCase()}.md`
+		const ftitle = `${date}-${title.replaceAll(' ', '-')}.md`
 		fs.writeFile(path.join(root, ftitle), fm + md, (err) => {
 			if (err) {
 				console.log(err);
