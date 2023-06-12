@@ -21,7 +21,9 @@ jobs:
 
     steps:
       - uses: actions/checkout@master
-
+    
+      - run: rm -rf _posts/*
+      
       - uses: actions/setup-node@v2
         with:
           node-version: "17"
