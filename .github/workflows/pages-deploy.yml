@@ -26,6 +26,8 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: debug
+        run: echo ${{ env.default_branch }}
       - name: Checkout
         uses: actions/checkout@v3
         with:
