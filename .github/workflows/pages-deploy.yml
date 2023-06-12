@@ -35,7 +35,7 @@ jobs:
 
       - name: Auto Commit And push
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.WORKFLOW_TOKEN }}
         run: |
           git add .
           git config --local user.email "LOURC0D3@gmail.com"
