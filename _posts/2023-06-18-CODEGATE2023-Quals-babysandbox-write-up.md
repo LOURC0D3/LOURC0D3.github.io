@@ -174,16 +174,13 @@ __readonly_area (const char *ptr, size_t size)
 {: file='sysdeps/unix/sysv/linux/readonly-area.c'}
 
 
-<br>
-
-
 seccomp를 통해 `openat` 시스템콜을 막고 원하는 에러코드를 반환하도록 설정할 수 있다.
 
 
-flag 파일을 읽어들일 때도 `openat` 시스템콜을 사용하므로 인자로 플래그 파일명 포인터가 넘어왔을 때는 허용해주었다.
+한가지 주의해야할 점은 flag 파일을 읽어들일 때도 `openat` 시스템콜을 사용하므로 인자로 플래그 파일명 포인터가 넘어왔을 때는 허용해주었다.
 
 
-`openat` 함수는 rsi를 파일명 포인터로 받으므로 `A = args[1]`로 설정해주어야 한다.
+또한 `openat` 시스템콜은 rsi를 파일명 포인터로 받으므로 `A = args[1]`로 설정해주어야 한다.
 
 
 ```ruby
@@ -195,9 +192,6 @@ return ERRNO(2)
 ok:
 return ALLOW
 ```
-
-
-<br>
 
 
 이제 `%n`을 사용할 수 있으므로 FSB를 통해 값을 변조하면 된다.
