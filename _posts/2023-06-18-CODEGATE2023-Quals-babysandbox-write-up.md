@@ -174,6 +174,9 @@ __readonly_area (const char *ptr, size_t size)
 {: file='sysdeps/unix/sysv/linux/readonly-area.c'}
 
 
+<br>
+
+
 seccomp를 통해 `openat` 시스템콜을 막고 원하는 에러코드를 반환하도록 설정할 수 있다.
 
 
