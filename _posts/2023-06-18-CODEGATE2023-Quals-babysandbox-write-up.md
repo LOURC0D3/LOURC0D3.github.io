@@ -130,13 +130,13 @@ void read_flag() {
 입력 받은 seccomp 필터를 바이너리에 적용한 후에 FSB를 트리거 할 수 있게 해준다.
 
 
-target을 0x1337로 변조하면 플래그를 출력해주지만, `printf_chk` 함수는 %n을 사용하지 못한다.
+target을 0x1337로 변조하면 플래그를 출력해주지만, `printf_chk` 함수는 `%n`을 사용하지 못한다.
 
 
 <br>
 
 
-그러나 read-only 영역에서는 %n을 사용할 수 있으며, glibc에서는 `/proc/self/maps`를 열어 read-only 영역인지 판단한다.
+그러나 read-only 영역에서는 `%n`을 사용할 수 있으며, glibc에서는 `/proc/self/maps`를 열어 read-only 영역인지 판단한다.
 
 
 <br>
