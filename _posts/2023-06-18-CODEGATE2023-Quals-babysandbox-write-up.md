@@ -139,6 +139,9 @@ target을 0x1337로 변조하면 플래그를 출력해주지만, `printf_chk` �
 그러나 read-only 영역에서는 %n을 사용할 수 있으며, glibc에서는 `/proc/self/maps`를 열어 read-only 영역인지 판단한다.
 
 
+<br>
+
+
 ```c
 int
 __readonly_area (const char *ptr, size_t size)
@@ -165,5 +168,5 @@ __readonly_area (const char *ptr, size_t size)
 ```
 
 
-{file:
+{: file='sysdeps/unix/sysv/linux/readonly-area.c'}
 
