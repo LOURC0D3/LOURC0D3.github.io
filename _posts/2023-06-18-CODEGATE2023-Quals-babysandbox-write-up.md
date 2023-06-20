@@ -135,3 +135,35 @@ target을 0x1337로 변조하면 플래그를 출력해주지만, `printf_chk` �
 
 <br>
 
+
+그러나 read-only 영역에서는 %n을 사용할 수 있으며, glibc에서는 `/proc/self/maps`를 열어 read-only 영역인지 판단한다.
+
+
+```c
+int
+__readonly_area (const char *ptr, size_t size)
+{
+  const void *ptr_end = ptr + size;
+
+  FILE *fp = fopen ("/proc/self/maps", "rce");
+  if (fp == NULL)
+    {
+      /* It is the system administrator's choice to not have /proc
+	 available to this process (e.g., because it runs in a chroot
+	 environment.  Don't fail in this case.  */
+      if (errno == ENOENT
+	  /* The kernel has a bug in that a process is denied access
+	     to the /proc filesystem if it is set[ug]id.  There has
+	     been no willingness to change this in the kernel so
+	     far.  */
+	  || errno == EACCES)
+	return 1;
+      return -1;
+    }
+.
+.
+```
+
+
+{file:
+
