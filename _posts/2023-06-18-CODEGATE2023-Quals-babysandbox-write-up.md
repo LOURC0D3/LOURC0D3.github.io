@@ -6,6 +6,12 @@ tags: [pwnable, seccomp, FSB, ]
 categories: [CTF, CODEGATE2023, ]
 ---
 
+## 소스코드 분석
+
+
+---
+
+
 ```c
 // gcc box.c -o box -no-pie
 
@@ -119,4 +125,10 @@ void read_flag() {
     return;
 }
 ```
+
+
+입력 받은 seccomp 필터를 바이너리에 적용한 후에 FSB를 트리거 할 수 있게 해준다.
+
+
+target을 0x1337로 변조하면 플래그를 출력해주지만, printf_chk 함수
 
