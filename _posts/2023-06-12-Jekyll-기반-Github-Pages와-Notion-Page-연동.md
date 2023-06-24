@@ -30,7 +30,7 @@ categories: [Development, DevOps, ]
 완성본은 다음과 같다.
 
 
-![](https://s3.us-west-2.amazonaws.com/secure.notion-static.com/34b86fac-a1f1-446a-b255-9fc3dcbf275e/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA_2023-06-12_%E1%84%8B%E1%85%A9%E1%84%92%E1%85%AE_5.25.44.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20230624%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20230624T041546Z&X-Amz-Expires=3600&X-Amz-Signature=3cbe8b8c2a8c9cc30041ca47cb5e07064237c49a12ab326ed1d4de597529fdd4&X-Amz-SignedHeaders=host&x-id=GetObject)
+![](https://s3.us-west-2.amazonaws.com/secure.notion-static.com/34b86fac-a1f1-446a-b255-9fc3dcbf275e/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA_2023-06-12_%E1%84%8B%E1%85%A9%E1%84%92%E1%85%AE_5.25.44.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20230624%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20230624T043827Z&X-Amz-Expires=3600&X-Amz-Signature=3fa111bcee6ef1b6998f94fdde75640e87780ef0b99a4e9dc34a9ff79d78f9f5&X-Amz-SignedHeaders=host&x-id=GetObject)
 
 
 갱신 버튼을 눌러주는 것만으로 블로그에 글이 자동으로 등록된다.
@@ -54,7 +54,7 @@ categories: [Development, DevOps, ]
 [https://www.notion.so/my-integrations](https://www.notion.so/my-integrations)
 
 
-![](https://s3.us-west-2.amazonaws.com/secure.notion-static.com/cdfbf3b8-b89f-4845-be43-bb204086a3ac/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA_2023-06-12_%E1%84%8B%E1%85%A9%E1%84%92%E1%85%AE_5.17.00.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20230624%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20230624T041546Z&X-Amz-Expires=3600&X-Amz-Signature=0642c2e899f1a70e93fe8ddbcedc0c75569d84cda4bd89752fce532a81547ccb&X-Amz-SignedHeaders=host&x-id=GetObject)
+![](https://s3.us-west-2.amazonaws.com/secure.notion-static.com/cdfbf3b8-b89f-4845-be43-bb204086a3ac/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA_2023-06-12_%E1%84%8B%E1%85%A9%E1%84%92%E1%85%AE_5.17.00.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20230624%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20230624T043827Z&X-Amz-Expires=3600&X-Amz-Signature=ada4786218d2988a3035b44411e9a5b62f970d3ef70ebea965372e75656ece91&X-Amz-SignedHeaders=host&x-id=GetObject)
 
 
 다음으로는 블로그 게시물을 작성할 페이지를 생성한다. 아래 템플릿을 사용하면 된다.
@@ -69,7 +69,7 @@ categories: [Development, DevOps, ]
 다음과 같이 생성했던 API 통합을 페이지에 추가해준다.
 
 
-![](https://s3.us-west-2.amazonaws.com/secure.notion-static.com/a721ff68-b0f5-4ea9-bdd1-d330158bd93f/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA_2023-06-12_%E1%84%8B%E1%85%A9%E1%84%92%E1%85%AE_5.21.12.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20230624%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20230624T041546Z&X-Amz-Expires=3600&X-Amz-Signature=b128430bf75ac9c8f3a0eaf8c35dfe843252c1f3e79fb77031a1c4cbd9e32eb8&X-Amz-SignedHeaders=host&x-id=GetObject)
+![](https://s3.us-west-2.amazonaws.com/secure.notion-static.com/a721ff68-b0f5-4ea9-bdd1-d330158bd93f/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA_2023-06-12_%E1%84%8B%E1%85%A9%E1%84%92%E1%85%AE_5.21.12.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20230624%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20230624T043827Z&X-Amz-Expires=3600&X-Amz-Signature=77672fbb2f7d5a0c0f000e636c32781be14e1ae73c1872b94ea6b4211bf9496f&X-Amz-SignedHeaders=host&x-id=GetObject)
 
 
 다음으로는 데이터베이스에 대한 ID를 알아야한다. 페이지 링크를 복사하면 데이터베이스 아이디를 구할 수 있다.
@@ -99,7 +99,7 @@ DB 페이지로 이동한 후 링크 복사를 눌러주면 아래와 같이 생
 Key명은 다음과 같이 설정한다.
 
 
-![](https://s3.us-west-2.amazonaws.com/secure.notion-static.com/8792323e-6ee4-4336-b1d0-6697535eadf3/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA_2023-06-12_%E1%84%8B%E1%85%A9%E1%84%92%E1%85%AE_6.23.57.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20230624%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20230624T041546Z&X-Amz-Expires=3600&X-Amz-Signature=57476a131c7932bfbce3c71c8e2ff90d964cea350c4d4f50de2991b91ff8b125&X-Amz-SignedHeaders=host&x-id=GetObject)
+![](https://s3.us-west-2.amazonaws.com/secure.notion-static.com/8792323e-6ee4-4336-b1d0-6697535eadf3/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA_2023-06-12_%E1%84%8B%E1%85%A9%E1%84%92%E1%85%AE_6.23.57.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20230624%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20230624T043827Z&X-Amz-Expires=3600&X-Amz-Signature=e8f3479abc9268a4c31486e805eccb5045de9f3ea62b7956c6ae30b164cc0df2&X-Amz-SignedHeaders=host&x-id=GetObject)
 
 
 <br>
@@ -480,7 +480,7 @@ Notion은 페이지를 임베딩 시킬 수 있으므로 웹 페이지를 통해
 여기까지 완료되면 버튼을 통해 블로그가 업데이트 되는 것을 확인할 수 있다!
 
 
-![](https://s3.us-west-2.amazonaws.com/secure.notion-static.com/a268b7e7-a7cf-4024-bf2b-087fb4e10278/%E1%84%92%E1%85%AA%E1%84%86%E1%85%A7%E1%86%AB-%E1%84%80%E1%85%B5%E1%84%85%E1%85%A9%E1%86%A8-2023-06-12-%E1%84%8B%E1%85%A9%E1%84%92%E1%85%AE-6.37.44.gif?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20230624%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20230624T041546Z&X-Amz-Expires=3600&X-Amz-Signature=d1e30627e5740ce5919651974db1c882d3d4f393731cbe59113b36568341721b&X-Amz-SignedHeaders=host&x-id=GetObject)
+![](https://s3.us-west-2.amazonaws.com/secure.notion-static.com/a268b7e7-a7cf-4024-bf2b-087fb4e10278/%E1%84%92%E1%85%AA%E1%84%86%E1%85%A7%E1%86%AB-%E1%84%80%E1%85%B5%E1%84%85%E1%85%A9%E1%86%A8-2023-06-12-%E1%84%8B%E1%85%A9%E1%84%92%E1%85%AE-6.37.44.gif?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20230624%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20230624T043827Z&X-Amz-Expires=3600&X-Amz-Signature=509c6443bc3061afed4ac28be7c2b64f8505523dc8bd8ce6d7b740d7764b34dc&X-Amz-SignedHeaders=host&x-id=GetObject)
 
 
 ### 마무리
