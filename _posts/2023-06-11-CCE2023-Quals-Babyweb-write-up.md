@@ -92,7 +92,7 @@ write.start()
 ```
 
 
-![](https://s3.us-west-2.amazonaws.com/secure.notion-static.com/7408dda1-cd86-4a3d-ba15-65d01621923b/1.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20230624%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20230624T141118Z&X-Amz-Expires=3600&X-Amz-Signature=9b43d15c9ef0ed8443c8d6372ce3e6c1ce6f4330a84ef449149c9b6341bd9d6c&X-Amz-SignedHeaders=host&x-id=GetObject)
+![](https://s3.us-west-2.amazonaws.com/secure.notion-static.com/7408dda1-cd86-4a3d-ba15-65d01621923b/1.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20230624%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20230624T143532Z&X-Amz-Expires=3600&X-Amz-Signature=0434c4026bf2ef070bb6ae6512c81ea4c493d8a68db4e802b5a7df658d7c6fff&X-Amz-SignedHeaders=host&x-id=GetObject)
 
 
 플래그를 획득하였다.
