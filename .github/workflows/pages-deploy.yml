@@ -11,7 +11,7 @@ permissions:
 # Allow one concurrent deployment
 concurrency:
   group: "pages"
-  cancel-in-progress: false # 임시
+  cancel-in-progress: true
 
 jobs:
   importer:
