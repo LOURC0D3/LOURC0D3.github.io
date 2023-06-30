@@ -1,6 +1,6 @@
 ---
 layout: post
-date: 2023-06-30
+date: 2023-06-29
 title: YISF2022 TTT write-up
 tags: [MISC, ]
 categories: [CTF, YISF2022, ]
