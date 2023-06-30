@@ -8,7 +8,6 @@ categories: [CTF, YISF2022, ]
 
 ## 문제 파일
 
-
 ---
 
 
@@ -287,4 +286,3 @@ while True:
 
 p.interactive()
 ```
-
