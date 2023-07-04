@@ -102,6 +102,8 @@ title: ${title}${fmtags}${fmcats}
         }
         const filename = path.join(dirname, `${index}.png`);
 
+        console.log(p2);
+          
         axios({
           method: "get",
           url: p2,
