@@ -8,7 +8,7 @@ const axios = require("axios");
 // import {NotionToMarkdown} from "notion-to-md";
 
 const notion = new Client({
-  auth: "secret_c9RHqtdmik7qrOZ7BEArjeU9Gc82HDaMa1GdRyrzDSv",
+  auth: process.env.NOTION_TOKEN,
 });
 
 // passing notion client to the option
@@ -19,7 +19,7 @@ const n2m = new NotionToMarkdown({ notionClient: notion });
   const root = "_posts";
   fs.mkdirSync(root, { recursive: true });
 
-  const databaseId = "3a5f44e0a22d41d18a665e4bb568ccd8";
+  const databaseId = process.env.DATABASE_ID;
   // TODO has_more
   const response = await notion.databases.query({
     database_id: databaseId,
