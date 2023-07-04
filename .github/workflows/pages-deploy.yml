@@ -21,7 +21,7 @@ jobs:
       - uses: actions/checkout@master
     
       - run: rm -rf _posts/*
-      - run: rm -rf assets/img/*
+      - run: find assets/img/* -not -name 'favicons' -exec rm -rf {} \;
       
       - uses: actions/setup-node@v2
         with:
