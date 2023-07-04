@@ -120,7 +120,7 @@ title: ${title}${fmtags}${fmcats}
         if (p1 === "") res = "";
         else res = `_${p1}_`;
 
-        return `![${index++}]` + `(/${filename})${res}`; // 게시물로 인해 해당 부분이 정규표현식에 걸림
+        return `![${index++}](/${filename})${res}`; // 게시물로 인해 해당 부분이 정규표현식에 걸림
       }
     );
 
