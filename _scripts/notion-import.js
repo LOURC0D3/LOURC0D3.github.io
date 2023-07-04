@@ -82,11 +82,11 @@ const n2m = new NotionToMarkdown({ notionClient: notion });
       fmcats += "]";
     }
     const fm = `---
-	layout: post
-	date: ${date}
-	title: ${title}${fmtags}${fmcats}
-	---
-	`;
+layout: post
+date: ${date}
+title: ${title}${fmtags}${fmcats}
+---
+`;
     const mdblocks = await n2m.pageToMarkdown(id);
     const md = n2m.toMarkdownString(mdblocks)["parent"];
 
@@ -96,7 +96,7 @@ const n2m = new NotionToMarkdown({ notionClient: notion });
     let edited_md = md.replace(
       /(!\[\]\()(.*?)(\))/g,
       function (match, p1, p2, p3) {
-        const dirname = path.join("../assets/img", ftitle);
+        const dirname = path.join("assets/img", ftitle);
         if (!fs.existsSync(dirname)) {
           fs.mkdirSync(dirname, { recursive: true });
         }
@@ -115,7 +115,7 @@ const n2m = new NotionToMarkdown({ notionClient: notion });
             console.log(error);
           });
 
-        return `![${index++}](${filename})`;
+        return `![${index++}](/${filename})`;
       }
     );
 
