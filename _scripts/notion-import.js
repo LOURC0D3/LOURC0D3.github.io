@@ -8,7 +8,7 @@ const axios = require("axios");
 // import {NotionToMarkdown} from "notion-to-md";
 
 const notion = new Client({
-  auth: process.env.NOTION_TOKEN,
+  auth: "secret_c9RHqtdmik7qrOZ7BEArjeU9Gc82HDaMa1GdRyrzDSv",
 });
 
 // passing notion client to the option
@@ -19,7 +19,7 @@ const n2m = new NotionToMarkdown({ notionClient: notion });
   const root = "_posts";
   fs.mkdirSync(root, { recursive: true });
 
-  const databaseId = process.env.DATABASE_ID;
+  const databaseId = "3a5f44e0a22d41d18a665e4bb568ccd8";
   // TODO has_more
   const response = await notion.databases.query({
     database_id: databaseId,
@@ -94,7 +94,7 @@ title: ${title}${fmtags}${fmcats}
 
     let index = 0;
     let edited_md = md.replace(
-      /(!\[\]\()(.*?)(\))/g,
+      /!\[(.*?)\]\((.*?)\)/g,
       function (match, p1, p2, p3) {
         const dirname = path.join("assets/img", ftitle);
         if (!fs.existsSync(dirname)) {
@@ -116,8 +116,8 @@ title: ${title}${fmtags}${fmcats}
           });
 
         let res;
-        if (p1.replace("![](", "") === "") res = "";
-        else res = `_${p1.replace("![](", "")}_`
+        if (p1 === "") res = "";
+        else res = `_${p1}_`;
 
         return `![${index++}](/${filename})${res}`;
       }
