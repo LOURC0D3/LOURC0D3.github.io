@@ -31,7 +31,7 @@ jobs:
           done
           rm -rf _posts/*
           ls _posts
-          ls _assets/img
+          ls assets/img
       
       - uses: actions/setup-node@v2
         with:
