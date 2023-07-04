@@ -115,7 +115,11 @@ title: ${title}${fmtags}${fmcats}
             console.log(error);
           });
 
-        return `![${index++}](/${filename})`;
+        let res;
+        if (p1.replace("'![](", "") === "") res = "";
+        else res = `_${p1.replace("'![](", "")}_`
+
+        return `![${index++}](/${filename})${res}`;
       }
     );
 
