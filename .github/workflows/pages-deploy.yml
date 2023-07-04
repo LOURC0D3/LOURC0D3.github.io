@@ -20,8 +20,16 @@ jobs:
     steps:
       - uses: actions/checkout@master
     
-      - run: rm -rf _posts/*
-      - run: find assets/img/* -not -name 'favicons' -exec rm -rf {} \;
+      - name: Clean Directory
+        run: |
+          for file in assets/img/*
+          do
+              if [[ $file != "assets/img/favicons" ]]
+              then
+                  rm -rf "$file"
+              fi
+          done
+          rm -rf _posts/*
       
       - uses: actions/setup-node@v2
         with:
