@@ -21,6 +21,7 @@ jobs:
       - uses: actions/checkout@master
     
       - run: rm -rf _posts/*
+      - run: rm -rf assets/img/*
       
       - uses: actions/setup-node@v2
         with:
