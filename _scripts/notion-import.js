@@ -101,9 +101,6 @@ title: ${title}${fmtags}${fmcats}
           fs.mkdirSync(dirname, { recursive: true });
         }
         const filename = path.join(dirname, `${index}.png`);
-
-        console.log(match);
-        console.log(md);
           
         axios({
           method: "get",
@@ -122,7 +119,7 @@ title: ${title}${fmtags}${fmcats}
         if (p1 === "") res = "";
         else res = `_${p1}_`;
 
-        return `![${index++}](/${filename})${res}`;
+        return `![${index++}]` + `(/${filename})${res}`;
       }
     );
 
