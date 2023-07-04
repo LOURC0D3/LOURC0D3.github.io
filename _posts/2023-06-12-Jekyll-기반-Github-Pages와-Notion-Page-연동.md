@@ -30,7 +30,7 @@ categories: [Development, DevOps, ]
 완성본은 다음과 같다.
 
 
-![0](/assets/img/2023-06-12-Jekyll-기반-Github-Pages와-Notion-Page-연동.md/0.png)_![](_
+![0](/assets/img/2023-06-12-Jekyll-기반-Github-Pages와-Notion-Page-연동.md/0.png)
 
 
 갱신 버튼을 눌러주는 것만으로 블로그에 글이 자동으로 등록된다.
@@ -54,7 +54,7 @@ categories: [Development, DevOps, ]
 [https://www.notion.so/my-integrations](https://www.notion.so/my-integrations)
 
 
-![1](/assets/img/2023-06-12-Jekyll-기반-Github-Pages와-Notion-Page-연동.md/1.png)_![](_
+![1](/assets/img/2023-06-12-Jekyll-기반-Github-Pages와-Notion-Page-연동.md/1.png)
 
 
 다음으로는 블로그 게시물을 작성할 페이지를 생성한다. 아래 템플릿을 사용하면 된다.
@@ -69,7 +69,7 @@ categories: [Development, DevOps, ]
 다음과 같이 생성했던 API 통합을 페이지에 추가해준다.
 
 
-![2](/assets/img/2023-06-12-Jekyll-기반-Github-Pages와-Notion-Page-연동.md/2.png)_![](_
+![2](/assets/img/2023-06-12-Jekyll-기반-Github-Pages와-Notion-Page-연동.md/2.png)
 
 
 다음으로는 데이터베이스에 대한 ID를 알아야한다. 페이지 링크를 복사하면 데이터베이스 아이디를 구할 수 있다.
@@ -99,7 +99,7 @@ DB 페이지로 이동한 후 링크 복사를 눌러주면 아래와 같이 생
 Key명은 다음과 같이 설정한다.
 
 
-![3](/assets/img/2023-06-12-Jekyll-기반-Github-Pages와-Notion-Page-연동.md/3.png)_![](_
+![3](/assets/img/2023-06-12-Jekyll-기반-Github-Pages와-Notion-Page-연동.md/3.png)
 
 
 <br>
@@ -518,7 +518,7 @@ Notion은 페이지를 임베딩 시킬 수 있으므로 웹 페이지를 통해
 여기까지 완료되면 버튼을 통해 블로그가 업데이트 되는 것을 확인할 수 있다!
 
 
-![4](/assets/img/2023-06-12-Jekyll-기반-Github-Pages와-Notion-Page-연동.md/4.png)_![](_
+![4](/assets/img/2023-06-12-Jekyll-기반-Github-Pages와-Notion-Page-연동.md/4.png)
 
 
 ### 마무리

@@ -92,7 +92,7 @@ write.start()
 ```
 
 
-![0](/assets/img/2023-06-11-CCE2023-Quals-Babyweb-write-up.md/0.png)_![](_
+![0](/assets/img/2023-06-11-CCE2023-Quals-Babyweb-write-up.md/0.png)
 
 
 플래그를 획득하였다.
