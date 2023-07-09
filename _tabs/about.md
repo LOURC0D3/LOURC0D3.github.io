@@ -15,6 +15,7 @@ order: 4
 ### Education
 - Department of Computer Game Development, Korea Game Science High School
 - Department of Information Security, Soonchunhyang Univ
+- KITRI Best of the Best 12th Vulnerability Analysis
 
 ### Bug Reports
 - Wordpress Plugins
