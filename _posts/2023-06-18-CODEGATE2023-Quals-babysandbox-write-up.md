@@ -1,7 +1,7 @@
 ---
 layout: post
 date: 2023-06-18
-title: CODEGATE2023 Quals babysandbox write-up이얏호
+title: CODEGATE2023 Quals babysandbox write-up
 tags: [pwnable, seccomp, FSB, ]
 categories: [CTF, CODEGATE2023, ]
 ---
