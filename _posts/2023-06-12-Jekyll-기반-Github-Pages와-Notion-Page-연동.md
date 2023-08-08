@@ -487,23 +487,31 @@ Notion은 페이지를 임베딩 시킬 수 있으므로 웹 페이지를 통해
   </div>
 
   <script>
-    document.getElementById("triggerButton").addEventListener("click", function() {
-      var messageElement = document.getElementById("message");
-      messageElement.textContent = "요청 전송 중...";
+  document.getElementById("triggerButton").addEventListener("click", function() {
+    var messageElement = document.getElementById("message");
+    messageElement.textContent = "요청 전송 중...";
 
-      var xhr = new XMLHttpRequest();
-      xhr.open("POST", "https://api.github.com/repos/**USERNAME**/**REPO_NAME**/dispatches", true);
-      xhr.setRequestHeader("Accept", "application/vnd.github.v3+json");
-      xhr.setRequestHeader("Authorization", "Bearer **GITHUB_ACCESS_TOKEN**");
-      xhr.setRequestHeader("Content-Type", "application/json");
-      xhr.onreadystatechange = function() {
-        if (xhr.readyState === 4 && xhr.status === 204) {
-          messageElement.textContent = "요청이 성공적으로 전송되었습니다.";
-        }
-      };
-      xhr.send(JSON.stringify({"event_type": "RUN_WORKFLOW_DISPATCH"}));
-    });
-  </script>
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", "https://api.github.com/repos/USERNAME/REPO_NAME/dispatches", true);
+    xhr.setRequestHeader("Accept", "application/vnd.github.v3+json");
+    xhr.setRequestHeader("Authorization", "Bearer GITHUB_ACCESS_TOKEN");
+    xhr.setRequestHeader("Content-Type", "application/json");
+
+    xhr.onload = function() {
+      if (xhr.status === 204) {
+        messageElement.textContent = "요청이 성공적으로 전송되었습니다." + xhr.status;
+      } else {
+        messageElement.textContent = "요청 전송에 실패했습니다.<br>상태 코드: " + xhr.status;
+      }
+    };
+
+    xhr.onerror = function() {
+      messageElement.textContent = "요청 전송 중 알 수 없는 오류가 발생했습니다.";
+    };
+
+    xhr.send(JSON.stringify({"event_type": "RUN_WORKFLOW_DISPATCH"}));
+  });
+</script>
 </body>
 </html>
 ```
