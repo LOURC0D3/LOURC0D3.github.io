@@ -43,7 +43,7 @@ const n2m = new NotionToMarkdown({ notionClient: notion });
     let title = id;
     let ptitle = r.properties?.["게시물"]?.["title"];
     if (ptitle?.length > 0) {
-      title = "\"" + ptitle[0]?.["plain_text"]; + "\""
+      title = ptitle[0]?.["plain_text"];
     }
     // tags
     let tags = [];
@@ -84,7 +84,7 @@ const n2m = new NotionToMarkdown({ notionClient: notion });
     const fm = `---
 layout: post
 date: ${date}
-title: ${title}${fmtags}${fmcats}
+title: "${title}"${fmtags}${fmcats}
 ---
 
 `;
