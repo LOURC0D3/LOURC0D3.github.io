@@ -1,7 +1,7 @@
 ---
 layout: post
 date: 2023-08-09
-title: Twice the Bits, Twice the Trouble: Vulnerabilities Induced by Migrating to 64-Bit Platforms 번역 및 요약
+title: "Twice the Bits, Twice the Trouble: Vulnerabilities Induced by Migrating to 64-Bit Platforms 번역 및 요약"
 tags: [pwnable, Integer issues, ]
 categories: [Research, Paper, ]
 ---
