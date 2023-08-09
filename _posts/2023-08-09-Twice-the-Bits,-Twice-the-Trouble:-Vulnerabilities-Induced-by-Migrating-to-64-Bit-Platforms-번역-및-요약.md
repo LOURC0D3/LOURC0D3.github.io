@@ -1,7 +1,7 @@
 ---
 layout: post
 date: 2023-08-09
-title: "Twice the Bits, Twice the Trouble: Vulnerabilities Induced by Migrating to 64-Bit Platforms 번역 및 요약
+title: "Twice the Bits, Twice the Trouble: Vulnerabilities Induced by Migrating to 64-Bit Platforms 번역 및 요약"
 tags: [pwnable, Integer issues, ]
 categories: [Research, Paper, ]
 ---
@@ -56,7 +56,7 @@ memcpy(buffer, src, len); //len은 size_t(8byte)로 캐스팅 되며 부호 확�
 - 데이터 모델은 특정 플랫폼에 대한 정수 자료형의 크기를 말한다.
 - 아래 표는 현재까지 사용된 데이터 모델에 대한 자료형의 정보이다.
 
-	![0](/assets/img/2023-08-09-"Twice-the-Bits,-Twice-the-Trouble:-Vulnerabilities-Induced-by-Migrating-to-64-Bit-Platforms-번역-및-요약.md/0.png)
+	![0](/assets/img/2023-08-09-Twice-the-Bits,-Twice-the-Trouble:-Vulnerabilities-Induced-by-Migrating-to-64-Bit-Platforms-번역-및-요약.md/0.png)
 
 - 모든 모델에서 포인터와 size_t 자료형은 아키텍쳐의 레지스터 크기와 항상 동일하다.
 - 32bit의 경우 int 자료형의 크기가 포인터와 동일하지만 64bit에서 int 자료형은 포인터의 절반이다.
@@ -201,7 +201,7 @@ memcpy(buffer, src, x); // x가 size_t로 변환되므로 양수(4294967295)로 
 아래 그림은 할당으로 인해 발생하는 정수 관련 문제에 대한 기본적인 정수 자료형에 대한 설명이다.
 
 
-![1](/assets/img/2023-08-09-"Twice-the-Bits,-Twice-the-Trouble:-Vulnerabilities-Induced-by-Migrating-to-64-Bit-Platforms-번역-및-요약.md/1.png)
+![1](/assets/img/2023-08-09-Twice-the-Bits,-Twice-the-Trouble:-Vulnerabilities-Induced-by-Migrating-to-64-Bit-Platforms-번역-및-요약.md/1.png)
 
 - 왼쪽부터 ILP32, LLP64, LP64 순서이다.
 - 흰색 원 : 문제 없음
@@ -266,7 +266,7 @@ printf("x : 0x%lx\n", x);
 ```
 
 
-![2](/assets/img/2023-08-09-"Twice-the-Bits,-Twice-the-Trouble:-Vulnerabilities-Induced-by-Migrating-to-64-Bit-Platforms-번역-및-요약.md/2.png)
+![2](/assets/img/2023-08-09-Twice-the-Bits,-Twice-the-Trouble:-Vulnerabilities-Induced-by-Migrating-to-64-Bit-Platforms-번역-및-요약.md/2.png)
 
 
 ### 3.1.2 New Signedness Issues
@@ -304,7 +304,7 @@ size_t로의 타입 캐스팅은 취약점이 존재할 확률이 높다.
 아래 그림은 각 정수 자료형의 부호 비교에 대한 설명이다.
 
 
-![3](/assets/img/2023-08-09-"Twice-the-Bits,-Twice-the-Trouble:-Vulnerabilities-Induced-by-Migrating-to-64-Bit-Platforms-번역-및-요약.md/3.png)
+![3](/assets/img/2023-08-09-Twice-the-Bits,-Twice-the-Trouble:-Vulnerabilities-Induced-by-Migrating-to-64-Bit-Platforms-번역-및-요약.md/3.png)
 
 - 왼쪽부터 ILP32, LLP64, LP64 순서이다.
 - 흰색 원 : 부호를 포함한 비교

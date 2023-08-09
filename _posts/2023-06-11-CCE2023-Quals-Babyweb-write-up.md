@@ -1,7 +1,7 @@
 ---
 layout: post
 date: 2023-06-11
-title: "CCE2023 Quals Babyweb write-up
+title: "CCE2023 Quals Babyweb write-up"
 tags: [LFI2RCE, webhacking, ]
 categories: [CTF, CCE2023, ]
 ---
@@ -93,7 +93,7 @@ write.start()
 ```
 
 
-![0](/assets/img/2023-06-11-"CCE2023-Quals-Babyweb-write-up.md/0.png)
+![0](/assets/img/2023-06-11-CCE2023-Quals-Babyweb-write-up.md/0.png)
 
 
 플래그를 획득하였다.
