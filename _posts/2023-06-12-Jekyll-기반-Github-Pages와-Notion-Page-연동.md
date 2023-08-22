@@ -241,8 +241,7 @@ title: "${title}"${fmtags}${fmcats}
         if (p1 === "") res = "";
         else res = `_${p1}_`;
 
-        return `![4](/assets/img/2023-06-12-Jekyll-기반-Github-Pages와-Notion-Page-연동.md/4.png)_${index++}_${res}`;
-      }
+        return `![${index++}]` + `(/${filename})` + `${res}`;
     );
 
     //writing to file
@@ -536,7 +535,7 @@ Notion은 페이지를 임베딩 시킬 수 있으므로 웹 페이지를 통해
 여기까지 완료되면 버튼을 통해 블로그가 업데이트 되는 것을 확인할 수 있다!
 
 
-![5](/assets/img/2023-06-12-Jekyll-기반-Github-Pages와-Notion-Page-연동.md/5.png)
+![4](/assets/img/2023-06-12-Jekyll-기반-Github-Pages와-Notion-Page-연동.md/4.png)
 
 
 ### 마무리
