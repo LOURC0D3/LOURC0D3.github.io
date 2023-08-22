@@ -205,8 +205,9 @@ const n2m = new NotionToMarkdown({ notionClient: notion });
     const fm = `---
 layout: post
 date: ${date}
-title: ${title}${fmtags}${fmcats}
+title: "${title}"${fmtags}${fmcats}
 ---
+
 `;
     const mdblocks = await n2m.pageToMarkdown(id);
     const md = n2m.toMarkdownString(mdblocks)["parent"];
@@ -215,7 +216,7 @@ title: ${title}${fmtags}${fmcats}
 
     let index = 0;
     let edited_md = md.replace(
-      /(!\[\]\()(.*?)(\))/g,
+      /!\[(.*?)\]\((.*?)\)/g,
       function (match, p1, p2, p3) {
         const dirname = path.join("assets/img", ftitle);
         if (!fs.existsSync(dirname)) {
@@ -236,7 +237,11 @@ title: ${title}${fmtags}${fmcats}
             console.log(error);
           });
 
-        return `![${index++}]` + `(/${filename})`; // avoid regex
+        let res;
+        if (p1 === "") res = "";
+        else res = `_${p1}_`;
+
+        return `![4](/assets/img/2023-06-12-Jekyll-기반-Github-Pages와-Notion-Page-연동.md/4.png)_${index++}_${res}`;
       }
     );
 
@@ -394,9 +399,8 @@ jobs:
 ### 갱신 버튼 설정
 
 
-블로그 글이 업데이트 되는 조건은 다음 두가지다.
+블로그 글이 업데이트 되는 조건은 다음과 같다.
 
-- 30분 간격으로 cron schelduler에 의해 워크플로우가 트리거 되었을 때
 - disptach를 통해 워크플로우가 트리거 되었을 때
 
 <br>
@@ -432,8 +436,13 @@ Notion은 페이지를 임베딩 시킬 수 있으므로 웹 페이지를 통해
 아래 링크를 이용하면 HTML 코드를 GET 방식으로 전달할 수 있으므로 토큰 유출에 대한 걱정이 없다.
 
 
-[https://www.notion-tools.com/embeds/html](https://www.notion-tools.com/embeds/html)
+다만 확인해본 결과 로그를 수집하는 것 같아 새로 fork하여 관련 코드를 모두 삭제 하였다.
 
+
+아래 링크에서 html 코드를 생성하고 그 아래 링크로 노션에 추가하면 된다.
+
+- [https://www.notion-tools.com/embeds/html](https://lourcode.kr/notion-tools-embeds/)
+- [https://lourcode.kr/notion-tools-embeds/](https://lourcode.kr/notion-tools-embeds/)
 
 <br>
 
@@ -527,7 +536,7 @@ Notion은 페이지를 임베딩 시킬 수 있으므로 웹 페이지를 통해
 여기까지 완료되면 버튼을 통해 블로그가 업데이트 되는 것을 확인할 수 있다!
 
 
-![4](/assets/img/2023-06-12-Jekyll-기반-Github-Pages와-Notion-Page-연동.md/4.png)
+![5](/assets/img/2023-06-12-Jekyll-기반-Github-Pages와-Notion-Page-연동.md/5.png)
 
 
 ### 마무리
