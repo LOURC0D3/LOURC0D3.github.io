@@ -336,7 +336,7 @@ jobs:
 
       - uses: stefanzweifel/git-auto-commit-action@v4
         env:
-          GITHUB_TOKEN: $\{{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: $\{\{ secrets.GITHUB_TOKEN }}
         with:
           commit_message: "[배포] Notion 변경 사항 저장"
           branch: main
