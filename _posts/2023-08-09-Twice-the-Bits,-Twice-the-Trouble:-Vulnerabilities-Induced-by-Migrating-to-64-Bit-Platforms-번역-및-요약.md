@@ -190,7 +190,6 @@ memcpy(buffer, src, x); // x가 size_t로 변환되므로 양수(4294967295)로 
 ## 3.1 Effects of Integer Width Changes - 정수 크기 변화의 영향
 
 - 32bit 플랫폼에서 사용 가능한 모든 정수형 타입은 64bit에도 존재하지만 두 타입 크기는 다를 수도 있다.
-	- 이러한 변경은 이전에는 존재하지 않던 정수 잘림이나 부호 확장 같은 취약점을 발생시킬 수 있다.
 
 ### 3.1.1 New Truncations 
 
