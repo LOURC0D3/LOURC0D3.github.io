@@ -34,7 +34,10 @@ WSAGetLastError를 통해 확인해보면 10022(WSAEINVAL) 오류라고 하는�
 ### Reverse Connection Shellcode
 
 
-```assembly
+---
+
+
+```text
 global _start
 
 section .text
@@ -260,10 +263,13 @@ CALL EBP                             ;execute CreateProcessA
 ### 추가 : WSAGetLastError
 
 
+---
+
+
 쉘코드 작성 중에 WSA 함수 관련해서 오류 확인하고 싶으면 아래 코드 추가하면 된다.
 
 
-```assembly
+```text
 POP EDI ;load previously saved ws2_32.dll address to ECX
 ADD ESP, 0x10 ;Align stack
 XOR EBX, EBX ; Zero out the EBX register
@@ -287,6 +293,9 @@ CALL EAX ; Call WSAGetLastError
 
 
 ## References
+
+
+---
 
 - [https://stackoverflow.com/questions/71521730/cannot-return-socket-descriptor-from-wsasocketa](https://stackoverflow.com/questions/71521730/cannot-return-socket-descriptor-from-wsasocketa)
 - [https://www.exploit-db.com/shellcodes/50291](https://www.exploit-db.com/shellcodes/50291)
