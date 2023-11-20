@@ -550,5 +550,8 @@ Actions는 항상 많이 헷갈려서 오랜 시간 삽질하게 되는거 같�
 <br>
 
 
+블로그 구축과 관련된 모든 코드는 아래 [여기](https://github.com/LOURC0D3/Jekyll-with-Notion-Template/tree/main)에 올려두었습니다.
+
+
 블로그 구축에 있어서 궁금한 점은 코멘트에 남겨주시면 온 힘을 다해 도와드리겠습니다!
 
