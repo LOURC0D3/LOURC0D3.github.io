@@ -118,6 +118,7 @@ Key명은 다음과 같이 설정한다.
 `_scripts/notion-import.js`
 
 
+{% raw %}
 ```javascript
 const { Client } = require("@notionhq/client");
 const { NotionToMarkdown } = require("notion-to-md");
@@ -253,6 +254,7 @@ title: "${title}"${fmtags}${fmcats}
   }
 })();
 ```
+{% endraw %}
 
 
 <br>
@@ -264,6 +266,7 @@ title: "${title}"${fmtags}${fmcats}
 `package.json` 위치에 생성하면 된다.
 
 
+{% raw %}
 ```json
 {
   "devDependencies": {
@@ -275,6 +278,7 @@ title: "${title}"${fmtags}${fmcats}
   }
 }
 ```
+{% endraw %}
 
 
 <br>
@@ -289,6 +293,7 @@ title: "${title}"${fmtags}${fmcats}
 `.github/workflows/pages-deploy.yml`
 
 
+{% raw %}
 ```yaml
 name: "Build and Deploy"
 on:
@@ -393,6 +398,7 @@ jobs:
         id: deployment
         uses: actions/deploy-pages@v1
 ```
+{% endraw %}
 
 
 ### 갱신 버튼 설정
@@ -452,6 +458,7 @@ Notion은 페이지를 임베딩 시킬 수 있으므로 웹 페이지를 통해
 `ACCESS_TOKEN`은 위에서 생성한 토큰을 작성하면 된다.
 
 
+{% raw %}
 ```html
 <!DOCTYPE html>
 <html>
@@ -524,6 +531,7 @@ Notion은 페이지를 임베딩 시킬 수 있으므로 웹 페이지를 통해
 </body>
 </html>
 ```
+{% endraw %}
 
 
 <br>

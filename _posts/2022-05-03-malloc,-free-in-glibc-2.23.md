@@ -13,6 +13,7 @@ categories: [Research, ]
 ---
 
 
+{% raw %}
 ```c
 void* __libc_malloc (size_t bytes)
 {
@@ -50,6 +51,7 @@ void* __libc_malloc (size_t bytes)
   return victim; //할당된 청크를 가리키는 포인터 반환
 }
 ```
+{% endraw %}
 
 
 ## _int_malloc
@@ -58,6 +60,7 @@ void* __libc_malloc (size_t bytes)
 ---
 
 
+{% raw %}
 ```c
 static void* _int_malloc (mstate av, size_t bytes)
 {
@@ -102,6 +105,7 @@ static void* _int_malloc (mstate av, size_t bytes)
       return p;
     }
 ```
+{% endraw %}
 
 
 ### fastbin
@@ -111,6 +115,7 @@ static void* _int_malloc (mstate av, size_t bytes)
 
 - 구현 코드
 
+{% raw %}
 ```c
 //요청 사이즈가 fasbin 범위내에 속할 경우
 if ((unsigned long) (nb) <= (unsigned long) (get_max_fast ()))
@@ -142,9 +147,11 @@ if ((unsigned long) (nb) <= (unsigned long) (get_max_fast ()))
     }
 }
 ```
+{% endraw %}
 
 - 실습
 
+{% raw %}
 ```c
 #include <stdio.h>
 #include <malloc.h>
@@ -166,8 +173,10 @@ void main()
 		free(ptr5);
 }
 ```
+{% endraw %}
 
 
+{% raw %}
 ```bash
 gdb-peda$ heapinfo
 (0x20)     fastbin[0]: 0xfcc020 --> 0xfcc000 --> 0x0
@@ -184,8 +193,10 @@ gdb-peda$ heapinfo
        last_remainder: 0x0 (size : 0x0)
             unsortbin: 0x0
 ```
+{% endraw %}
 
 
+{% raw %}
 ```bash
 gdb-peda$ heapinfo
 (0x20)     fastbin[0]: 0x1c34000 --> 0x0
@@ -208,6 +219,7 @@ addr                prev                size                 status             
 0x1c34040           0x0                 0x30                 Freed                0x0              None
 0x1c34070           0x0                 0x40                 Freed                0x0              None
 ```
+{% endraw %}
 
 
 ### small bin
@@ -217,6 +229,7 @@ addr                prev                size                 status             
 
 - 구현 코드
 
+{% raw %}
 ```c
 if (in_smallbin_range (nb)) //요청 사이즈가 small bin 범위에 속할 경우
 {
@@ -249,9 +262,11 @@ if (in_smallbin_range (nb)) //요청 사이즈가 small bin 범위에 속할 경
 		}
 }
 ```
+{% endraw %}
 
 - 실습
 
+{% raw %}
 ```c
 #include <stdio.h>
 #include <malloc.h>
@@ -271,8 +286,10 @@ void main()
 		free(ptr4);
 }
 ```
+{% endraw %}
 
 
+{% raw %}
 ```bash
 gdb-peda$ heapinfo
 (0x20)     fastbin[0]: 0x0
@@ -290,8 +307,10 @@ gdb-peda$ heapinfo
             unsortbin: 0x0
 (0x200)  smallbin[30]: 0x15a8000
 ```
+{% endraw %}
 
 
+{% raw %}
 ```bash
 gdb-peda$ heapinfo
 (0x20)     fastbin[0]: 0x0
@@ -311,6 +330,7 @@ gdb-peda$ parseheap
 addr                prev                size                 status              fd                bk
 0x15a8000           0x0                 0x200                Used                None              None
 ```
+{% endraw %}
 
 
 ### large bin
@@ -320,6 +340,7 @@ addr                prev                size                 status             
 
 - 구현 코드
 
+{% raw %}
 ```c
  else
     {
@@ -328,9 +349,11 @@ addr                prev                size                 status             
         malloc_consolidate (av); //fast bin을 병합하여 사용한다
     }
 ```
+{% endraw %}
 
 - 실습
 
+{% raw %}
 ```c
 #include <stdio.h>
 #include <malloc.h>
@@ -350,8 +373,10 @@ void main()
     char* ptr5 = malloc(1024);
 }
 ```
+{% endraw %}
 
 
+{% raw %}
 ```bash
 gef➤  heap chunks
 Chunk(addr=0x1c3a010, size=0x20, flags=PREV_INUSE)
@@ -364,14 +389,17 @@ Chunk(addr=0x1c3a070, size=0x30, flags=PREV_INUSE)
     [0x0000000001c3a070     00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00    ................]
 Chunk(addr=0x1c3a0a0, size=0x20f70, flags=PREV_INUSE)  ←  top chunk
 ```
+{% endraw %}
 
 
+{% raw %}
 ```bash
 gef➤  heap chunks
 Chunk(addr=0x1c3a010, size=0x410, flags=PREV_INUSE)
     [0x0000000001c3a010     78 1b b2 80 9d 7f 00 00 78 1b b2 80 9d 7f 00 00    x.......x.......]
 Chunk(addr=0x1c3a420, size=0x20bf0, flags=PREV_INUSE)  ←  top chunk
 ```
+{% endraw %}
 
 
 ## unsorted bin
@@ -380,6 +408,7 @@ Chunk(addr=0x1c3a420, size=0x20bf0, flags=PREV_INUSE)  ←  top chunk
 ---
 
 
+{% raw %}
 ```c
 for (;;) //리턴될 때까지 반복 (unsorted bin내 청크 모두 확인)
 {
@@ -397,6 +426,7 @@ for (;;) //리턴될 때까지 반복 (unsorted bin내 청크 모두 확인)
 	               chunk2mem (victim), av); //오류 발생
 			  size = chunksize (victim); //현재 청크의 크기
 ```
+{% endraw %}
 
 
 ### unsorted bin - last remainder
@@ -406,6 +436,7 @@ for (;;) //리턴될 때까지 반복 (unsorted bin내 청크 모두 확인)
 
 - 구현 코드
 
+{% raw %}
 ```c
 /* 
 	요청 사이즈가 small bin 요청이고, unsorted bin에 단 한개의 청크만 존재할 경우 last_remainder를 사용하려고 시도한다.
@@ -441,9 +472,11 @@ if (in_smallbin_range (nb) && //small bin 범위에 속할 경우
               return p; //메모리 반환
             }
 ```
+{% endraw %}
 
 - 실습
 
+{% raw %}
 ```c
 #include <stdio.h>
 #include <malloc.h>
@@ -461,8 +494,10 @@ void main()
     free(ptr2);
 }
 ```
+{% endraw %}
 
 
+{% raw %}
 ```bash
 gdb-peda$ heapinfo
 (0x20)     fastbin[0]: 0x0
@@ -479,8 +514,10 @@ gdb-peda$ heapinfo
        last_remainder: 0x0 (size : 0x0)
             unsortbin: 0x72f000 (size : 0x200)
 ```
+{% endraw %}
 
 
+{% raw %}
 ```bash
 gdb-peda$ heapinfo
 (0x20)     fastbin[0]: 0x0
@@ -497,16 +534,19 @@ gdb-peda$ heapinfo
        last_remainder: 0x72f1a0 (size : 0x60)
             unsortbin: 0x72f1a0 (size : 0x60)
 ```
+{% endraw %}
 
 
 ---
 
 
+{% raw %}
 ```c
 //unsorted list에서 victim 삭제
 unsorted_chunks (av)->bk = bck; //unsorted 청크의 bk에 victim의 bk 저장
 bck->fd = unsorted_chunks (av); //victim의 bk의 fd에 unsorted 청크 저장
 ```
+{% endraw %}
 
 
 ### unsorted bin - 청크 재사용
@@ -516,6 +556,7 @@ bck->fd = unsorted_chunks (av); //victim의 bk의 fd에 unsorted 청크 저장
 
 - 구현 코드
 
+{% raw %}
 ```c
 if (size == nb) //unsorted 청크가 요청 사이즈와 동일할 경우
 {
@@ -529,9 +570,11 @@ if (size == nb) //unsorted 청크가 요청 사이즈와 동일할 경우
     return p; //메모리 반환
 }
 ```
+{% endraw %}
 
 - 실습
 
+{% raw %}
 ```c
 #include <stdio.h>
 #include <malloc.h>
@@ -548,8 +591,10 @@ void main()
     free(ptr2);
 }
 ```
+{% endraw %}
 
 
+{% raw %}
 ```bash
 gdb-peda$ heapinfo
 (0x20)     fastbin[0]: 0x0
@@ -566,8 +611,10 @@ gdb-peda$ heapinfo
        last_remainder: 0x0 (size : 0x0)
             unsortbin: 0x257e000 (size : 0x200)
 ```
+{% endraw %}
 
 
+{% raw %}
 ```bash
 gdb-peda$ heapinfo
 (0x20)     fastbin[0]: 0x0
@@ -587,6 +634,7 @@ gdb-peda$ parseheap
 addr                prev                size                 status              fd                bk
 0x257e000           0x0                 0x200                Used                None              None
 ```
+{% endraw %}
 
 
 ### unsorted bin - 청크 이동
@@ -599,6 +647,7 @@ addr                prev                size                 status             
 
 - 구현 코드
 
+{% raw %}
 ```c
 if (in_smallbin_range (size)) //해당 unsorted 청크가 small bin 범위에 속할 경우 
 {
@@ -607,8 +656,10 @@ if (in_smallbin_range (size)) //해당 unsorted 청크가 small bin 범위에 �
     fwd = bck->fd; //가장 앞 청크
 }
 ```
+{% endraw %}
 
 
+{% raw %}
 ```c
 //small bin내에 존재하는 청크와 linked list 연결
 
@@ -618,9 +669,11 @@ victim->fd = fwd; //현재 청크의 fd를 fwd로 변경
 fwd->bk = victim; //fwd의 bk를 현재 청크로 변경
 bck->fd = victim; //bck의 fd를 현재 청크로 변경
 ```
+{% endraw %}
 
 - 실습
 
+{% raw %}
 ```c
 #include <stdio.h>
 #include <malloc.h>
@@ -637,8 +690,10 @@ void main()
     free(ptr2);
 }
 ```
+{% endraw %}
 
 
+{% raw %}
 ```bash
 gdb-peda$ heapinfo
 (0x20)     fastbin[0]: 0x0
@@ -655,8 +710,10 @@ gdb-peda$ heapinfo
        last_remainder: 0x0 (size : 0x0)
             unsortbin: 0x24d3000 (size : 0x200)
 ```
+{% endraw %}
 
 
+{% raw %}
 ```bash
 gdb-peda$ heapinfo
 (0x20)     fastbin[0]: 0x0
@@ -674,6 +731,7 @@ gdb-peda$ heapinfo
             unsortbin: 0x0
 (0x200)  smallbin[30]: 0x24d3000
 ```
+{% endraw %}
 
 
 ---
@@ -683,6 +741,7 @@ gdb-peda$ heapinfo
 
 - 구현 코드
 
+{% raw %}
 ```c
 else //해당 unsorted 청크가 large bin 범위에 속할 경우 
 {
@@ -744,9 +803,11 @@ victim->fd = fwd; //현재 청크의 fd를 fwd로 변경
 fwd->bk = victim; //fwd의 bk를 현재 청크로 변경
 bck->fd = victim; //bck의 fd를 현재 청크로 변경
 ```
+{% endraw %}
 
 - 실습
 
+{% raw %}
 ```c
 #include <stdio.h>
 #include <malloc.h>
@@ -763,8 +824,10 @@ void main()
     free(ptr2);
 }
 ```
+{% endraw %}
 
 
+{% raw %}
 ```bash
 gdb-peda$ heapinfo
 (0x20)     fastbin[0]: 0x0
@@ -781,8 +844,10 @@ gdb-peda$ heapinfo
        last_remainder: 0x0 (size : 0x0)
             unsortbin: 0x2471000 (size : 0x410)
 ```
+{% endraw %}
 
 
+{% raw %}
 ```bash
 gdb-peda$ heapinfo
 (0x20)     fastbin[0]: 0x0
@@ -800,17 +865,20 @@ gdb-peda$ heapinfo
             unsortbin: 0x0
          largebin[ 0]: 0x2471000 (size : 0x410)
 ```
+{% endraw %}
 
 
 ---
 
 
+{% raw %}
 ```c
 //최대 10000번까지 반복
 #define MAX_ITERS       10000
 		if (++iters >= MAX_ITERS)
 		    break;
 ```
+{% endraw %}
 
 
 ### large bin -  청크 재사용
@@ -820,6 +888,7 @@ gdb-peda$ heapinfo
 
 - 구현 코드
 
+{% raw %}
 ```c
 if (!in_smallbin_range (nb)) //요청 사이즈 small bin 범위에 속하지 않을 경우
 {
@@ -889,12 +958,14 @@ if (!in_smallbin_range (nb)) //요청 사이즈 small bin 범위에 속하지 �
 		}
 }
 ```
+{% endraw %}
 
 - 실습
 
 **remainder 청크가 최소 사이즈보다 작은 경우**
 
 
+{% raw %}
 ```c
 #include <stdio.h>
 #include <malloc.h>
@@ -914,8 +985,10 @@ void main()
     free(ptr2);
 }
 ```
+{% endraw %}
 
 
+{% raw %}
 ```bash
 gdb-peda$ heapinfo
 (0x20)     fastbin[0]: 0x0
@@ -933,8 +1006,10 @@ gdb-peda$ heapinfo
             unsortbin: 0x0
          largebin[ 0]: 0x1d94000 (size : 0x410)
 ```
+{% endraw %}
 
 
+{% raw %}
 ```bash
 gdb-peda$ heapinfo
 (0x20)     fastbin[0]: 0x0
@@ -954,11 +1029,13 @@ gdb-peda$ parseheap
 addr                prev                size                 status              fd                bk
 0x1d94000           0x0                 0x410                Used                None              None
 ```
+{% endraw %}
 
 
 **remainder 청크가 최소 사이즈보다 큰 경우** 
 
 
+{% raw %}
 ```c
 #include <stdio.h>
 #include <malloc.h>
@@ -977,8 +1054,10 @@ void main()
     free(ptr2);
 }
 ```
+{% endraw %}
 
 
+{% raw %}
 ```bash
 gdb-peda$ heapinfo
 (0x20)     fastbin[0]: 0x0
@@ -996,8 +1075,10 @@ gdb-peda$ heapinfo
             unsortbin: 0x0
          largebin[ 0]: 0xdf4000 (size : 0x410)
 ```
+{% endraw %}
 
 
+{% raw %}
 ```bash
 gdb-peda$ heapinfo
 (0x20)     fastbin[0]: 0x0
@@ -1017,6 +1098,7 @@ gdb-peda$ parseheap
 addr                prev                size                 status              fd                bk
 0xdf4000            0x0                 0x3f0                Used                None              None
 ```
+{% endraw %}
 
 
 ---
@@ -1028,6 +1110,7 @@ addr                prev                size                 status             
 ---
 
 
+{% raw %}
 ```c
 /*
 	다음으로 큰 bin부터 시작하여 bin을 스캔하여 청크를 찾는다. 
@@ -1139,6 +1222,7 @@ for (;; ) //모든 블록 확인
 		}
 }
 ```
+{% endraw %}
 
 
 ---
@@ -1150,6 +1234,7 @@ for (;; ) //모든 블록 확인
 ---
 
 
+{% raw %}
 ```c
 use_top:
       /*
@@ -1167,12 +1252,14 @@ use_top:
       victim = av->top; //vicim은 top청크를 가리킴
       size = chunksize (victim); //사이즈를 가져온다
 ```
+{% endraw %}
 
 
 **top 청크의 크기가 요청 사이즈에 최소 사이즈를 더한 것 보다 크거나 같을 경우**
 
 - 구현 코드
 
+{% raw %}
 ```c
 if ((unsigned long) (size) >= (unsigned long) (nb + MINSIZE)) //청크 사이즈가 최소사이즈를 더한 거보다 클 경우
 {
@@ -1191,9 +1278,11 @@ if ((unsigned long) (size) >= (unsigned long) (nb + MINSIZE)) //청크 사이즈
 		return p;
 }
 ```
+{% endraw %}
 
 - 실습
 
+{% raw %}
 ```c
 #include <stdio.h>
 #include <malloc.h>
@@ -1207,8 +1296,10 @@ void main()
 		free(ptr2);
 }
 ```
+{% endraw %}
 
 
+{% raw %}
 ```bash
 gdb-peda$ heapinfo
 (0x20)     fastbin[0]: 0x0
@@ -1225,8 +1316,10 @@ gdb-peda$ heapinfo
        last_remainder: 0x0 (size : 0x0)
             unsortbin: 0x0
 ```
+{% endraw %}
 
 
+{% raw %}
 ```bash
 gdb-peda$ heapinfo
 (0x20)     fastbin[0]: 0x0
@@ -1246,12 +1339,14 @@ gdb-peda$ parseheap
 addr                prev                size                 status              fd                bk
 0x622000            0x0                 0x1ffc0              Used                None              None
 ```
+{% endraw %}
 
 
 **위의 조건에 해당하지 않고 해당 bin에 fast 청크가 존재하는 경우**
 
 - 구현 코드
 
+{% raw %}
 ```c
 /* When we are using atomic ops to free fast chunks we can get
    here for all block sizes.  
@@ -1267,9 +1362,11 @@ else if (have_fastchunks (av))
 		     idx = largebin_index (nb);
 }
 ```
+{% endraw %}
 
 - 실습
 
+{% raw %}
 ```c
 #include <stdio.h>
 #include <malloc.h>
@@ -1290,8 +1387,10 @@ void main()
 
 }
 ```
+{% endraw %}
 
 
+{% raw %}
 ```bash
 gdb-peda$ heapinfo
 (0x20)     fastbin[0]: 0x2064020 --> 0x2064000 --> 0x0
@@ -1308,8 +1407,10 @@ gdb-peda$ heapinfo
        last_remainder: 0x0 (size : 0x0)
             unsortbin: 0x0
 ```
+{% endraw %}
 
 
+{% raw %}
 ```bash
 gdb-peda$ heapinfo
 (0x20)     fastbin[0]: 0x0
@@ -1326,12 +1427,14 @@ gdb-peda$ heapinfo
        last_remainder: 0x0 (size : 0x0)
             unsortbin: 0x0
 ```
+{% endraw %}
 
 
 **위 두 조건에 모두 부합되지 않을 경우**
 
 - 구현 코드
 
+{% raw %}
 ```c
 /*
 	Otherwise, relay to handle system-dependent cases
@@ -1344,9 +1447,11 @@ gdb-peda$ heapinfo
           return p;
         }
 ```
+{% endraw %}
 
 - 실습
 
+{% raw %}
 ```c
 #include <stdio.h>
 #include <malloc.h>
@@ -1360,8 +1465,10 @@ void main()
                 free(ptr1);
 }
 ```
+{% endraw %}
 
 
+{% raw %}
 ```bash
 gdb-peda$ heapinfo
 (0x20)     fastbin[0]: 0x0
@@ -1378,8 +1485,10 @@ gdb-peda$ heapinfo
        last_remainder: 0x0 (size : 0x0)
             unsortbin: 0x0
 ```
+{% endraw %}
 
 
+{% raw %}
 ```bash
 (0x20)     fastbin[0]: 0x0
 (0x30)     fastbin[1]: 0x0
@@ -1398,6 +1507,7 @@ gdb-peda$ parseheap
 addr                prev                size                 status              fd                bk
 0x239d000           0x0                 0x20                 Used                None              Nones
 ```
+{% endraw %}
 
 
 ## __libc_free
@@ -1406,6 +1516,7 @@ addr                prev                size                 status             
 ---
 
 
+{% raw %}
 ```c
 void __libc_free (void *mem)
 {
@@ -1442,6 +1553,7 @@ void __libc_free (void *mem)
 		_int_free (ar_ptr, p, 0);
 }
 ```
+{% endraw %}
 
 
 ## _int_free
@@ -1450,6 +1562,7 @@ void __libc_free (void *mem)
 ---
 
 
+{% raw %}
 ```c
 static void _int_free (mstate av, mchunkptr p, int have_lock)
 {
@@ -1763,4 +1876,5 @@ static void _int_free (mstate av, mchunkptr p, int have_lock)
   }
 }
 ```
+{% endraw %}
 

