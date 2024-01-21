@@ -11,6 +11,13 @@ const notion = new Client({
   auth: process.env.NOTION_TOKEN,
 });
 
+function escapeCodeBlock(body) {
+  const regex = /```([\s\S]*?)```/g
+  return body.replace(regex, function(match, htmlBlock) {
+    return "{% raw %}\n```" + htmlBlock + "```\n{% endraw %}"
+  })
+}
+
 // passing notion client to the option
 const n2m = new NotionToMarkdown({ notionClient: notion });
 
@@ -89,7 +96,8 @@ title: "${title}"${fmtags}${fmcats}
 
 `;
     const mdblocks = await n2m.pageToMarkdown(id);
-    const md = n2m.toMarkdownString(mdblocks)["parent"];
+    let md = n2m.toMarkdownString(mdblocks)["parent"];
+    md = escapeCodeBlock(md);
 
     const ftitle = `${date}-${title.replaceAll(" ", "-")}.md`;
 
