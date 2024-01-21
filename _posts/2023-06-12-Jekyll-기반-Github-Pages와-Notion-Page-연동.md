@@ -133,6 +133,17 @@ const notion = new Client({
   auth: process.env.NOTION_TOKEN,
 });
 
+function escapeCodeBlock(body) {
+  const regex = /```
+{% endraw %}([\s\S]*?){% raw %}
+```/g
+  return body.replace(regex, function(match, htmlBlock) {
+    return "{% raw %}\n```
+{% endraw %}" + htmlBlock + "{% raw %}
+```\n{% endraw %}"
+  })
+}
+
 // passing notion client to the option
 const n2m = new NotionToMarkdown({ notionClient: notion });
 
@@ -211,7 +222,8 @@ title: "${title}"${fmtags}${fmcats}
 
 `;
     const mdblocks = await n2m.pageToMarkdown(id);
-    const md = n2m.toMarkdownString(mdblocks)["parent"];
+    let md = n2m.toMarkdownString(mdblocks)["parent"];
+    md = escapeCodeBlock(md);
 
     const ftitle = `${date}-${title.replaceAll(" ", "-")}.md`;
 
@@ -242,7 +254,8 @@ title: "${title}"${fmtags}${fmcats}
         if (p1 === "") res = "";
         else res = `_${p1}_`;
 
-        return `![${index++}]` + `(/${filename})` + `${res}`;
+        return `![4](/assets/img/2023-06-12-Jekyll-기반-Github-Pages와-Notion-Page-연동.md/4.png)_${index++}_${res}`;
+      }
     );
 
     //writing to file
@@ -328,7 +341,7 @@ jobs:
           done
           rm -rf _posts/*
       
-      - uses: actions/setup-node@v2
+      - uses: actions/setup-node@v3
         with:
           node-version: "17"
 
@@ -543,7 +556,7 @@ Notion은 페이지를 임베딩 시킬 수 있으므로 웹 페이지를 통해
 여기까지 완료되면 버튼을 통해 블로그가 업데이트 되는 것을 확인할 수 있다!
 
 
-![4](/assets/img/2023-06-12-Jekyll-기반-Github-Pages와-Notion-Page-연동.md/4.png)
+![5](/assets/img/2023-06-12-Jekyll-기반-Github-Pages와-Notion-Page-연동.md/5.png)
 
 
 ### 마무리
@@ -563,3 +576,8 @@ Actions는 항상 많이 헷갈려서 오랜 시간 삽질하게 되는거 같�
 
 블로그 구축에 있어서 궁금한 점은 코멘트에 남겨주시면 온 힘을 다해 도와드리겠습니다!
 
+
+업데이트 기록
+
+- 이미지 업로드 문제 개선
+- 코드 블럭 이슈 개선
