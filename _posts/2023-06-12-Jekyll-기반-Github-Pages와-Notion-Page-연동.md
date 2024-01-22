@@ -299,7 +299,7 @@ title: "${title}"${fmtags}${fmcats}
 다음은 workflow 파일이다.
 
 
-배포 파일은 템플릿마다 다르므로 `importer` job만 기존 배포파일에 추가해주면 된다.
+배포 파일은 템플릿마다 다르므로 약간의 수정이 필요할 수 있다.
 
 
 `.github/workflows/pages-deploy.yml`
