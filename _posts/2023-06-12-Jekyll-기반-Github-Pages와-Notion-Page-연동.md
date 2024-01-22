@@ -458,8 +458,7 @@ Notion은 페이지를 임베딩 시킬 수 있으므로 웹 페이지를 통해
 
 아래 링크에서 html 코드를 생성하고 그 아래 링크로 노션에 추가하면 된다.
 
-- [https://www.notion-tools.com/embeds/html](https://lourcode.kr/notion-tools-embeds/)
-- [https://lourcode.kr/notion-tools-embeds/](https://lourcode.kr/notion-tools-embeds/)
+- [https://lourcode.kr/notion-tools-embeds/make/html/index.html](https://lourcode.kr/notion-tools-embeds/make/html/index.html)
 
 <br>
 
