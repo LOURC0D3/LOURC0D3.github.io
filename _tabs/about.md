@@ -41,5 +41,5 @@ order: 4
         - CVE-2023-34190, N/A
         - [CVE-2023-7224](https://nvd.nist.gov/vuln/detail/CVE-2023-7224), Code Injection in OpenVPN Connect for macOS
     - Hikvision Web Components
-        - [CVE-2023-28812](https://nvd.nist.gov/vuln/detail/CVE-2023-28812), Remote Code Execution (Discovered with ENVY)
-        - [CVE-2023-28813](https://nvd.nist.gov/vuln/detail/CVE-2023-28813), Remote Code Execution (Discovered with ENVY)
+        - [CVE-2023-28812](https://nvd.nist.gov/vuln/detail/CVE-2023-28812), Remote Code Execution (Discovered with @ENVY)
+        - [CVE-2023-28813](https://nvd.nist.gov/vuln/detail/CVE-2023-28813), Remote Code Execution (Discovered with @ENVY)
