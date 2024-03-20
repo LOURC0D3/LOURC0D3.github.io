@@ -15,7 +15,7 @@ order: 4
 
 ### Education
 - Department of Computer Game Development, Korea Game Science High School
-- Department of Information Security, Soonchunhyang Univ
+- Department of Information Security, Soonchunhyang Univ.
 
 ### Experience
 - 2020.3 ~ 2020.6, Mentee, K-Shield Jr, Security incident analysis & response
