@@ -7,10 +7,8 @@ categories: [Research, bugbounty, ]
 ---
 
 
-> 본 게시글은 **Responsible Vulnerability Disclosure** 모델에 따르며, 게시글에 언급된 모든 취약점들은 제보 조치 이후 90일이 지난 취약점임을 알려드립니다.
-
-
-> This post follows the **Responsible Vulnerability Disclosure** model, and that all vulnerabilities mentioned in the post are vulnerabilities that have been reported for more than 90 days.
+> 본 게시글은 **Responsible Vulnerability Disclosure** 모델에 의해 공개되었으며, 게시글에 언급된 모든 취약점들은 제보 조치 이후 90일이 지난 취약점임을 알려드립니다.
+> This post published by **Responsible Vulnerability Disclosure** model, and that all vulnerabilities mentioned in the post are vulnerabilities that have been reported for more than 90 days.
 {: .prompt-info }
 
 
@@ -1192,7 +1190,6 @@ launchctl load com.poc.launcher.plist
 - Notion
 - Visual Studio Code
 - Discord
-- Miro
 - Figma
 
 ### 안전하지 않은 파일 다운로드
@@ -1224,13 +1221,12 @@ MacOS TCC 매커니즘은 아직까지도 다양한 방법으로 우회될 수 �
 
 
 > 이러한 기능을 해석하는 것은 여러분들의 몫입니다.
+> 그러나 이러한 기능들이 의도된 기능이라고 말하기 전에 다음과 같은 질문에 답해보세요.
+> 1. 라이브러리 검증이 Apple의 공증 프로세스의 일부가 된 이유는 무엇입니까?
+> 2. Electron 기반 앱에만 “원하는 대로 디버깅” 기능이 있고 다른 MacOS 앱에는 없는 이유가 무엇입니까?
+> 3. 때때로 이러한 기능을 통해 LPE가 발생하는 이유가 무엇입니까?
+{: .prompt-info }
 
-
-	그러나 이러한 기능들이 의도된 기능이라고 말하기 전에 다음과 같은 질문에 답해보세요.
-
-	1. 라이브러리 검증이 Apple의 공증 프로세스의 일부가 된 이유는 무엇입니까?
-	2. Electron 기반 앱에만 “원하는 대로 디버깅” 기능이 있고 다른 MacOS 앱에는 없는 이유가 무엇입니까?
-	3. 때때로 이러한 기능을 통해 LPE가 발생하는 이유가 무엇입니까?
 
 ~~_옳소 옳소!!_~~
 
