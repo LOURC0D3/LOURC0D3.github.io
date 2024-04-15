@@ -393,6 +393,9 @@ $ launchctl load com.poc.launcher.plist
 	![9](/assets/img/2024-04-15-Methodology-for-discovering-TCC-Bypass-vulnerabilities-in-3rd-party-Applications.md/9.png)
 
 
+	<br>
+
+
 	![10](/assets/img/2024-04-15-Methodology-for-discovering-TCC-Bypass-vulnerabilities-in-3rd-party-Applications.md/10.png)
 
 
