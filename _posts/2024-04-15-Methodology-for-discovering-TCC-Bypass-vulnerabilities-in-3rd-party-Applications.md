@@ -1103,8 +1103,8 @@ export in=$(ls /var/folders/n1/nc8h8x5n0_3387ttlfk_54j80000gn/T/*-in); export ou
 	```
 {% endraw %}
 
-2. Powershell 실행
-3. Exploit 코드 실행
+1. Powershell 실행
+2. Exploit 코드 실행
 
 {% raw %}
 ```bash
