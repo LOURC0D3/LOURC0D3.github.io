@@ -30,10 +30,16 @@ TCC는 데이터베이스 파일로 관리되며, 총 두개의 데이터베이�
 하나는 `/Library/Application Support/com.apple.TCC/TCC.db`에 위치한 데이터베이스로 전역적으로 TCC를 관리하기 위해 사용되며 다른 하나는 `/Users/<username>/Library/Application Support/com.apple.TCC`에 위치한 데이터베이스로 사용자별로 TCC를 관리하기 위해 사용된다.
 
 
+<br>
+
+
 위와 같은 데이터베이스 파일들은 Apple의 SIP(System Integrity Protection) 매커니즘으로 보호되며 root 권한을 가지더라도 SIP로 보호되는 파일을 수정할 수 없다.
 
 
 다만 TCC의 접근 권한 중 `Full Disk Access` 권한을 통해 수정할 수 있다.
+
+
+<br>
 
 
 TCC는 애플리케이션이 가지고 있는 코드 서명을 기반으로 검사된다.
@@ -42,12 +48,21 @@ TCC는 애플리케이션이 가지고 있는 코드 서명을 기반으로 검�
 즉, 코드 서명별로 가지고 있는 권한이 다르고 서명이 다른 애플리케이션은 어떠한 애플리케이션의 권한에 액세스할 수 없음을 뜻한다.
 
 
+<br>
+
+
 TCC 관련 취약점을 찾는 것은 다음과 같은 전제 조건이 필요하다.
 
 - root 권한을 소유한 공격자라도 Mac 소유자 동의 없이는 마음대로 TCC 권한을 사용할 수 없다.
 - 따라서 어떠한 방법으로던 공격자가 임의의 TCC 권한을 사용할 수 있는 경우에는 취약점이라고 판단한다.
 
+<br>
+
+
 본 글에서는 3rd-party 애플리케이션에서 논리적인 취약점을 이용하여 TCC 권한을 탈취 및 남용하는 방법을 연구한 내용에 대해 기술한다.
+
+
+<br>
 
 
 약 한 달 남짓한 기간 동안 발견한 총 취약점 및 상태는 다음과 같다.
@@ -93,7 +108,13 @@ Runtime Flags는 런타임시에 Apple이 정의한 보호 기법에 대한 사�
 이 중 Hardend Runtime Flag는 코드 삽입, DYLIB Hijacking, 프로세스 메모리 공간 변조 등과 같은 유형의 공격을 탐지 및 방지해주며 런타임시에 애플리케이션의 무결성을 보호해준다.
 
 
+<br>
+
+
 Apple은 Hardened Runtime Flag가 존재하지 않으면 공증(Notarizing)을 해주지 않으며, 이는 App Store에 앱을 등록할 수 없음을 의미한다.
+
+
+<br>
 
 
 Runtime Flags는 Apple이 제공해주는 도구 중 하나인 codesign을 이용하여 확인할 수 있다.
@@ -105,10 +126,16 @@ Runtime Flags는 Apple이 제공해주는 도구 중 하나인 codesign을 이�
 위 그림에서 runtime이라고 적혀 있는 것이 Hardend Runtime이 적용되었다는 것을 의미한다.
 
 
+<br>
+
+
 따라서 여기서는 Runtime Flags가 아무것도 적용되어 있지 않은 애플리케이션을 대상으로 TCC 권한을 남용하는 예를 보여준다.
 
 
 해당 예는 Magnet이라는 애플리케이션에서 발견되어 CVE-2023-34190으로 등록된 취약점이다.
+
+
+<br>
 
 
 codesign을 이용하여 Flags를 확인한 결과는 다음과 같다.
@@ -129,10 +156,17 @@ codesign을 이용하여 Flags를 확인한 결과는 다음과 같다.
 Linux기반 운영체제에서 `LD_PRELOAD` 환경 변수를 통해 라이브러리를 주입할 수 있는 것 처럼, MacOS 또한 `DYLIB_INSERT_LIBRARIES` 환경 변수를 통해 라이브러리를 주입시킬 수 있다.
 
 
+<br>
+
+
 주입된 라이브러리는 주입한 애플리케이션 컨텍스트 내에서 실행되므로 애플리케이션이 가진 TCC 권한을 상속 받게 된다. 
 
 
 TCC 매커니즘을 우회해야 하는 공격자 입장에서는 취약한 애플리케이션이 좋은 어택 벡터가 될 수 있다.
+
+
+<br>
+
 
 
 아래는 환경 변수를 통해 악성 라이브러리를 취약한 애플리케이션 컨텍스트에서 실행하여 손쉬운 사용 TCC 권한을 남용하는 예시를 설명한다.
@@ -211,6 +245,10 @@ Hardened Runtime을 사용하더라도 환경변수 주입을 허용하는 entit
 위의 두 entitlement를 포함한다면 사실상 Hardened Runtime이 적용되지 않은 애플리케이션과 동일하다.
 
 
+<br>
+
+
+
 아래부터는 위의 두 entitlement가 적용된 애플리케이션인 Logi Options Plus.app을 예로 들어 Exploit까지 연계하는 방법을 설명한다.
 
 
@@ -273,10 +311,17 @@ Logi Options 애플리케이션의 자식 프로세스로 임의의 프로세스
 환경 변수를 통해 라이브러리 주입할 경우 주의해야할 사항이 존재한다.
 
 
+<br>
+
+
+
 MacOS에서는 터미널을 통해 애플리케이션을 실행하면 실행되는 애플리케이션은 터미널의 샌드박스 프로필을 상속 받는다.
 
 
 따라서 환경변수를 통해 라이브러리를 주입하고 TCC로 보호되는 권한에 접근하게 되면 해당 애플리케이션이 가진 TCC 권한을 상속 받는게 아닌, 실행된 터미널의 TCC 권한을 상속 받는다.
+
+
+<br>
 
 
 예시로 터미널에서 위에서 설명한 Magnet 애플리케이션을 PoC 라이브러리와 함께 실행하면 다음 그림과 같이 터미널이 권한을 요청하게 된다.
@@ -288,6 +333,9 @@ MacOS에서는 터미널을 통해 애플리케이션을 실행하면 실행되�
 이를 우회하기 위해서는 터미널이 아닌 다른 방식으로 애플리케이션을 실행해야 한다.
 
 
+<br>
+
+
 MacOS에서는 백그라운드에서 실행할 애플리케이션을 예약 및 등록할 수 있는 LaunchAgents 매커니즘을 제공한다.
 
 
@@ -295,6 +343,9 @@ MacOS에서는 백그라운드에서 실행할 애플리케이션을 예약 및 
 
 
 Launch Agent는 `~/Library/LaunchAgents`에 존재하는 파일들을 통해 관리되며, 정의된 규칙에 따른 XML 파일을 통해 백그라운드 실행을 등록할 수 있다.
+
+
+<br>
 
 
 다음은 Launch Agent를 이용한 샌드박스 우회 방법에 대해 설명한다.
@@ -358,6 +409,9 @@ Library Proxying은 Library Hijacking이라고도 불리며 환경 변수를 통
 - `com.apple.security.cs.disable-library-validation` entitlement 존재
 - 특수 경로 기반 탐색을 통한 라이브러리 로드
 
+<br>
+
+
 다음은 Library Proxying 기법을 사용하는 방법에 대해 설명한다.
 
 
@@ -367,10 +421,16 @@ Library Proxying은 Library Hijacking이라고도 불리며 환경 변수를 통
 - 상대 경로 기반 탐색
 - 특수 경로 기반 탐색
 
+<br>
+
+
 현재 우리가 관심 있는 탐색 방법은 특수 경로 기반 탐색이다.
 
 
 macOS에서 특수 경로는 `@`로 시작되는 환경변수를 의미하며 `@rpath`, `@executable_path`, `@loader_path` 등 여러가지 실행 환경변수를 통해 라이브러리를 로드한다.
+
+
+<br>
 
 
 각 환경 변수에 대한 설명은 다음과 같다.
@@ -378,6 +438,9 @@ macOS에서 특수 경로는 `@`로 시작되는 환경변수를 의미하며 `@
 - `@rpath` : LC_RPATH를 통해 지정된 디렉터리
 - `@executable_path` : 애플리케이션의 실행파일이 위치한 디렉터리
 - `@loader_path` : 라이브러리 또는 실행파일이 위치한 디렉터리
+
+<br>
+
 
 위와 같은 특수 경로를 통해 라이브러리 로드 경로를 명시해주면 실행 파일에는 LC_LOAD_DYLIB 명령을 통해 어떻게 라이브러리가 로드될 지 결정된다.
 
@@ -388,16 +451,25 @@ macOS에서 특수 경로는 `@`로 시작되는 환경변수를 의미하며 `@
 ![12](/assets/img/2024-04-15-Methodology-for-discovering-TCC-Bypass-vulnerabilities-in-3rd-party-Applications.md/12.png)
 
 
+<br>
+
+
 앞서 말했듯 TCC 보안 매커니즘은 최후의 방어선 매커니즘으로 사용되므로 우리는 root 권한을 획득하여 SIP로 보호되는 디렉터리가 아닌 모든 디렉터리를 읽거나 쓸 수 있다고 가정한다.
 
 
 특수 경로 기반으로 라이브러리를 탐색할 때 특수 경로가 SIP로 보호되는 디렉터리가 아닌 이상 우리가 원하는 라이브러리를 로드시킬 수 있다.
 
 
+<br>
+
+
 아래부터는 Library Proxying 공격에 취약한 애플리케이션인 8x8 Work.app을 예로 들어 Exploit까지 연계하는 방법을 설명한다.
 
 
 여기서 우리는 root 권한을 획득하였다고 가정한다.
+
+
+<br>
 
 
 먼저 Entitlements는 다음과 같다.
@@ -407,6 +479,9 @@ macOS에서 특수 경로는 `@`로 시작되는 환경변수를 의미하며 `@
 
 
 Hardened Runtime이 적용되어 있으나 Library validation이 비활성화되어 있다.
+
+
+<br>
 
 
 애플리케이션의 라이브러리 링킹 관련 정의는 `otool` 명령어 또는 `MachOView` 도구를 통해 확인할 수 있다.
@@ -491,6 +566,9 @@ $ tree
 `@excutable_path`는 `MacOS/8x8 Work`이므로 `Frameworks/Electron Framework.framework`를 변조하면 된다는 것을 파악할 수 있다.
 
 
+<br>
+
+
 다만 여기서 주의해야 할 점이 있다.
 
 
@@ -498,6 +576,9 @@ $ tree
 
 
 따라서 기존 기호들을 찾을 수 있도록 임의의 라이브러리가 원본 라이브러리를 참조하도록 하는 Re-Export 기능을 사용해야 한다.
+
+
+<br>
 
 
 다음 순서는 악성 라이브러리를 Re-Export 하여 애플리케이션에 악성 라이브러리를 주입하고 정상 실행되도록 하는 방법이다.
@@ -638,6 +719,9 @@ $ install_name_tool -change "@rpath/poc.framework/Versions/A/poc" /Applications/
 ![15](/assets/img/2024-04-15-Methodology-for-discovering-TCC-Bypass-vulnerabilities-in-3rd-party-Applications.md/15.png)
 
 
+<br>
+
+
 이후에 애플리케이션이 악성 라이브러리를 로드하도록 원본 라이브러리가 위치했던 경로로 변경해준다.
 
 
@@ -726,6 +810,9 @@ Gatekeeper란 사용자가 신뢰하는 소프트웨어만이 실행될 수 있�
 또한 Info.plist의 `LSFileQuarantineEnabled` 속성을 통해 OS에게 격리 과정을 위임하는 것 또한 가능하다.
 
 
+<br>
+
+
 `.terminal` 파일은 아직 널리 알려지지 않은 파일 중 하나로 실행 이미지가 아닌 구성 프로필이다. 따라서 Excuatable 권한이 필요하지 않다.
 
 
@@ -733,6 +820,9 @@ Gatekeeper란 사용자가 신뢰하는 소프트웨어만이 실행될 수 있�
 
 
 또한 이 확장자는 서명될 수 없으나 Quarantine을 통과한 경우 서명은 문제가 되지 않는다.
+
+
+<br>
 
 
 아래는 `.terminal` 파일의 예시이다.
@@ -760,7 +850,13 @@ Gatekeeper란 사용자가 신뢰하는 소프트웨어만이 실행될 수 있�
 {% endraw %}
 
 
+<br>
+
+
 아래의 취약점은 업무 협업 도구인 JANDI에서 발견한 취약점으로 실행 구성 파일인 `.terminal` 파일을 격리하지 않아 Gatekeeper가 우회된다.
+
+
+<br>
 
 
 안전한 애플리케이션에서 다운로드한 실행 파일의 경우 다음과 같이 격리되어 Gatekeeper가 동작된다.
@@ -781,6 +877,9 @@ Apple의 `xattr` 툴을 통해 `Quarantine`의 여부를 확인할 수 있다.
 안전한 애플리케이션에서 다운로드한 파일은 위에서 설명한 `com.apple.quarantine` 속성이 존재하므로 해당 파일은 격리되며 Gatekeeper가 이 파일을 검사한다.
 
 
+<br>
+
+
 그러나 안전하지 않은 애플리케이션인 JANDI에서 다운로드한 실행 파일의 경우 다음과 같이 격리되지 않고 임의의 명령이 실행된다.
 
 
@@ -799,6 +898,9 @@ Apple의 `xattr` 툴을 통해 `Quarantine`의 여부를 확인할 수 있다.
 ![22](/assets/img/2024-04-15-Methodology-for-discovering-TCC-Bypass-vulnerabilities-in-3rd-party-Applications.md/22.png)
 
 
+<br>
+
+
 위 사례에서 보여준 것처럼 `.terminal` 파일은 잘 알려지지 않았기 때문에 파일 다운로드에 대한 필터링이 걸려있지 않은 경우가 많다.
 
 
@@ -814,10 +916,16 @@ Apple의 `xattr` 툴을 통해 `Quarantine`의 여부를 확인할 수 있다.
 따라서 이 절에서는 Library Validation이 활성화된 .NET Core 기반 애플리케이션에서 라이브러리 주입이 아닌 애플리케이션에 할당된 메모리를 직접 조작함으로써 TCC 권한을 탈취하는 방법에 대해 설명한다.
 
 
+<br>
+
+
 일반적인 애플리케이션의 경우 메모리 조작 또한 Apple의 Hardened Runtime이 활성화되어 있을 경우 차단된다.
 
 
 그러나 .NET Core 기반 애플리케이션에서는 이를 허용하는 특수한 기능이 존재한다.
+
+
+<br>
 
 
 아래 그림은 높은 권한의 Entitlement를 가진 lldb와 root 권한을 소유한 채로 프로세스 디버깅을 시도하는 것을 보여준다.
@@ -829,10 +937,16 @@ Apple의 `xattr` 툴을 통해 `Quarantine`의 여부를 확인할 수 있다.
 앞서 말했듯이 Hardened Runtime에 의해 차단된다.
 
 
+<br>
+
+
 .NET Core의 소스코드에서 `dbgtransportsession.cpp` 파일은 .NET Core 기반 애플리케이션을 디버깅하기 위해 구현된 코드가 존재한다.
 
 
 이는 Hardened Runtime에 영향을 받지 않으므로 .NET Core로 개발된 애플리케이션의 메모리 조작이 가능할 수도 있음을 뜻한다.
+
+
+<br>
 
 
 .NET Core는 `DbgTransportSession::Init` 메서드를 통해 디버그 세션을 생성하고 `TwoWayPipe::CreateServer` 메서드를 호출하여 두개의 디버그 파이프를 생성한다.
@@ -873,6 +987,9 @@ bool TwoWayPipe::CreateServer(const ProcessDescriptor& pd)
 {% endraw %}
 
 
+<br>
+
+
 여기서는 예시로 .NET Core 기반 애플리케이션인 Powershell을 실행시키고 디버그 파이프를 확인한다.
 
 
@@ -885,10 +1002,16 @@ bool TwoWayPipe::CreateServer(const ProcessDescriptor& pd)
 ![25](/assets/img/2024-04-15-Methodology-for-discovering-TCC-Bypass-vulnerabilities-in-3rd-party-Applications.md/25.png)
 
 
+<br>
+
+
 $TMPDIR은 환경 변수에서 확인할 수 있다.
 
 
 ![26](/assets/img/2024-04-15-Methodology-for-discovering-TCC-Bypass-vulnerabilities-in-3rd-party-Applications.md/26.png)
+
+
+<br>
 
 
 이후에는 해당 파이프를 통해 디버그 세션을 맺을 수 있으며, 이 구현은 .NET Core에 작성되어 있다.
@@ -897,17 +1020,29 @@ $TMPDIR은 환경 변수에서 확인할 수 있다.
 또한 .NET Core의 `MT_WriteMemory` 및 `MT_ReadMemory` 함수를 통해 디버기 프로세스의 메모리를 읽거나 쓸 수 있다.
 
 
+<br>
+
+
 아래는 `MT_WriteMemory` 함수를 통해 Powershell의 임의 메모리에 값을 쓰는 것을 보여준다.
+
+
+<br>
 
 
 디버그 파이프 연결 및 값 전송 코드 작성은 아래 링크의 코드를 참고하였다.
 
 - [https://gist.github.com/xpn/7c3040a7398808747e158a25745380a5](https://gist.github.com/xpn/7c3040a7398808747e158a25745380a5)
 
+<br>
+
+
 먼저 디버그 파이프를 통해 값을 쓰기전 메모리를 할당하였을 때 메모리에는 아무 값도 들어 있지 않다.
 
 
 ![27](/assets/img/2024-04-15-Methodology-for-discovering-TCC-Bypass-vulnerabilities-in-3rd-party-Applications.md/27.png)
+
+
+<br>
 
 
 다음과 같이 디버그 파이프에 연결하여 위에 출력된 메모리에 임의의 값을 작성한다.
@@ -920,10 +1055,16 @@ export in=$(ls /var/folders/n1/nc8h8x5n0_3387ttlfk_54j80000gn/T/*-in); export ou
 {% endraw %}
 
 
+<br>
+
+
 임의의 값이 위에서 출력된 메모리에 성공적으로 쓰여졌다.
 
 
 ![28](/assets/img/2024-04-15-Methodology-for-discovering-TCC-Bypass-vulnerabilities-in-3rd-party-Applications.md/28.png)
+
+
+<br>
 
 
 임의의 위치에 원하는 값을 쓸 수 있으므로 우리는 쓰기 권한 및 실행 권한이 있는 페이지에 쉘코드를 위치시킬 것이다.
@@ -938,6 +1079,9 @@ export in=$(ls /var/folders/n1/nc8h8x5n0_3387ttlfk_54j80000gn/T/*-in); export ou
 해당 테이블에서 임의의 함수 포인터를 쉘코드 위치로 조작하여 원하는 명령을 실행시킬 수 있다.
 
 
+<br>
+
+
 다음은 Powershell의 메모리에 쉘코드를 주입하여 임의의 명령을 실행하는 것을 보여준다.
 
 1. 쉘코드 주입 및 실행 코드 작성
@@ -945,6 +1089,9 @@ export in=$(ls /var/folders/n1/nc8h8x5n0_3387ttlfk_54j80000gn/T/*-in); export ou
 	아래 링크의 코드를 참조하였다.
 
 	- [https://gist.github.com/xpn/ce5e085b0c69d27e6538179e46bcab3c](https://gist.github.com/xpn/ce5e085b0c69d27e6538179e46bcab3c)
+
+	<br>
+
 
 	쉘코드를 다음과 같이 변경해주었다.
 
@@ -975,6 +1122,9 @@ export in=$(ls /var/folders/n1/nc8h8x5n0_3387ttlfk_54j80000gn/T/*-in); export ou
 Powershell 컨텍스트에서 계산기가 실행되었으며, 이는 해당 애플리케이션이 가진 모든 TCC 권한을 탈취할 수 있음을 의미한다.
 
 
+<br>
+
+
 .NET Core를 기반으로 개발된 애플리케이션에서 취약점을 찾고자 할 때 $TMPDIR에 디버그 파이프가 생성되는지 확인해보면 좋다.
 
 
@@ -985,6 +1135,9 @@ Electron 기반 애플리케이션의 경우 Electron이 기본적으로 제공�
 
 
 이들은 기본적으로 활성화되어 있으며, JIT를 통해 실행되므로 Library Validation이 활성화되어 있더라도 이에 대한 영향을 받지 않는다.
+
+
+<br>
 
 
 아래의 두가지는 Electron 기반 애플리케이션에서 TCC 권한을 남용할 수 있는 사례를 설명한다.
@@ -1002,10 +1155,16 @@ Electron 기반 애플리케이션들은 Chromium을 이용한 Web App으로 동
 개발자 도구에서는 임의의 NodeJS 명령을 실행시킬 수 있으므로 앱 컨텍스트 내에 존재하는 모든 TCC 권한을 남용할 수 있다.
 
 
+<br>
+
+
 디버그 모드는 `--inspect` 옵션을 통해 활성화할 수 있으며 지정된 포트를 통해 개발자 도구를 사용할 수 있다.
 
 
 아래의 예시는 Electron을 사용하는 Discord에서 디버그 모드를 활성화하고 임의의 NodeJS 명령을 실행하는 것을 보여준다.
+
+
+<br>
 
 
 먼저 Discord의 Entitlement는 다음과 같다.
@@ -1085,7 +1244,13 @@ Electron 기반 애플리케이션은 디버그 모드로 실행시키는 것외
 `ELECTRON_RUN_AS_NODE` 환경 변수는 애플리케이션을 NodeJS REPL로 변환해주는 환경 변수로 우리는 이를 통해 NodeJS 콘솔을 얻고 임의의 명령을 실행할 수 있다.
 
 
+<br>
+
+
 아래의 예시는 Electron 기반 앱인 Visual Studio Code에서 `ELECTRON_RUN_AS_NODE` 환경 변수를 통해 임의의 NodeJS 명령을 실행하는 것을 보여준다.
+
+
+<br>
 
 
 Visual Studio Code의 Entitlement는 다음과 같다.
@@ -1095,6 +1260,9 @@ Visual Studio Code의 Entitlement는 다음과 같다.
 
 
 Visual Studio Code 또한 JIT를 제외하면 런타임 내의 프로세스 주입의 모든 방법이 불가능하다.
+
+
+<br>
 
 1. NodeJS 모드로 실행
 
@@ -1206,6 +1374,9 @@ MacOS TCC 매커니즘은 아직까지도 다양한 방법으로 우회될 수 �
 
 
 따라서 OS 보안 미티게이션 구현을 원하지 않는 것 같다.
+
+
+<br>
 
 
 또한 Electron 기반 애플리케이션들 대다수가 TCC 우회가 가능하다고 해도 과언이 아니다. 
