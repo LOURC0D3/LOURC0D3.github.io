@@ -7,12 +7,9 @@ categories: [Research, bugbounty, ]
 ---
 
 
-> 본 게시글은 **Responsible Vulnerability Disclosure** 모델에 의해 공개되었으며, 게시글에 언급된 모든 취약점들은 제보 조치 이후 90일이 지난 취약점임을 알려드립니다.
+> 본 게시글은 **Responsible Vulnerability Disclosure** 모델에 의해 공개되었으며, 게시글에 언급된 모든 취약점들은 제보 조치 이후 90일이 지난 취약점임을 알려드립니다.<br>
 > This post published by **Responsible Vulnerability Disclosure** model, and that all vulnerabilities mentioned in the post are vulnerabilities that have been reported for more than 90 days.
 {: .prompt-info }
-
-
-# Table of contents
 
 
 # Introduction
