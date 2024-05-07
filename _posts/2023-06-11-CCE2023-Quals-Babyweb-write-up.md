@@ -25,6 +25,7 @@ categories: [CTF, CCE2023, ]
     }
 ?>
 
+
 ```
 {% endraw %}
 
@@ -55,6 +56,7 @@ php_admin_value[memory_limit] = 32M
 php_admin_value[max_execution_time] = 10s
 php_admin_value[opcache.enable] = 0
 request_terminate_timeout = 15s
+
 
 ```
 {% endraw %}
@@ -100,6 +102,7 @@ read.start()
 
 write = threading.Thread(target=write_session)
 write.start()
+
 ```
 {% endraw %}
 

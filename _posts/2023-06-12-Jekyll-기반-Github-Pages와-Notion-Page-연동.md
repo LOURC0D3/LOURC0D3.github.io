@@ -143,6 +143,7 @@ Key명은 다음과 같이 설정한다.
         "axios": "^1.4.0"
     }
 }
+
 ```
 {% endraw %}
 
@@ -265,6 +266,7 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v1
+
 ```
 {% endraw %}
 
@@ -399,6 +401,7 @@ Notion은 페이지를 임베딩 시킬 수 있으므로 웹 페이지를 통해
 </script>
 </body>
 </html>
+
 ```
 {% endraw %}
 

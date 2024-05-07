@@ -51,6 +51,7 @@ void* __libc_malloc (size_t bytes)
 
   return victim; //할당된 청크를 가리키는 포인터 반환
 }
+
 ```
 {% endraw %}
 
@@ -107,6 +108,7 @@ static void* _int_malloc (mstate av, size_t bytes)
 					alloc_perturb (p, bytes);
       return p;
     }
+
 ```
 {% endraw %}
 
@@ -151,6 +153,7 @@ if ((unsigned long) (nb) <= (unsigned long) (get_max_fast ()))
 				return p;
     }
 }
+
 ```
 {% endraw %}
 
@@ -179,6 +182,7 @@ void main()
 		char* ptr5 = malloc(0x10);
 		free(ptr5);
 }
+
 ```
 {% endraw %}
 
@@ -201,6 +205,7 @@ gdb-peda$ heapinfo
                   top: 0xfcc0b0 (size : 0x20f50)
        last_remainder: 0x0 (size : 0x0)
             unsortbin: 0x0
+
 ```
 {% endraw %}
 
@@ -229,6 +234,7 @@ addr                prev                size                 status             
 0x1c34020           0x0                 0x20                 Used                None              None
 0x1c34040           0x0                 0x30                 Freed                0x0              None
 0x1c34070           0x0                 0x40                 Freed                0x0              None
+
 ```
 {% endraw %}
 
@@ -274,6 +280,7 @@ if (in_smallbin_range (nb)) //요청 사이즈가 small bin 범위에 속할 경
 				}
 		}
 }
+
 ```
 {% endraw %}
 
@@ -300,6 +307,7 @@ void main()
 
 		free(ptr4);
 }
+
 ```
 {% endraw %}
 
@@ -323,6 +331,7 @@ gdb-peda$ heapinfo
        last_remainder: 0x0 (size : 0x0)
             unsortbin: 0x0
 (0x200)  smallbin[30]: 0x15a8000
+
 ```
 {% endraw %}
 
@@ -348,6 +357,7 @@ gdb-peda$ heapinfo
 gdb-peda$ parseheap
 addr                prev                size                 status              fd                bk
 0x15a8000           0x0                 0x200                Used                None              None
+
 ```
 {% endraw %}
 
@@ -369,6 +379,7 @@ addr                prev                size                 status             
       if (have_fastchunks (av)) //fast bin에 free된 청크가 존재할 경우
         malloc_consolidate (av); //fast bin을 병합하여 사용한다
     }
+
 ```
 {% endraw %}
 
@@ -395,6 +406,7 @@ void main()
 
     char* ptr5 = malloc(1024);
 }
+
 ```
 {% endraw %}
 
@@ -413,6 +425,7 @@ Chunk(addr=0x1c3a050, size=0x20, flags=PREV_INUSE)
 Chunk(addr=0x1c3a070, size=0x30, flags=PREV_INUSE)
     [0x0000000001c3a070     00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00    ................]
 Chunk(addr=0x1c3a0a0, size=0x20f70, flags=PREV_INUSE)  ←  top chunk
+
 ```
 {% endraw %}
 
@@ -425,6 +438,7 @@ gef➤  heap chunks
 Chunk(addr=0x1c3a010, size=0x410, flags=PREV_INUSE)
     [0x0000000001c3a010     78 1b b2 80 9d 7f 00 00 78 1b b2 80 9d 7f 00 00    x.......x.......]
 Chunk(addr=0x1c3a420, size=0x20bf0, flags=PREV_INUSE)  ←  top chunk
+
 ```
 {% endraw %}
 
@@ -454,6 +468,7 @@ for (;;) //리턴될 때까지 반복 (unsorted bin내 청크 모두 확인)
 					     malloc_printerr (check_action, "malloc(): memory corruption", 
 	               chunk2mem (victim), av); //오류 발생
 			  size = chunksize (victim); //현재 청크의 크기
+
 ```
 {% endraw %}
 
@@ -502,6 +517,7 @@ if (in_smallbin_range (nb) && //small bin 범위에 속할 경우
               alloc_perturb (p, bytes); //메모리 초기화
               return p; //메모리 반환
             }
+
 ```
 {% endraw %}
 
@@ -526,6 +542,7 @@ void main()
     
     free(ptr2);
 }
+
 ```
 {% endraw %}
 
@@ -548,6 +565,7 @@ gdb-peda$ heapinfo
                   top: 0x72f400 (size : 0x20c00)
        last_remainder: 0x0 (size : 0x0)
             unsortbin: 0x72f000 (size : 0x200)
+
 ```
 {% endraw %}
 
@@ -570,6 +588,7 @@ gdb-peda$ heapinfo
                   top: 0x72f400 (size : 0x20c00)
        last_remainder: 0x72f1a0 (size : 0x60)
             unsortbin: 0x72f1a0 (size : 0x60)
+
 ```
 {% endraw %}
 
@@ -584,6 +603,7 @@ gdb-peda$ heapinfo
 //unsorted list에서 victim 삭제
 unsorted_chunks (av)->bk = bck; //unsorted 청크의 bk에 victim의 bk 저장
 bck->fd = unsorted_chunks (av); //victim의 bk의 fd에 unsorted 청크 저장
+
 ```
 {% endraw %}
 
@@ -610,6 +630,7 @@ if (size == nb) //unsorted 청크가 요청 사이즈와 동일할 경우
     alloc_perturb (p, bytes); //메모리 초기화
     return p; //메모리 반환
 }
+
 ```
 {% endraw %}
 
@@ -633,6 +654,7 @@ void main()
 
     free(ptr2);
 }
+
 ```
 {% endraw %}
 
@@ -655,6 +677,7 @@ gdb-peda$ heapinfo
                   top: 0x257e400 (size : 0x20c00)
        last_remainder: 0x0 (size : 0x0)
             unsortbin: 0x257e000 (size : 0x200)
+
 ```
 {% endraw %}
 
@@ -680,6 +703,7 @@ gdb-peda$ heapinfo
 gdb-peda$ parseheap
 addr                prev                size                 status              fd                bk
 0x257e000           0x0                 0x200                Used                None              None
+
 ```
 {% endraw %}
 
@@ -704,6 +728,7 @@ if (in_smallbin_range (size)) //해당 unsorted 청크가 small bin 범위에 �
     bck = bin_at (av, victim_index); //bck = 해당 인덱스의 주소
     fwd = bck->fd; //가장 앞 청크
 }
+
 ```
 {% endraw %}
 
@@ -719,6 +744,7 @@ victim->bk = bck; //현재 청크의 bk를 bck로 변경
 victim->fd = fwd; //현재 청크의 fd를 fwd로 변경
 fwd->bk = victim; //fwd의 bk를 현재 청크로 변경
 bck->fd = victim; //bck의 fd를 현재 청크로 변경
+
 ```
 {% endraw %}
 
@@ -742,6 +768,7 @@ void main()
 
     free(ptr2);
 }
+
 ```
 {% endraw %}
 
@@ -764,6 +791,7 @@ gdb-peda$ heapinfo
                   top: 0x24d3400 (size : 0x20c00)
        last_remainder: 0x0 (size : 0x0)
             unsortbin: 0x24d3000 (size : 0x200)
+
 ```
 {% endraw %}
 
@@ -787,6 +815,7 @@ gdb-peda$ heapinfo
        last_remainder: 0x0 (size : 0x0)
             unsortbin: 0x0
 (0x200)  smallbin[30]: 0x24d3000
+
 ```
 {% endraw %}
 
@@ -861,6 +890,7 @@ victim->bk = bck; //현재 청크의 bk를 bck로 변경
 victim->fd = fwd; //현재 청크의 fd를 fwd로 변경
 fwd->bk = victim; //fwd의 bk를 현재 청크로 변경
 bck->fd = victim; //bck의 fd를 현재 청크로 변경
+
 ```
 {% endraw %}
 
@@ -884,6 +914,7 @@ void main()
 
     free(ptr2);
 }
+
 ```
 {% endraw %}
 
@@ -906,6 +937,7 @@ gdb-peda$ heapinfo
                   top: 0x2471820 (size : 0x207e0)
        last_remainder: 0x0 (size : 0x0)
             unsortbin: 0x2471000 (size : 0x410)
+
 ```
 {% endraw %}
 
@@ -929,6 +961,7 @@ gdb-peda$ heapinfo
        last_remainder: 0x0 (size : 0x0)
             unsortbin: 0x0
          largebin[ 0]: 0x2471000 (size : 0x410)
+
 ```
 {% endraw %}
 
@@ -944,6 +977,7 @@ gdb-peda$ heapinfo
 #define MAX_ITERS       10000
 		if (++iters >= MAX_ITERS)
 		    break;
+
 ```
 {% endraw %}
 
@@ -1026,6 +1060,7 @@ if (!in_smallbin_range (nb)) //요청 사이즈 small bin 범위에 속하지 �
           return p; //포인터 반환
 		}
 }
+
 ```
 {% endraw %}
 
@@ -1055,6 +1090,7 @@ void main()
 
     free(ptr2);
 }
+
 ```
 {% endraw %}
 
@@ -1078,6 +1114,7 @@ gdb-peda$ heapinfo
        last_remainder: 0x0 (size : 0x0)
             unsortbin: 0x0
          largebin[ 0]: 0x1d94000 (size : 0x410)
+
 ```
 {% endraw %}
 
@@ -1103,6 +1140,7 @@ gdb-peda$ heapinfo
 gdb-peda$ parseheap
 addr                prev                size                 status              fd                bk
 0x1d94000           0x0                 0x410                Used                None              None
+
 ```
 {% endraw %}
 
@@ -1130,6 +1168,7 @@ void main()
 
     free(ptr2);
 }
+
 ```
 {% endraw %}
 
@@ -1153,6 +1192,7 @@ gdb-peda$ heapinfo
        last_remainder: 0x0 (size : 0x0)
             unsortbin: 0x0
          largebin[ 0]: 0xdf4000 (size : 0x410)
+
 ```
 {% endraw %}
 
@@ -1178,6 +1218,7 @@ gdb-peda$ heapinfo
 gdb-peda$ parseheap
 addr                prev                size                 status              fd                bk
 0xdf4000            0x0                 0x3f0                Used                None              None
+
 ```
 {% endraw %}
 
@@ -1304,6 +1345,7 @@ for (;; ) //모든 블록 확인
           return p; //포인터 반환
 		}
 }
+
 ```
 {% endraw %}
 
@@ -1336,6 +1378,7 @@ use_top:
 
       victim = av->top; //vicim은 top청크를 가리킴
       size = chunksize (victim); //사이즈를 가져온다
+
 ```
 {% endraw %}
 
@@ -1364,6 +1407,7 @@ if ((unsigned long) (size) >= (unsigned long) (nb + MINSIZE)) //청크 사이즈
     
 		return p;
 }
+
 ```
 {% endraw %}
 
@@ -1384,6 +1428,7 @@ void main()
 		char* ptr2 = malloc(131000);
 		free(ptr2);
 }
+
 ```
 {% endraw %}
 
@@ -1406,6 +1451,7 @@ gdb-peda$ heapinfo
                   top: 0x622000 (size : 0x21000)
        last_remainder: 0x0 (size : 0x0)
             unsortbin: 0x0
+
 ```
 {% endraw %}
 
@@ -1431,6 +1477,7 @@ gdb-peda$ heapinfo
 gdb-peda$ parseheap
 addr                prev                size                 status              fd                bk
 0x622000            0x0                 0x1ffc0              Used                None              None
+
 ```
 {% endraw %}
 
@@ -1456,6 +1503,7 @@ else if (have_fastchunks (av))
      else
 		     idx = largebin_index (nb);
 }
+
 ```
 {% endraw %}
 
@@ -1483,6 +1531,7 @@ void main()
 		free(ptr5);
 
 }
+
 ```
 {% endraw %}
 
@@ -1505,6 +1554,7 @@ gdb-peda$ heapinfo
                   top: 0x20640b0 (size : 0x20f50)
        last_remainder: 0x0 (size : 0x0)
             unsortbin: 0x0
+
 ```
 {% endraw %}
 
@@ -1527,6 +1577,7 @@ gdb-peda$ heapinfo
                   top: 0x2064000 (size : 0x21000)
        last_remainder: 0x0 (size : 0x0)
             unsortbin: 0x0
+
 ```
 {% endraw %}
 
@@ -1549,6 +1600,7 @@ gdb-peda$ heapinfo
             alloc_perturb (p, bytes);
           return p;
         }
+
 ```
 {% endraw %}
 
@@ -1569,6 +1621,7 @@ void main()
                 free(ptr2);
                 free(ptr1);
 }
+
 ```
 {% endraw %}
 
@@ -1591,6 +1644,7 @@ gdb-peda$ heapinfo
                   top: 0x239d020 (size : 0x20fe0)
        last_remainder: 0x0 (size : 0x0)
             unsortbin: 0x0
+
 ```
 {% endraw %}
 
@@ -1615,6 +1669,7 @@ gdb-peda$ heapinfo
 gdb-peda$ parseheap
 addr                prev                size                 status              fd                bk
 0x239d000           0x0                 0x20                 Used                None              Nones
+
 ```
 {% endraw %}
 
@@ -1663,6 +1718,7 @@ void __libc_free (void *mem)
 		ar_ptr = arena_for_chunk (p); //청크가 존재하는 아레나 주소를 가져온다
 		_int_free (ar_ptr, p, 0);
 }
+
 ```
 {% endraw %}
 
@@ -1988,6 +2044,7 @@ static void _int_free (mstate av, mchunkptr p, int have_lock)
     munmap_chunk (p);
   }
 }
+
 ```
 {% endraw %}
 

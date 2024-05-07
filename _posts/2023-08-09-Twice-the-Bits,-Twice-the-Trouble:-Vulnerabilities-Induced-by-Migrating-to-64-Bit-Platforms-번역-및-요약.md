@@ -34,6 +34,7 @@ categories: [Research, Paper, ]
 int len = attacker_controlled(); // 공격자가 제어하는 값을 읽고 x에 저장, x = 0xffffffff(-1) 라고 가정
 char *buffer = malloc((unsigned) len); // len이 unsigned int(4byte)형으로 캐스팅 되므로 0xffffffff(4294967295)바이트 할당
 memcpy(buffer, src, len); //len은 size_t(8byte)로 캐스팅 되며 부호 확장으로 인해 0xffffffffffffffff(9223372036854775807)이 되므로 overflow 발생
+
 ```
 {% endraw %}
 
@@ -104,6 +105,7 @@ unsigned int x = attacker_controlled(); // 공격자가 제어하는 값을 읽�
 unsigned short y = x; // y의 크기는 x의 크기보다 작으므로 정수 잘림 발생 
 char *buffer = malloc(y); // 0xffff 바이트 할당
 memcpy(buffer, src, x); // 할당된 버퍼의 크기보다 x의 값이 더 크므로 overflow 발생
+
 ```
 {% endraw %}
 
@@ -130,6 +132,7 @@ memcpy(buffer, src, x); // 할당된 버퍼의 크기보다 x의 값이 더 크�
 unsigned int x = attacker_controlled(); // 공격자가 제어하는 값을 읽고 x에 저장, x = 0xffffffff 라고 가정
 char *buffer = malloc(x + CONST); // x + 상수 값이 정수 최대값 보다 클 경우 integer overflow 발생, CONST가 0x100일 경우 버퍼는 0xff 크기를 가짐
 memcpy(buffer, src, x); // 할당된 버퍼의 크기보다 x의 값이 더 크므로 overflow 발생
+
 ```
 {% endraw %}
 
@@ -163,6 +166,7 @@ memcpy(buffer, src, x); // 할당된 버퍼의 크기보다 x의 값이 더 크�
 short x = attacker_controlled(); // 공격자가 제어하는 값을 읽고 x에 저장, x = 0xffff(-1) 라고 가정
 char *buffer = malloc((unsigned short) x); // unsigned short 형으로 변환되어 할당, 즉 양수로 변환됨
 memcpy(buffer, src, x); // memcpy 내부의 타입 캐스팅으로 인해 x가 size_t 형으로 변환, 즉 x는 부호 확장으로 인해 0xffffffff(4294967295)으로 변환되므로 overflow 발생
+
 ```
 {% endraw %}
 
@@ -187,6 +191,7 @@ unsigned short BUF_SIZE = 10; // 위의 변수와 다른 자료형을 가지는 
 if (x >= BUF_SIZE) // BOF를 방지하기 위한 코드, 서로 다른 부호를 가진 변수를 비교하므로 해당 조건을 우회할 수 있음. BUF_SIZE가 부호 있는 자료형(signed)으로 변환된다. -> (-1 > 10) == FALSE
     return;
 memcpy(buffer, src, x); // x가 size_t로 변환되므로 양수(4294967295)로 변환되어 overflow 발생
+
 ```
 {% endraw %}
 
@@ -262,6 +267,7 @@ unsigned int len = eol - str; // 포인터 - 포인터 연산으로 문자열 �
 if (len >= MAX_LINE_SIZE) // 정수형 절단으로 인해 해당 조건을 우회할 수 있음
     return -1;
 strcpy(buf, str); // overflow 발생
+
 ```
 {% endraw %}
 
@@ -289,6 +295,7 @@ printf("x's size : %d\n", sizeof(x));
 
 printf("origin : 0x%lx\n", &origin);
 printf("x : 0x%lx\n", x);
+
 ```
 {% endraw %}
 
@@ -350,6 +357,7 @@ long len = attacker_controlled(); // 공격자가 제어하는 값을 읽고 len
 if(len > BUF_SIZE) // long형은 unsigned int형보다 크므로 규칙에 의해 부호 있는 비교가 수행되며 조건 우회 가능. 위의 표 참조
 		return;
 memcpy(buffer, src, len); // long형은 size_t형으로 캐스팅 되므로 부호 없는 정수(9223372036854775807)로 해석되면서 overflow 발생
+
 ```
 {% endraw %}
 
@@ -381,6 +389,7 @@ char *buf = malloc(len);
 for(i = 0; i < len; i++) { // len이 i보다 큰 값을 가질 수 있으므로 UINT_MAX 보다 큰 값을 가질 경우 i는 영원히 len에 도달할 수 없음(i는 정수 오버플로가 발생됨). 즉, 무한 루프 발생
 		*buf++ = get_next_byte(); // 할당된 영역보다 더 많은 영역을 읽을 수 있으므로 overflow 발생
 }
+
 ```
 {% endraw %}
 
@@ -404,6 +413,7 @@ int len = strlen(attacker_str); // 공격자가 제어하는 값의 길이를 le
 if(len >= 128) // 위의 잘못된 자료형으로 인해 len = -1 이므로 해당 조건을 우회할 수 있음 
 		return;
 memcpy(buffer, attacker_str , len); // int형(4byte)이 size_t형(8byte)으로 타입캐스팅 되면서 부호 확장 발생 및 unsigned형으로 변환됨. 즉, len = 9223372036854775807이 되므로 overflow 발생
+
 ```
 {% endraw %}
 
@@ -428,7 +438,8 @@ memcpy(buffer, attacker_str , len); // int형(4byte)이 size_t형(8byte)으로 �
 {% raw %}
 ```c
 	int snprintf(char *s, size_t n, const char *fmt, ...)
-	```
+	
+```
 {% endraw %}
 
 
@@ -445,7 +456,8 @@ memcpy(buffer, attacker_str , len); // int형(4byte)이 size_t형(8byte)으로 �
 			    done = -1;
 			    goto all_done;
 			  }
-		```
+		
+```
 {% endraw %}
 
 
@@ -470,6 +482,7 @@ int log(char *str)
     }
     return (pos += n); // 최종적으로 pos = -1이 되며 이후 로직에서 log 함수를 사용할 경우 oob가 발생될 수 있음
 }
+
 ```
 {% endraw %}
 
@@ -504,6 +517,7 @@ buf = malloc(size / 2 + 1); // (0 / 2) + 1 = 1이므로 1byte 할당
 fseek(f, 0, SEEK_SET); // 파일의 시작 위치로 이동
 for (; fscanf(f, "%02x", &i) != EOF; buf++) // 파일의 끝을 만날 때까지 buf에 파일 내용을 넣음. 여기서 buf는 실제 파일 사이즈보다 작으므로 할당된 bound를 넘어서 값을 쓸 수 있음. 즉, overflow 발생
 			*buf = i;
+
 ```
 {% endraw %}
 

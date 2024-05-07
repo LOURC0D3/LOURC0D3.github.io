@@ -259,6 +259,7 @@ PUSH EDX                             ;pProcessAttributes => NULL
 PUSH ECX                             ;pCommandLine => pointer to "cmd"
 PUSH EDX                             ;ApplicationName => NULL
 CALL EBP                             ;execute CreateProcessA
+
 ```
 {% endraw %}
 
@@ -295,6 +296,7 @@ PUSH EDI ; Save the ws2_32.dll address to use it later
 
 ; Call WSAGetLastError
 CALL EAX ; Call WSAGetLastError
+
 ```
 {% endraw %}
 
