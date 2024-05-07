@@ -12,10 +12,10 @@ const notion = new Client({
 });
 
 function escapeCodeBlock(body) {
-  const regex = /```([\s\S]*?)```/g
-  return body.replace(regex, function(match, htmlBlock) {
-    return "{% raw %}\n```" + htmlBlock + "```\n{% endraw %}"
-  })
+  const regex = /```([\s\S]*?)```/g;
+  return body.replace(regex, function (match, htmlBlock) {
+    return "\n{% raw %}\n```" + htmlBlock + "```\n{% endraw %}\n";
+  });
 }
 
 // passing notion client to the option
@@ -27,7 +27,6 @@ const n2m = new NotionToMarkdown({ notionClient: notion });
   fs.mkdirSync(root, { recursive: true });
 
   const databaseId = process.env.DATABASE_ID;
-  // TODO has_more
   const response = await notion.databases.query({
     database_id: databaseId,
     filter: {
@@ -37,8 +36,23 @@ const n2m = new NotionToMarkdown({ notionClient: notion });
       },
     },
   });
-  for (const r of response.results) {
-    // console.log(r)
+  const pages = response.results;
+  if (response.has_more) {
+    const nextCursor = response.next_cursor;
+    const nextResponse = await notion.databases.query({
+      database_id: databaseId,
+      start_cursor: nextCursor,
+      filter: {
+        property: "공개",
+        checkbox: {
+          equals: true,
+        },
+      },
+    });
+    pages.push(...nextResponse.results);
+  }
+
+  for (const r of pages) {
     const id = r.id;
     // date
     let date = moment(r.created_time).format("YYYY-MM-DD");
@@ -97,6 +111,9 @@ title: "${title}"${fmtags}${fmcats}
 `;
     const mdblocks = await n2m.pageToMarkdown(id);
     let md = n2m.toMarkdownString(mdblocks)["parent"];
+    if (md === "") {
+      continue;
+    }
     md = escapeCodeBlock(md);
 
     const ftitle = `${date}-${title.replaceAll(" ", "-")}.md`;
