@@ -19,7 +19,7 @@ function escapeCodeBlock(body) {
 }
 
 function makeMarkdownTitle(body) {
-    return body.replaceAll("\n#", "\n##");
+    return body.replaceAll("\n\n# ", "\n\n## ");
 }
 
 // passing notion client to the option
