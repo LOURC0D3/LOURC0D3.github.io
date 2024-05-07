@@ -120,8 +120,8 @@ title: "${title}"${fmtags}${fmcats}
     if (md === "") {
       continue;
     }
+    console.log(md);
     md = escapeCodeBlock(md);
-      console.log(md);
     md = makeMarkdownTitle(md);
 
     const ftitle = `${date}-${title.replaceAll(" ", "-")}.md`;
