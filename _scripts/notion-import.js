@@ -109,6 +109,7 @@ title: "${title}"${fmtags}${fmcats}
 ---
 
 `;
+    console.log(title);
     const mdblocks = await n2m.pageToMarkdown(id);
     let md = n2m.toMarkdownString(mdblocks)["parent"];
     if (md === "") {
