@@ -7,7 +7,7 @@ categories: [CTF, YISF2022, ]
 ---
 
 
-## 문제 파일
+### 문제 파일
 
 
 ---
@@ -19,12 +19,12 @@ categories: [CTF, YISF2022, ]
 // Tic-tac-toe playing AI. Exhaustive tree-search. WTFPL
 // Matthew Steel 2009, www.www.repsilat.com
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <time.h>
-#include <fcntl.h>
-#include <string.h>
-#include <unistd.h>
+##include <stdio.h>
+##include <stdlib.h>
+##include <time.h>
+##include <fcntl.h>
+##include <string.h>
+##include <unistd.h>
 
 char flag[0x40] = {
     '\0',
@@ -224,7 +224,7 @@ int main()
 
 
 
-## Solution
+### Solution
 
 
 ---
@@ -233,7 +233,7 @@ int main()
 
 {% raw %}
 ```python
-#TTT.py
+##TTT.py
 from pwn import *
 
 board = [0,0,0,0,0,0,0,0,0]

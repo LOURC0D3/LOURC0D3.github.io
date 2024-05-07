@@ -7,7 +7,7 @@ categories: [Research, ]
 ---
 
 
-# __libc_malloc
+## __libc_malloc
 
 
 ---
@@ -56,7 +56,7 @@ void* __libc_malloc (size_t bytes)
 
 
 
-## _int_malloc
+### _int_malloc
 
 
 ---
@@ -112,7 +112,7 @@ static void* _int_malloc (mstate av, size_t bytes)
 
 
 
-### fastbin
+#### fastbin
 
 
 ---
@@ -160,8 +160,8 @@ if ((unsigned long) (nb) <= (unsigned long) (get_max_fast ()))
 
 {% raw %}
 ```c
-#include <stdio.h>
-#include <malloc.h>
+##include <stdio.h>
+##include <malloc.h>
 
 void main()
 {
@@ -234,7 +234,7 @@ addr                prev                size                 status             
 
 
 
-### small bin
+#### small bin
 
 
 ---
@@ -283,8 +283,8 @@ if (in_smallbin_range (nb)) //요청 사이즈가 small bin 범위에 속할 경
 
 {% raw %}
 ```c
-#include <stdio.h>
-#include <malloc.h>
+##include <stdio.h>
+##include <malloc.h>
 
 void main()
 {
@@ -353,7 +353,7 @@ addr                prev                size                 status             
 
 
 
-### large bin
+#### large bin
 
 
 ---
@@ -378,8 +378,8 @@ addr                prev                size                 status             
 
 {% raw %}
 ```c
-#include <stdio.h>
-#include <malloc.h>
+##include <stdio.h>
+##include <malloc.h>
 
 void main()
 {
@@ -430,7 +430,7 @@ Chunk(addr=0x1c3a420, size=0x20bf0, flags=PREV_INUSE)  ←  top chunk
 
 
 
-## unsorted bin
+### unsorted bin
 
 
 ---
@@ -459,7 +459,7 @@ for (;;) //리턴될 때까지 반복 (unsorted bin내 청크 모두 확인)
 
 
 
-### unsorted bin - last remainder
+#### unsorted bin - last remainder
 
 
 ---
@@ -511,8 +511,8 @@ if (in_smallbin_range (nb) && //small bin 범위에 속할 경우
 
 {% raw %}
 ```c
-#include <stdio.h>
-#include <malloc.h>
+##include <stdio.h>
+##include <malloc.h>
 
 void main()
 {
@@ -589,7 +589,7 @@ bck->fd = unsorted_chunks (av); //victim의 bk의 fd에 unsorted 청크 저장
 
 
 
-### unsorted bin - 청크 재사용
+#### unsorted bin - 청크 재사용
 
 
 ---
@@ -619,8 +619,8 @@ if (size == nb) //unsorted 청크가 요청 사이즈와 동일할 경우
 
 {% raw %}
 ```c
-#include <stdio.h>
-#include <malloc.h>
+##include <stdio.h>
+##include <malloc.h>
 
 void main()
 {
@@ -685,7 +685,7 @@ addr                prev                size                 status             
 
 
 
-### unsorted bin - 청크 이동
+#### unsorted bin - 청크 이동
 
 
 ---
@@ -728,8 +728,8 @@ bck->fd = victim; //bck의 fd를 현재 청크로 변경
 
 {% raw %}
 ```c
-#include <stdio.h>
-#include <malloc.h>
+##include <stdio.h>
+##include <malloc.h>
 
 void main()
 {
@@ -870,8 +870,8 @@ bck->fd = victim; //bck의 fd를 현재 청크로 변경
 
 {% raw %}
 ```c
-#include <stdio.h>
-#include <malloc.h>
+##include <stdio.h>
+##include <malloc.h>
 
 void main()
 {
@@ -941,7 +941,7 @@ gdb-peda$ heapinfo
 {% raw %}
 ```c
 //최대 10000번까지 반복
-#define MAX_ITERS       10000
+##define MAX_ITERS       10000
 		if (++iters >= MAX_ITERS)
 		    break;
 ```
@@ -949,7 +949,7 @@ gdb-peda$ heapinfo
 
 
 
-### large bin -  청크 재사용
+#### large bin -  청크 재사용
 
 
 ---
@@ -1038,8 +1038,8 @@ if (!in_smallbin_range (nb)) //요청 사이즈 small bin 범위에 속하지 �
 
 {% raw %}
 ```c
-#include <stdio.h>
-#include <malloc.h>
+##include <stdio.h>
+##include <malloc.h>
 
 void main()
 {
@@ -1114,8 +1114,8 @@ addr                prev                size                 status             
 
 {% raw %}
 ```c
-#include <stdio.h>
-#include <malloc.h>
+##include <stdio.h>
+##include <malloc.h>
 
 void main()
 {
@@ -1186,7 +1186,7 @@ addr                prev                size                 status             
 ---
 
 
-### 더 큰 bin에서 청크 재사용
+#### 더 큰 bin에서 청크 재사용
 
 
 ---
@@ -1312,7 +1312,7 @@ for (;; ) //모든 블록 확인
 ---
 
 
-### top chunk
+#### top chunk
 
 
 ---
@@ -1373,8 +1373,8 @@ if ((unsigned long) (size) >= (unsigned long) (nb + MINSIZE)) //청크 사이즈
 
 {% raw %}
 ```c
-#include <stdio.h>
-#include <malloc.h>
+##include <stdio.h>
+##include <malloc.h>
 
 void main()
 {
@@ -1465,8 +1465,8 @@ else if (have_fastchunks (av))
 
 {% raw %}
 ```c
-#include <stdio.h>
-#include <malloc.h>
+##include <stdio.h>
+##include <malloc.h>
 
 void main()
 {
@@ -1558,8 +1558,8 @@ gdb-peda$ heapinfo
 
 {% raw %}
 ```c
-#include <stdio.h>
-#include <malloc.h>
+##include <stdio.h>
+##include <malloc.h>
 
 void main()
 {
@@ -1620,7 +1620,7 @@ addr                prev                size                 status             
 
 
 
-## __libc_free
+### __libc_free
 
 
 ---
@@ -1668,7 +1668,7 @@ void __libc_free (void *mem)
 
 
 
-## _int_free
+### _int_free
 
 
 ---
@@ -1734,7 +1734,7 @@ static void _int_free (mstate av, mchunkptr p, int have_lock)
 
   if ((unsigned long)(size) <= (unsigned long)(get_max_fast ()) //size가 fast 청크 사이즈에 속할 경우
 
-#if TRIM_FASTBINS
+##if TRIM_FASTBINS
       /*
 				If TRIM_FASTBINS set, don't place chunks
 				bordering top into fastbins
@@ -1742,7 +1742,7 @@ static void _int_free (mstate av, mchunkptr p, int have_lock)
 				TRIM_FASTBINS가 설정된 경우 top 청크의 경계에 있는 청크를 fastbins에 배치하지 않는다.
       */
       && (chunk_at_offset(p, size) != av->top)
-#endif
+##endif
       ) {
 
     if (__builtin_expect (chunk_at_offset (p, size)->size <= 2 * SIZE_SZ, 0) //bin에 넣으려는 청크가 최소 사이즈보다 작은지 확인한다
@@ -1957,11 +1957,11 @@ static void _int_free (mstate av, mchunkptr p, int have_lock)
 					malloc_consolidate(av); //병합
 
       if (av == &main_arena) { //해당 아레나가 메인 아레나인 경우
-#ifndef MORECORE_CANNOT_TRIM
+##ifndef MORECORE_CANNOT_TRIM
 	if ((unsigned long)(chunksize(av->top)) >= //top 청크가 trim의 임계값 보다 큰지 확인
 	    (unsigned long)(mp_.trim_threshold))
 	  systrim(mp_.top_pad, av); //top 청크의 사이즈를 줄인다
-#endif
+##endif
       } else { //메인 아레나가 아닐 경우
 	/* Always try heap_trim(), even if the top chunk is not
 	   large, because the corresponding heap might go away.  

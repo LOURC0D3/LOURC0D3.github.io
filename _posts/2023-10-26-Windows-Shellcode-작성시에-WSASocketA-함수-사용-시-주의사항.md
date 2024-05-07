@@ -31,7 +31,7 @@ WSAGetLastError를 통해 확인해보면 10022(WSAEINVAL) 오류라고 하는�
 필자는 쉘 코드 시작시에 `sub esp, 2`를 해줌으로써 해결하였다.
 
 
-### Reverse Connection Shellcode
+#### Reverse Connection Shellcode
 
 
 ---
@@ -264,7 +264,7 @@ CALL EBP                             ;execute CreateProcessA
 
 
 
-### 추가 : WSAGetLastError
+#### 추가 : WSAGetLastError
 
 
 ---
@@ -300,7 +300,7 @@ CALL EAX ; Call WSAGetLastError
 
 
 
-## References
+### References
 
 
 ---
