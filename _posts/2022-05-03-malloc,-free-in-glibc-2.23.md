@@ -56,7 +56,7 @@ void* __libc_malloc (size_t bytes)
 
 
 
-## _int_malloc
+### _int_malloc
 
 
 ---
@@ -112,7 +112,7 @@ static void* _int_malloc (mstate av, size_t bytes)
 
 
 
-### fastbin
+#### fastbin
 
 
 ---
@@ -234,7 +234,7 @@ addr                prev                size                 status             
 
 
 
-### small bin
+#### small bin
 
 
 ---
@@ -353,7 +353,7 @@ addr                prev                size                 status             
 
 
 
-### large bin
+#### large bin
 
 
 ---
@@ -430,7 +430,7 @@ Chunk(addr=0x1c3a420, size=0x20bf0, flags=PREV_INUSE)  ←  top chunk
 
 
 
-## unsorted bin
+### unsorted bin
 
 
 ---
@@ -459,7 +459,7 @@ for (;;) //리턴될 때까지 반복 (unsorted bin내 청크 모두 확인)
 
 
 
-### unsorted bin - last remainder
+#### unsorted bin - last remainder
 
 
 ---
@@ -589,7 +589,7 @@ bck->fd = unsorted_chunks (av); //victim의 bk의 fd에 unsorted 청크 저장
 
 
 
-### unsorted bin - 청크 재사용
+#### unsorted bin - 청크 재사용
 
 
 ---
@@ -685,7 +685,7 @@ addr                prev                size                 status             
 
 
 
-### unsorted bin - 청크 이동
+#### unsorted bin - 청크 이동
 
 
 ---
@@ -949,7 +949,7 @@ gdb-peda$ heapinfo
 
 
 
-### large bin -  청크 재사용
+#### large bin -  청크 재사용
 
 
 ---
@@ -1186,7 +1186,7 @@ addr                prev                size                 status             
 ---
 
 
-### 더 큰 bin에서 청크 재사용
+#### 더 큰 bin에서 청크 재사용
 
 
 ---
@@ -1312,7 +1312,7 @@ for (;; ) //모든 블록 확인
 ---
 
 
-### top chunk
+#### top chunk
 
 
 ---
@@ -1620,7 +1620,7 @@ addr                prev                size                 status             
 
 
 
-## __libc_free
+### __libc_free
 
 
 ---
@@ -1668,7 +1668,7 @@ void __libc_free (void *mem)
 
 
 
-## _int_free
+### _int_free
 
 
 ---
@@ -1734,7 +1734,7 @@ static void _int_free (mstate av, mchunkptr p, int have_lock)
 
   if ((unsigned long)(size) <= (unsigned long)(get_max_fast ()) //size가 fast 청크 사이즈에 속할 경우
 
-#if TRIM_FASTBINS
+##if TRIM_FASTBINS
       /*
 				If TRIM_FASTBINS set, don't place chunks
 				bordering top into fastbins
