@@ -40,7 +40,6 @@ const n2m = new NotionToMarkdown({ notionClient: notion });
       },
     },
   });
-  console.log(response.results);
 
   const pages = response.results;
   while (response.has_more) {
@@ -122,6 +121,7 @@ title: "${title}"${fmtags}${fmcats}
       continue;
     }
     md = escapeCodeBlock(md);
+      console.log(md);
     md = makeMarkdownTitle(md);
 
     const ftitle = `${date}-${title.replaceAll(" ", "-")}.md`;
