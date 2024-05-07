@@ -27,7 +27,7 @@ const n2m = new NotionToMarkdown({ notionClient: notion });
   fs.mkdirSync(root, { recursive: true });
 
   const databaseId = process.env.DATABASE_ID;
-  const response = await notion.databases.query({
+  let response = await notion.databases.query({
     database_id: databaseId,
     filter: {
       property: "공개",
@@ -36,10 +36,11 @@ const n2m = new NotionToMarkdown({ notionClient: notion });
       },
     },
   });
+
   const pages = response.results;
-  if (response.has_more) {
+  while (response.has_more) {
     const nextCursor = response.next_cursor;
-    const nextResponse = await notion.databases.query({
+    response = await notion.databases.query({
       database_id: databaseId,
       start_cursor: nextCursor,
       filter: {
@@ -49,7 +50,7 @@ const n2m = new NotionToMarkdown({ notionClient: notion });
         },
       },
     });
-    pages.push(...nextResponse.results);
+    pages.push(...response.results);
   }
 
   for (const r of pages) {
