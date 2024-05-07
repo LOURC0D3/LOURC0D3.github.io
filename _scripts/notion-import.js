@@ -18,6 +18,10 @@ function escapeCodeBlock(body) {
   });
 }
 
+function makeMarkdownTitle(body) {
+    return body.replaceAll("\n#", "\n##");
+}
+
 // passing notion client to the option
 const n2m = new NotionToMarkdown({ notionClient: notion });
 
@@ -117,6 +121,7 @@ title: "${title}"${fmtags}${fmcats}
       continue;
     }
     md = escapeCodeBlock(md);
+    md = makeMarkdownTitle(md);
 
     const ftitle = `${date}-${title.replaceAll(" ", "-")}.md`;
 
