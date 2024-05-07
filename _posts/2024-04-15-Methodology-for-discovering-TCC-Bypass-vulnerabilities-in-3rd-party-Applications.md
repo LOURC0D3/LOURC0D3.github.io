@@ -176,7 +176,7 @@ TCC 매커니즘을 우회해야 하는 공격자 입장에서는 취약한 애�
 
 
 {% raw %}
-```objective-c
+```c
 ##include <Foundation/Foundation.h>
 ##include <AppKit/AppKit.h>
 
@@ -271,7 +271,7 @@ Hardened Runtime을 사용하더라도 환경변수 주입을 허용하는 entit
 
 
 {% raw %}
-```objective-c
+```c
 ##include <Foundation/Foundation.h>
 
 __attribute__((constructor)) static void pwn() {
@@ -608,7 +608,7 @@ $ tree
 
 
 {% raw %}
-```objective-c
+```c
 ##import <Foundation/Foundation.h>
 ##import <AVFoundation/AVFoundation.h>
 
@@ -1242,7 +1242,7 @@ Starting app.
 
 
 {% raw %}
-```objective-c
+```c
 // ... (위에서 설명한 카메라 권한 남용 코드와 동일)
 
 void main(int argc, const char **argv) {
