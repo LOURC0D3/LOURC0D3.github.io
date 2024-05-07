@@ -7,7 +7,7 @@ categories: [CTF, CODEGATE2023, ]
 ---
 
 
-### 문제 분석
+## 문제 분석
 
 
 ---
@@ -18,16 +18,16 @@ categories: [CTF, CODEGATE2023, ]
 ```c
 // gcc box.c -o box -no-pie
 
-##include <stdio.h>
-##include <string.h>
-##include <stdlib.h>
-##include <stdint.h>
-##include <fcntl.h>
-##include <unistd.h>
-##include <linux/seccomp.h>
-##include <sys/prctl.h>
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+#include <stdint.h>
+#include <fcntl.h>
+#include <unistd.h>
+#include <linux/seccomp.h>
+#include <sys/prctl.h>
 
-##define FLAG_PATH "/flag"
+#define FLAG_PATH "/flag"
 
 int install_seccomp(uint8_t *filt, unsigned short len);
 void vuln();
@@ -213,7 +213,7 @@ return ALLOW
 이제 `%n`을 사용할 수 있으므로 FSB를 통해 값을 변조하면 된다.
 
 
-### 익스플로잇
+## 익스플로잇
 
 
 ---
@@ -250,7 +250,7 @@ print(res.text)
 
 
 
-### 레퍼런스
+## 레퍼런스
 
 
 ---

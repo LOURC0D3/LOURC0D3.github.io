@@ -78,7 +78,7 @@ TCC 관련 취약점을 찾는 것은 다음과 같은 전제 조건이 필요�
 | Logi Options Plus.app   | Hackerone   | Logitech   | 거절 - Duplicated        | Unknown        | Allow Env Variables                          | N/A                                                                                |
 
 undefined
-## 분석 방법
+# 분석 방법
 
 
 본 연구에서 TCC 우회 취약점을 발견하기 위해 사용한 툴들은 다음과 같다.
@@ -97,7 +97,7 @@ undefined
 아래부터는 각 케이스별로 TCC가 어떻게 우회되는지를 설명하며, 3rd-party Framework들이 가지고 있는 공통점을 이용하여 TCC를 우회하는 방법에 대해 설명한다.
 
 
-### Runtime Flags 확인
+## Runtime Flags 확인
 
 
 Runtime Flags는 런타임시에 Apple이 정의한 보호 기법에 대한 사용 여부를 나타낸다.
@@ -148,7 +148,7 @@ codesign을 이용하여 Flags를 확인한 결과는 다음과 같다.
 이는 런타임시에 모든 조작이 가능하다 것을 의미하므로 환경 변수를 통한 라이브러리 주입을 통해 TCC 권한을 남용할 수 있다.
 
 
-#### 환경 변수를 통한 라이브러리 주입
+### 환경 변수를 통한 라이브러리 주입
 
 
 Linux기반 운영체제에서 `LD_PRELOAD` 환경 변수를 통해 라이브러리를 주입할 수 있는 것 처럼, MacOS 또한 `DYLIB_INSERT_LIBRARIES` 환경 변수를 통해 라이브러리를 주입시킬 수 있다.
@@ -177,8 +177,8 @@ TCC 매커니즘을 우회해야 하는 공격자 입장에서는 취약한 애�
 
 {% raw %}
 ```c
-##include <Foundation/Foundation.h>
-##include <AppKit/AppKit.h>
+#include <Foundation/Foundation.h>
+#include <AppKit/AppKit.h>
 
 __attribute__((constructor)) static void pwn() {
 	[NSThread sleepForTimeInterval:3.000];
@@ -220,7 +220,7 @@ $ DYLD_INSERT_LIBRARIES=/tmp/poc.dylib /Applications/Magnet.app/Contents/MacOS/M
 Magnet 애플리케이션의 손쉬운 사용 권한을 탈취하여 피해자의 MacOS에서 스크린 캡처를 성공적으로 진행하였다.
 
 
-### Entitlements 확인
+## Entitlements 확인
 
 
 MacOS에서 Entitlement란 MacOS의 서비스 또는 기술을 사용하기 위해 실행 권한을 부여하는 Key-Value 쌍이다.
@@ -235,7 +235,7 @@ Entitlement는 Runtime Flags와 마찬가지로 codesign 툴을 이용해 확인
 ![4](/assets/img/2024-04-15-Methodology-for-discovering-TCC-Bypass-vulnerabilities-in-3rd-party-Applications.md/4.png)
 
 
-#### Allow DYLD env variables
+### Allow DYLD env variables
 
 
 Hardened Runtime을 사용하더라도 환경변수 주입을 허용하는 entitlement를 사용할 경우에는 TCC 권한이 남용될 수 있다.
@@ -272,7 +272,7 @@ Hardened Runtime을 사용하더라도 환경변수 주입을 허용하는 entit
 
 {% raw %}
 ```c
-##include <Foundation/Foundation.h>
+#include <Foundation/Foundation.h>
 
 __attribute__((constructor)) static void pwn() {
 
@@ -315,7 +315,7 @@ $ DYLD_INSERT_LIBRARIES=/tmp/poc.dylib /Applications/logioptionsplus.app/Content
 Logi Options 애플리케이션의 자식 프로세스로 임의의 프로세스인 TaskExplorer가 생성되었다. 이는 임의의 프로세스가 Logi Options 애플리케이션 컨텍스트 내에서 실행되므로 해당 앱이 가진 모든 TCC 권한을 남용할 수 있다는 것을 뜻한다.
 
 
-#### Launch Agent 설정
+### Launch Agent 설정
 
 
 환경 변수를 통해 라이브러리 주입할 경우 주의해야할 사항이 존재한다.
@@ -412,7 +412,7 @@ $ launchctl load com.poc.launcher.plist
 ![10](/assets/img/2024-04-15-Methodology-for-discovering-TCC-Bypass-vulnerabilities-in-3rd-party-Applications.md/10.png)
 
 
-#### Library Proxying
+### Library Proxying
 
 
 Library Proxying은 Library Hijacking이라고도 불리며 환경 변수를 통해 라이브러리를 주입할 수 없을 때 사용할 수 있다.
@@ -609,8 +609,8 @@ $ tree
 
 {% raw %}
 ```c
-##import <Foundation/Foundation.h>
-##import <AVFoundation/AVFoundation.h>
+#import <Foundation/Foundation.h>
+#import <AVFoundation/AVFoundation.h>
 
 @interface VideoRecorder : NSObject <AVCaptureFileOutputRecordingDelegate>
 
@@ -672,7 +672,7 @@ $ tree
     NSLog(@"Recording stopped");
 }
 
-##pragma mark - AVCaptureFileOutputRecordingDelegate
+#pragma mark - AVCaptureFileOutputRecordingDelegate
 
 - (void)captureOutput:(AVCaptureFileOutput *)captureOutput
 didFinishRecordingToOutputFileAtURL:(NSURL *)outputFileURL
@@ -814,7 +814,7 @@ $ codesign --remove-signature ./_Electron\ Framework
 ![16](/assets/img/2024-04-15-Methodology-for-discovering-TCC-Bypass-vulnerabilities-in-3rd-party-Applications.md/16.png)
 
 
-### 파일 다운로드 기능을 가지는 경우
+## 파일 다운로드 기능을 가지는 경우
 
 
 애플리케이션 자체에 파일 다운로드 기능을 가지는 경우 macOS의 또 다른 보안 매커니즘 중 하나인 Gatekeeper를 우회할 수 있는 경우가 존재한다.
@@ -937,7 +937,7 @@ Apple의 `xattr` 툴을 통해 `Quarantine`의 여부를 확인할 수 있다.
 또한 동일한 취약점이 Slack, WhatsApp 등 메이저 벤더에서도 발생했었으므로 파일 다운로드 기능을 갖는 애플리케이션에서 한번쯤 확인해보면 좋다.
 
 
-### .NET Core 기반 애플리케이션의 경우
+## .NET Core 기반 애플리케이션의 경우
 
 
 위에서 설명한 기법들은 Library Validation이 활성화되어 있을 경우 사용할 수 없다.
@@ -1166,7 +1166,7 @@ Powershell 컨텍스트에서 계산기가 실행되었으며, 이는 해당 애
 .NET Core를 기반으로 개발된 애플리케이션에서 취약점을 찾고자 할 때 $TMPDIR에 디버그 파이프가 생성되는지 확인해보면 좋다.
 
 
-### Electron 기반 애플리케이션의 경우
+## Electron 기반 애플리케이션의 경우
 
 
 Electron 기반 애플리케이션의 경우 Electron이 기본적으로 제공하는 기능들로 인해 해당 앱 컨텍스트에서 원하는 명령을 실행할 수 있다.
@@ -1184,7 +1184,7 @@ Electron 기반 애플리케이션의 경우 Electron이 기본적으로 제공�
 또한 아래의 두 사례 모두 터미널에서 실행되기 때문에 `Entitlements 확인 - Launch Agent 설정` 절에서 설명한 Launch Agent 등록을 진행해주어야 TCC 권한을 상속 받을 수 있다.
 
 
-#### 디버그 모드를 통한 임의 명령 실행
+### 디버그 모드를 통한 임의 명령 실행
 
 
 Electron 기반 애플리케이션들은 Chromium을 이용한 Web App으로 동작하기 때문에 디버그 모드로 실행시킴으로써 Chrome의 개발자 도구를 사용할 수 있다.
@@ -1279,7 +1279,7 @@ $ gcc -framework Foundation -framework AVFoundation poc.m -o poc
 	![36](/assets/img/2024-04-15-Methodology-for-discovering-TCC-Bypass-vulnerabilities-in-3rd-party-Applications.md/36.png)
 
 
-#### 환경 변수를 통한 임의 명령 실행
+### 환경 변수를 통한 임의 명령 실행
 
 
 Electron 기반 애플리케이션은 디버그 모드로 실행시키는 것외에도 NodeJS 콘솔을 사용할 수 있는 또 다른 방법을 제공한다.
@@ -1385,29 +1385,29 @@ launchctl load com.poc.launcher.plist
 ## 발견한 취약점 Case
 
 
-#### Non Hardened Runtime
+### Non Hardened Runtime
 
 - Nextcloud
 
-#### Disable Library Validation
+### Disable Library Validation
 
 - OpenVPN Connect
 - Epic Games Launcher
 - Logi Options Plus
 
-#### Library Proxying
+### Library Proxying
 
 - 8x8 Virtual Office Desktop for Mac
 - Miro
 
-#### Electron 기반 애플리케이션 디버그 모드 사용
+### Electron 기반 애플리케이션 디버그 모드 사용
 
 - Notion
 - Visual Studio Code
 - Discord
 - Figma
 
-#### 안전하지 않은 파일 다운로드
+### 안전하지 않은 파일 다운로드
 
 - JANDI
 

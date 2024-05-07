@@ -7,7 +7,7 @@ categories: [Development, DevOps, ]
 ---
 
 
-## 개요
+# 개요
 
 
 최근에 Notion과 Next.js를 연동하여 Notion Page를 자동으로 import 해주는 블로그 템플릿을 제공하는 흥미로운 [Repository](https://github.com/morethanmin/morethan-log)를 발견하였다. 
