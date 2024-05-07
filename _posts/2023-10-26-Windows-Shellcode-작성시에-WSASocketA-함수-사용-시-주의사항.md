@@ -37,6 +37,7 @@ WSAGetLastError를 통해 확인해보면 10022(WSAEINVAL) 오류라고 하는�
 ---
 
 
+
 {% raw %}
 ```text
 global _start
@@ -262,6 +263,7 @@ CALL EBP                             ;execute CreateProcessA
 {% endraw %}
 
 
+
 ### 추가 : WSAGetLastError
 
 
@@ -269,6 +271,7 @@ CALL EBP                             ;execute CreateProcessA
 
 
 쉘코드 작성 중에 WSA 함수 관련해서 오류 확인하고 싶으면 아래 코드 추가하면 된다.
+
 
 
 {% raw %}
@@ -294,6 +297,7 @@ PUSH EDI ; Save the ws2_32.dll address to use it later
 CALL EAX ; Call WSAGetLastError
 ```
 {% endraw %}
+
 
 
 ## References

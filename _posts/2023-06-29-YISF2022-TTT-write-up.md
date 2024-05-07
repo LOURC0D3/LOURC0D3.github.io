@@ -13,6 +13,7 @@ categories: [CTF, YISF2022, ]
 ---
 
 
+
 {% raw %}
 ```c
 // Tic-tac-toe playing AI. Exhaustive tree-search. WTFPL
@@ -222,10 +223,12 @@ int main()
 {% endraw %}
 
 
+
 ## Solution
 
 
 ---
+
 
 
 {% raw %}
@@ -323,4 +326,5 @@ while True:
 p.interactive()
 ```
 {% endraw %}
+
 

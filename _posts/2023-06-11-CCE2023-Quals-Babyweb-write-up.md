@@ -13,6 +13,7 @@ categories: [CTF, CCE2023, ]
 먼저 제공된 파일 중 `index.php`을 보면 GET 파라미터로 넘어온 값을 include 한다는 것을 알 수 있다.
 
 
+
 {% raw %}
 ```php
 <?php
@@ -28,10 +29,12 @@ categories: [CTF, CCE2023, ]
 {% endraw %}
 
 
+
 이를 통해 LFI 취약점을 트리거 할 수 있는데, php 내용을 어디에 쓸 수 있을 지가 고민이었다.
 
 
 `www.conf`의 내용을 보면 `session.upload_progress.enabled`가 1로 설정되어 있으므로, `PHP_SESSION_UPLOAD_PROGRESS`를 통해 php 코드를 업로드 할 수 있다.
+
 
 
 {% raw %}
@@ -57,6 +60,7 @@ request_terminate_timeout = 15s
 {% endraw %}
 
 
+
 `session.upload_progress.enabled`옵션은 php 내부에서 업로드 중인 개별 파일의 진행률을 추적하기 위해 사용된다.
 해당 옵션이 켜져있으면 `session_start` 함수 없이도 세션 파일을 생성할 수 있으므로 세션 파일을 통해 RCE를 진행할 수 있다.
 
@@ -65,6 +69,7 @@ request_terminate_timeout = 15s
 
 
 ### 익스플로잇
+
 
 
 {% raw %}
@@ -97,6 +102,7 @@ write = threading.Thread(target=write_session)
 write.start()
 ```
 {% endraw %}
+
 
 
 ![0](/assets/img/2023-06-11-CCE2023-Quals-Babyweb-write-up.md/0.png)

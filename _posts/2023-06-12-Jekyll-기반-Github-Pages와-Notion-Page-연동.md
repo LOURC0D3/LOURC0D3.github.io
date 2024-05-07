@@ -118,6 +118,7 @@ Key명은 다음과 같이 설정한다.
 `_scripts/notion-import.js`
 
 
+
 {% raw %}
 ```javascript
 const { Client } = require("@notionhq/client");
@@ -135,11 +136,17 @@ const notion = new Client({
 
 function escapeCodeBlock(body) {
   const regex = /```
-{% endraw %}([\s\S]*?){% raw %}
-```/g
-  return body.replace(regex, function(match, htmlBlock) {
-    return // raw 관련 이슈로 하단의 Repository 확인 부탁드립니다.
-  })
+{% endraw %}
+([\s\S]*?)
+{% raw %}
+```/g;
+  return body.replace(regex, function (match, htmlBlock) {
+    return "\n{% raw %}\n```
+{% endraw %}
+" + htmlBlock + "
+{% raw %}
+```\n{% endraw %}\n";
+  });
 }
 
 // passing notion client to the option
@@ -151,7 +158,6 @@ const n2m = new NotionToMarkdown({ notionClient: notion });
   fs.mkdirSync(root, { recursive: true });
 
   const databaseId = process.env.DATABASE_ID;
-  // TODO has_more
   const response = await notion.databases.query({
     database_id: databaseId,
     filter: {
@@ -161,8 +167,23 @@ const n2m = new NotionToMarkdown({ notionClient: notion });
       },
     },
   });
-  for (const r of response.results) {
-    // console.log(r)
+  const pages = response.results;
+  if (response.has_more) {
+    const nextCursor = response.next_cursor;
+    const nextResponse = await notion.databases.query({
+      database_id: databaseId,
+      start_cursor: nextCursor,
+      filter: {
+        property: "공개",
+        checkbox: {
+          equals: true,
+        },
+      },
+    });
+    pages.push(...nextResponse.results);
+  }
+
+  for (const r of pages) {
     const id = r.id;
     // date
     let date = moment(r.created_time).format("YYYY-MM-DD");
@@ -221,6 +242,9 @@ title: "${title}"${fmtags}${fmcats}
 `;
     const mdblocks = await n2m.pageToMarkdown(id);
     let md = n2m.toMarkdownString(mdblocks)["parent"];
+    if (md === "") {
+      continue;
+    }
     md = escapeCodeBlock(md);
 
     const ftitle = `${date}-${title.replaceAll(" ", "-")}.md`;
@@ -252,7 +276,7 @@ title: "${title}"${fmtags}${fmcats}
         if (p1 === "") res = "";
         else res = `_${p1}_`;
 
-        return // 정규표현식 이슈로 아래 하단의 Repository 확인 부탁드립니다.
+        return `![4](/assets/img/2023-06-12-Jekyll-기반-Github-Pages와-Notion-Page-연동.md/4.png)_${index++}_${res}`;
       }
     );
 
@@ -268,6 +292,7 @@ title: "${title}"${fmtags}${fmcats}
 {% endraw %}
 
 
+
 <br>
 
 
@@ -275,6 +300,7 @@ title: "${title}"${fmtags}${fmcats}
 
 
 `package.json` 위치에 생성하면 된다.
+
 
 
 {% raw %}
@@ -293,6 +319,7 @@ title: "${title}"${fmtags}${fmcats}
 {% endraw %}
 
 
+
 <br>
 
 
@@ -303,6 +330,7 @@ title: "${title}"${fmtags}${fmcats}
 
 
 `.github/workflows/pages-deploy.yml`
+
 
 
 {% raw %}
@@ -413,6 +441,7 @@ jobs:
 {% endraw %}
 
 
+
 ### 갱신 버튼 설정
 
 
@@ -467,6 +496,7 @@ Notion은 페이지를 임베딩 시킬 수 있으므로 웹 페이지를 통해
 
 
 `ACCESS_TOKEN`은 위에서 생성한 토큰을 작성하면 된다.
+
 
 
 {% raw %}
@@ -545,6 +575,7 @@ Notion은 페이지를 임베딩 시킬 수 있으므로 웹 페이지를 통해
 {% endraw %}
 
 
+
 <br>
 
 
@@ -554,7 +585,7 @@ Notion은 페이지를 임베딩 시킬 수 있으므로 웹 페이지를 통해
 여기까지 완료되면 버튼을 통해 블로그가 업데이트 되는 것을 확인할 수 있다!
 
 
-![4](/assets/img/2023-06-12-Jekyll-기반-Github-Pages와-Notion-Page-연동.md/4.png)
+![5](/assets/img/2023-06-12-Jekyll-기반-Github-Pages와-Notion-Page-연동.md/5.png)
 
 
 ### 마무리
