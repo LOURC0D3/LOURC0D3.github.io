@@ -78,9 +78,6 @@ TCC 관련 취약점을 찾는 것은 다음과 같은 전제 조건이 필요�
 | Logi Options Plus.app   | Hackerone   | Logitech   | 거절 - Duplicated        | Unknown        | Allow Env Variables                          | N/A                                                                                |
 
 undefined
-# 분석 방법
-
-
 본 연구에서 TCC 우회 취약점을 발견하기 위해 사용한 툴들은 다음과 같다.
 
 - Decompiler
