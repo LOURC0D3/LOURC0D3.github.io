@@ -69,8 +69,7 @@ TCC 관련 취약점을 찾는 것은 다음과 같은 전제 조건이 필요�
 
 
 | Application             | Reported At | Vendor     | Status                 | Based on       | Category                                     | Note                                                                               |
-
-
+| ----------------------- | ----------- | ---------- | ---------------------- | -------------- | -------------------------------------------- | ---------------------------------------------------------------------------------- |
 | Nextcloud.app           | Hackerone   | Nextcloud  | CVE 발급 대기              | QT based       | Non Hardend Runtime                          | [Commit](https://github.com/nextcloud/desktop/pull/6378)                           |
 | JANDI.app               | KISA        | Toss Lab   | KVE 발급 (KVE-2024-0073) | Electron based | Gatekeeper Bypass                            | N/A                                                                                |
 | OpenVPN Connect.app     | Vendor      | OpenVPN    | CVE 발급 (CVE-2023-7224) | Unknown        | Allow Env Variables                          | N/A                                                                                |
