@@ -40,6 +40,7 @@ const n2m = new NotionToMarkdown({ notionClient: notion });
       },
     },
   });
+  console.log(response.results);
 
   const pages = response.results;
   while (response.has_more) {
