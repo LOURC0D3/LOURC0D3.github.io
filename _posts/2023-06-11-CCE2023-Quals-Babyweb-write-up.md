@@ -23,7 +23,8 @@ categories: [CTF, CCE2023, ]
     } else {
         header("Location: /?page=1");
     }
-?>```
+?>
+```
 {% endraw %}
 
 
@@ -52,7 +53,8 @@ php_admin_value[session.upload_progress.enabled] = 1
 php_admin_value[memory_limit] = 32M
 php_admin_value[max_execution_time] = 10s
 php_admin_value[opcache.enable] = 0
-request_terminate_timeout = 15s```
+request_terminate_timeout = 15s
+```
 {% endraw %}
 
 
@@ -95,7 +97,8 @@ read = threading.Thread(target=read_session)
 read.start()
 
 write = threading.Thread(target=write_session)
-write.start()```
+write.start()
+```
 {% endraw %}
 
 

@@ -126,7 +126,8 @@ void read_flag() {
     write(1, flag_buf, res);
 
     return;
-}```
+}
+```
 {% endraw %}
 
 
@@ -173,7 +174,8 @@ __readonly_area (const char *ptr, size_t size)
       return -1;
     }
 .
-.```
+.
+```
 {% endraw %}
 
 
@@ -202,7 +204,8 @@ A = args[1]
 A == 0x402147 ? ok : next
 return ERRNO(2)
 ok:
-return ALLOW```
+return ALLOW
+```
 {% endraw %}
 
 
@@ -241,7 +244,8 @@ result_payload = b''.join(send_payload)
 
 res = requests.post('http://15.164.245.40:1400/', data={'payload':base64.b64encode(result_payload)})
 
-print(res.text)```
+print(res.text)
+```
 {% endraw %}
 
 

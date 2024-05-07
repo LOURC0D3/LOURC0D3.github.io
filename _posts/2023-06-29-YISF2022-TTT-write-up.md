@@ -218,7 +218,8 @@ int main()
             break;
         }
     }
-}```
+}
+```
 {% endraw %}
 
 
@@ -322,7 +323,8 @@ while True:
         break
 
 
-p.interactive()```
+p.interactive()
+```
 {% endraw %}
 
 
