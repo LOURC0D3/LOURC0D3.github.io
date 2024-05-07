@@ -68,6 +68,19 @@ TCC 관련 취약점을 찾는 것은 다음과 같은 전제 조건이 필요�
 약 한 달 남짓한 기간 동안 발견한 총 취약점 및 상태는 다음과 같다.
 
 
+| Application             | Reported At | Vendor     | Status                 | Based on       | Category                                     | Note                                                                               |
+| ----------------------- | ----------- | ---------- | ---------------------- | -------------- | -------------------------------------------- | ---------------------------------------------------------------------------------- |
+| Nextcloud.app           | Hackerone   | Nextcloud  | CVE 발급 대기              | QT based       | Non Hardend Runtime                          | [Commit](https://github.com/nextcloud/desktop/pull/6378)                           |
+| JANDI.app               | KISA        | Toss Lab   | KVE 발급 (KVE-2024-0073) | Electron based | Gatekeeper Bypass                            | N/A                                                                                |
+| OpenVPN Connect.app     | Vendor      | OpenVPN    | CVE 발급 (CVE-2023-7224) | Unknown        | Allow Env Variables                          | N/A                                                                                |
+| 8x8 Work.app            | Hackerone   | 8x8        | 거절 - Informative       | Electron based | Disable Library Validation, Library Proxying | 해당 Entitlement가 없으면 구현하지 못하는 기능이 있음. 보고서에서는 root 권한을 탈취했다고 가정했으므로 이후에 위험은 감수하겠다고 함 |
+| Epic Games Launcher.app | Hackerone   | Epic Games | 거절 - Duplicated        | Unknown        | Allow Env Variables                          | N/A                                                                                |
+| Logi Options Plus.app   | Hackerone   | Logitech   | 거절 - Duplicated        | Unknown        | Allow Env Variables                          | N/A                                                                                |
+
+undefined
+# 분석 방법
+
+
 본 연구에서 TCC 우회 취약점을 발견하기 위해 사용한 툴들은 다음과 같다.
 
 - Decompiler
