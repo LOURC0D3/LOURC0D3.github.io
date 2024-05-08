@@ -7,7 +7,8 @@ categories: [Development, DevOps, ]
 ---
 
 
-# 개요
+
+## 개요
 
 
 최근에 Notion과 Next.js를 연동하여 Notion Page를 자동으로 import 해주는 블로그 템플릿을 제공하는 흥미로운 [Repository](https://github.com/morethanmin/morethan-log)를 발견하였다. 
@@ -41,6 +42,7 @@ categories: [Development, DevOps, ]
 
 
 이제 구현 방법에 대해 알아보자!
+
 
 
 ## Notion 환경 설정
@@ -89,6 +91,7 @@ DB 페이지로 이동한 후 링크 복사를 눌러주면 아래와 같이 생
 
 
 이제 Notion에서 해야 할 일은 모두 끝났다.
+
 
 
 ## Github 환경 설정
@@ -173,7 +176,7 @@ permissions:
   pages: write
   id-token: write
 
-## Allow one concurrent deployment
+# Allow one concurrent deployment
 concurrency:
   group: "pages"
   cancel-in-progress: true
@@ -267,6 +270,7 @@ jobs:
         uses: actions/deploy-pages@v1
 ```
 {% endraw %}
+
 
 
 
@@ -414,6 +418,7 @@ Notion은 페이지를 임베딩 시킬 수 있으므로 웹 페이지를 통해
 
 
 ![4](/assets/img/2023-06-12-Jekyll-기반-Github-Pages와-Notion-Page-연동.md/4.png)
+
 
 
 ## 마무리

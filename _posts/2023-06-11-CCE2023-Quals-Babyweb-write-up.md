@@ -7,6 +7,7 @@ categories: [CTF, CCE2023, ]
 ---
 
 
+
 ### 취약점 분석
 
 
@@ -66,7 +67,8 @@ request_terminate_timeout = 15s
 다만, 해당 문제에서는 `session.upload_progress.cleanup` 옵션이 활성화 되어 있으므로 세션 파일이 바로 삭제된다. 하지만 크기가 큰 파일을 보내고, Race Condition을 통하면 세션 파일을 읽을 수 있다.
 
 
-#### 익스플로잇
+
+### 익스플로잇
 
 
 
@@ -109,7 +111,8 @@ write.start()
 플래그를 획득하였다.
 
 
-#### Reference
+
+### Reference
 
 
 [https://book.hacktricks.xyz/pentesting-web/file-inclusion/via-php_session_upload_progress](https://book.hacktricks.xyz/pentesting-web/file-inclusion/via-php_session_upload_progress)

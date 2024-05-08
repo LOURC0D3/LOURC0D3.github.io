@@ -7,6 +7,7 @@ categories: [CTF, YISF2022, ]
 ---
 
 
+
 ## 문제 파일
 
 
@@ -19,7 +20,7 @@ categories: [CTF, YISF2022, ]
 // Tic-tac-toe playing AI. Exhaustive tree-search. WTFPL
 // Matthew Steel 2009, www.www.repsilat.com
 
-##include <stdio.h>
+#include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
 #include <fcntl.h>
@@ -224,7 +225,8 @@ int main()
 
 
 
-### Solution
+
+## Solution
 
 
 ---

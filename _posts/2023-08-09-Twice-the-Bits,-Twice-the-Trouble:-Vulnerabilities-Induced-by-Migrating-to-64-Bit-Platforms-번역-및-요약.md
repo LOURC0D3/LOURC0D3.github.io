@@ -9,6 +9,7 @@ categories: [Research, Paper, ]
 - 원문
 	- [https://intellisec.de/pubs/2016-ccs.pdf](https://intellisec.de/pubs/2016-ccs.pdf)
 
+
 ## 0. 서론
 
 - 어떤 플랫폼에서 안전하다고 판단된 코드라도 다른 플랫폼에서는 취약할 수 있으므로 코드의 마이그레이션은 취약점이 발생될 수 있다.
@@ -16,6 +17,7 @@ categories: [Research, Paper, ]
 - 정수 자료형의 폭이 넓어지고 주소를 지정할 수 있는 메모리의 양이 늘어남에 따라 이전에는 존재하지 않았던 취약점이 프로그램 코드에 숨어 있는 것을 알아냈다.
 - Debian stable 및 Github에서 인기 있는 200개 오픈소스를 대상으로 경험적 연구를 통해 확인하였다.
 - 또한 Chromium, Boost C++ Libraries, libarchive, Linux Kernel, zlib을 포함하여 연구를 통해 발견된  64bit 마이그레이션 취약점에 대해 설명한다.
+
 
 ## 1. 소개
 
@@ -39,13 +41,15 @@ memcpy(buffer, src, len); //len은 size_t(8byte)로 캐스팅 되며 부호 확�
 
 
 
+
 ## 2. SECURITY OF INTEGER TYPES
 
 - 정수가 메모리 버퍼 크기 또는 메모리 위치를 결정할 때 발생하는 결함에 취약점이 존재할 수 있다.
 - 공격자는 위와 같은 결함을 이용하여 BOF를 유발하거나 AAR/AAW를 진행할 수 있다.
 - 아래에서는 C/C++의 정수의 보안에 대한 배경 지식을 설명한다.
 
-### 2.1 C언어에서의 정수 자료형
+
+## 2.1 C언어에서의 정수 자료형
 
 - 타입 캐스팅은 64비트 아키텍처로 포팅될 때 발생하는 취약점의 기반이 된다.
 - C언어는 아래의 자료형을 표준으로 정의하였다.
@@ -55,7 +59,8 @@ memcpy(buffer, src, len); //len은 size_t(8byte)로 캐스팅 되며 부호 확�
 	- `char` < `short` < `int` < `long` < `long long`
 		- 순위가 낮은 자료형은 순위가 높은 자료형으로 캐스팅 된다.
 
-### 2.2 데이터 모델
+
+## 2.2 데이터 모델
 
 - 데이터 모델은 특정 플랫폼에 대한 정수 자료형의 크기를 말한다.
 - 아래 표는 현재까지 사용된 데이터 모델에 대한 자료형의 정보이다.
@@ -67,7 +72,8 @@ memcpy(buffer, src, len); //len은 size_t(8byte)로 캐스팅 되며 부호 확�
 	- LLP64 데이터 모델의 long 자료형의 경우에도 동일하다.
 - ILP64, SILP64의 경우에는 int와 포인터의 크기가 동일하지만 소수의 플랫폼에서만 사용된다.
 
-### 2.3 정수 관련 취약점
+
+## 2.3 정수 관련 취약점
 
 - 몇몇 취약점은 버퍼의 크기, 메모리 오프셋, 메모리를 복사할 양을 계산하기 위해 정수를 처리하면서 발생하는 버그에 의해 발생된다.
 - 위와 같은 정수 관련 취약점은 다음과 같은 공통 소스를 가진다.
@@ -78,7 +84,8 @@ memcpy(buffer, src, len); //len은 size_t(8byte)로 캐스팅 되며 부호 확�
 아래에서는 32bit, 64bit 에서의 각 결함을 설명한다.
 
 
-#### 2.3.1 Integer Truncations - 정수 잘림
+
+### 2.3.1 Integer Truncations - 정수 잘림
 
 
 예를 들어 임의의 할당 코드`x = e`가 있을 때
@@ -109,7 +116,8 @@ memcpy(buffer, src, x); // 할당된 버퍼의 크기보다 x의 값이 더 크�
 
 
 
-#### 2.3.2 Integer Overflows - 정수 오버플로
+
+### 2.3.2 Integer Overflows - 정수 오버플로
 
 
 예를 들어 임의의 식 `e1 ◦ e2`가 있을 때
@@ -135,7 +143,8 @@ memcpy(buffer, src, x); // 할당된 버퍼의 크기보다 x의 값이 더 크�
 
 
 
-#### 2.3.3 Integer Signedness Issues - 정수 부호 문제
+
+### 2.3.3 Integer Signedness Issues - 정수 부호 문제
 
 
 예를 들어 임의의 할당 코드`x = e`가 있을 때
@@ -192,6 +201,7 @@ memcpy(buffer, src, x); // x가 size_t로 변환되므로 양수(4294967295)로 
 
 
 
+
 ## 3. 64bit 마이그레이션 취약점
 
 - 정수 관련 취약점은 이전에 자세하게 연구되어 분석, 감지, 패치를 위한 여러 방법이 제안되었다.
@@ -207,12 +217,14 @@ memcpy(buffer, src, x); // x가 size_t로 변환되므로 양수(4294967295)로 
 - changes in the width of integers - 정수의 크기 변경
 - the larger address space available on 64-bit systems - 64bit 시스템에서 사용 가능한 더 큰 주소 공간
 
-### 3.1 Effects of Integer Width Changes - 정수 크기 변화의 영향
+
+## 3.1 Effects of Integer Width Changes - 정수 크기 변화의 영향
 
 - 32bit 플랫폼에서 사용 가능한 모든 정수형 타입은 64bit에도 존재하지만 두 타입 크기는 다를 수도 있다.
 	- 이러한 변경은 이전에는 존재하지 않던 정수 잘림이나 부호 확장 같은 취약점을 발생시킬 수 있다.
 
-#### 3.1.1 New Truncations 
+
+### 3.1.1 New Truncations 
 
 
 `2.3 정수 관련 취약점`에서 설명했던 것처럼 표현식이 자신의 타입보다 더 작은 타입에 할당될 때 정수 잘림이 발생한다.
@@ -297,7 +309,8 @@ printf("x : 0x%lx\n", x);
 ![2](/assets/img/2023-08-09-Twice-the-Bits,-Twice-the-Trouble:-Vulnerabilities-Induced-by-Migrating-to-64-Bit-Platforms-번역-및-요약.md/2.png)
 
 
-#### 3.1.2 New Signedness Issues
+
+### 3.1.2 New Signedness Issues
 
 
 32bit에서 64bit로 포팅될 때 두가지의 정수 부호 이슈가 발생된다.
@@ -358,14 +371,16 @@ memcpy(buffer, src, len); // long형은 size_t형으로 캐스팅 되므로 부�
 위 코드는 32bit 플랫폼에서 아무런 문제가 발생하지 않는다.
 
 
-### 3.2  Effects of a Larger Address Space - 더 큰 주소 공간의 영향
+
+## 3.2  Effects of a Larger Address Space - 더 큰 주소 공간의 영향
 
 
 64bit 플랫폼은 주소 공간의 크기가 기존 4GB에서 수백TB로 증가했기 때문에 프로그램은 더 큰 양의 메모리를 처리할 수 있어야 한다.
 
 - 이는 정수 잘림, 정수 오버플로가 추가적으로 발생할 수 있음을 뜻한다.
 
-#### 3.2.1 Dormant Integer Overflows
+
+### 3.2.1 Dormant Integer Overflows
 
 - 정수 오버플로는 변수의 자료형의 추측만으로는 찾을 수 없으므로 변수가 가질 수 있는 값의 범위도 고려해야 한다.
 - 주소 공간이 크다는 뜻은 더 큰 개체를 만들고 더 많은 개체를 사용할 수 있음을 말한다.
@@ -389,7 +404,8 @@ for(i = 0; i < len; i++) { // len이 i보다 큰 값을 가질 수 있으므로 
 위 코드는 32bit 플랫폼에서 아무런 문제가 발생하지 않는다.
 
 
-#### 3.2.2 Dormant Signedness Issues
+
+### 3.2.2 Dormant Signedness Issues
 
 - 부호 문제는 주소 공간의 크기가 커짐에 따라 악용될 수 있다.
 	- 예 : strlen의 반환 값(8byte)을 int형(4byte)에 할당할 경우
@@ -409,7 +425,8 @@ memcpy(buffer, attacker_str , len); // int형(4byte)이 size_t형(8byte)으로 �
 
 
 
-#### 3.2.3 Unexpected Behavior of Library Functions
+
+### 3.2.3 Unexpected Behavior of Library Functions
 
 - 몇몇의 C 표준 라이브러리 함수는 32bit 데이터모델을 기반으로 설계했기 때문에 위에서 말한 버그들에 대해 취약하다.
 	- 이 중 일부는 64bit에 맞게 수정되었지만 해당 함수를 사용하는 개발자는 변경된 기능을 인식하지 못하는 경우가 많다.
