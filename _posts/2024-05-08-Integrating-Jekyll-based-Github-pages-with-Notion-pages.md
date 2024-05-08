@@ -15,7 +15,7 @@ categories: [DevOps, Development, ]
 ## Introduction
 
 
-Recently, I discovered an interesting repository that provides a blog template that automatically imports Notion Pages by linking Notion and Next.js.
+Recently, I discovered an interesting [Repository](https://github.com/morethanmin/morethan-log) that provides a blog template that automatically imports Notion Pages by linking Notion and Next.js.
 
 
 However, since the current blog is closer to the design I preferred, I decided to add that feature to the current blog.

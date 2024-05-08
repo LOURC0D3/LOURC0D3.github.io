@@ -7,7 +7,7 @@ categories: [Development, DevOps, ]
 ---
 
 
-> For the English version of this post, see [here](https://lourcode.kr/).
+> For the English version of this post, see [here](https://lourcode.kr/posts/Integrating-Jekyll-based-Github-pages-with-Notion-pages/).
 {: .prompt-info }
 
 
