@@ -27,8 +27,8 @@ function replaceTitleOutsideRawBlocks(body) {
   });
 
   const regex = /\n#[^\n]+\n/g;
-  body = body.replaceAll(regex, function (match) {
-    return "\n" + match.replaceAll("\n# ", "\n## ");
+  body = body.replace(regex, function (match) {
+    return "\n" + match.replace("\n#", "\n##");
   });
 
   rawBlocks.forEach(block => {
