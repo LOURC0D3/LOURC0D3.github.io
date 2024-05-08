@@ -135,7 +135,6 @@ title: "${title}"${fmtags}${fmcats}
     if (md === "") {
       continue;
     }
-    console.log(md);
     md = escapeCodeBlock(md);
     md = replaceTitleOutsideRawBlocks(md);
 
