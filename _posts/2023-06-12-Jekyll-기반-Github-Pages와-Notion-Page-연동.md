@@ -7,6 +7,10 @@ categories: [Development, DevOps, ]
 ---
 
 
+> For the English version of this post, see [here](https://lourcode.kr/).
+{: .prompt-info }
+
+
 
 ## 개요
 
@@ -421,6 +425,19 @@ Notion은 페이지를 임베딩 시킬 수 있으므로 웹 페이지를 통해
 
 
 
+## cron scheduler를 사용하지 않는 이유
+
+
+원래는 업데이트 버튼과 cron scheduler를 이용하여 게시글 업데이트를 진행하였는데, 어느날 이런 메일이 도착했다.
+
+
+![5](/assets/img/2023-06-12-Jekyll-기반-Github-Pages와-Notion-Page-연동.md/5.png)
+
+
+우리는 게시글이 업데이트 될 때가 언제인지 알고 있기 때문에 cron scheduler가 필요없다고 판단하여 기능을 deprecation 하였다.
+
+
+
 ## 마무리
 
 
@@ -439,7 +456,13 @@ Actions는 항상 많이 헷갈려서 오랜 시간 삽질하게 되는거 같�
 블로그 구축에 있어서 궁금한 점은 코멘트에 남겨주시면 온 힘을 다해 도와드리겠습니다!
 
 
-업데이트 기록
+
+## 레퍼런스
+
+- [https://aymanbagabas.com/blog/2022/03/29/import-notion-pages-to-jekyll.html](https://aymanbagabas.com/blog/2022/03/29/import-notion-pages-to-jekyll.html)
+
+
+## 업데이트 기록
 
 - 이미지 업로드 문제 개선
 - 1차 코드 블럭 이슈 개선
