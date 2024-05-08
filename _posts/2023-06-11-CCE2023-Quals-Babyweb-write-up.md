@@ -8,7 +8,7 @@ categories: [CTF, CCE2023, ]
 
 
 
-### 취약점 분석
+#### 취약점 분석
 
 
 먼저 제공된 파일 중 `index.php`을 보면 GET 파라미터로 넘어온 값을 include 한다는 것을 알 수 있다.
@@ -68,7 +68,7 @@ request_terminate_timeout = 15s
 
 
 
-### 익스플로잇
+#### 익스플로잇
 
 
 
@@ -112,7 +112,7 @@ write.start()
 
 
 
-### Reference
+#### Reference
 
 
 [https://book.hacktricks.xyz/pentesting-web/file-inclusion/via-php_session_upload_progress](https://book.hacktricks.xyz/pentesting-web/file-inclusion/via-php_session_upload_progress)

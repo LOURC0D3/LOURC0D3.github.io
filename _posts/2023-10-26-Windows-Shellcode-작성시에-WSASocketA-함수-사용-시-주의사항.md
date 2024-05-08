@@ -32,7 +32,7 @@ WSAGetLastError를 통해 확인해보면 10022(WSAEINVAL) 오류라고 하는�
 
 
 
-### Reverse Connection Shellcode
+#### Reverse Connection Shellcode
 
 
 ---
@@ -266,7 +266,7 @@ CALL EBP                             ;execute CreateProcessA
 
 
 
-### 추가 : WSAGetLastError
+#### 추가 : WSAGetLastError
 
 
 ---
@@ -303,7 +303,7 @@ CALL EAX ; Call WSAGetLastError
 
 
 
-## References
+### References
 
 
 ---

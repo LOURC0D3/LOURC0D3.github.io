@@ -8,7 +8,7 @@ categories: [CTF, YISF2022, ]
 
 
 
-## 문제 파일
+### 문제 파일
 
 
 ---
@@ -226,7 +226,7 @@ int main()
 
 
 
-## Solution
+### Solution
 
 
 ---
