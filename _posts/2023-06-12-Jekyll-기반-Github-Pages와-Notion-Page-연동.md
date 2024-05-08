@@ -453,13 +453,13 @@ Actions는 항상 많이 헷갈려서 오랜 시간 삽질하게 되는거 같�
 블로그 구축과 관련된 모든 코드는 아래 [여기](https://github.com/LOURC0D3/Jekyll-with-Notion-Template/tree/main)에 올려두었습니다.
 
 
-블로그 구축에 있어서 궁금한 점은 코멘트에 남겨주시면 온 힘을 다해 도와드리겠습니다!
+또는 이 [링크](https://github.com/LOURC0D3/chirpy-starter-jekyll-with-notion/generate)를 통해 초기 세팅이 완료된 레포지토리 템플릿을 이용하실 수 있습니다.
 
 
 
 ## 레퍼런스
 
-- [https://aymanbagabas.com/blog/2022/03/29/import-notion-pages-to-jekyll.html](https://aymanbagabas.com/blog/2022/03/29/import-notion-pages-to-jekyll.html)
+- https://aymanbagabas.com/blog/2022/03/29/import-notion-pages-to-jekyll.html
 
 
 ## 업데이트 기록
