@@ -32,6 +32,8 @@ order: 4
     - 1st place, 충청권사이버보안경진대회
     - 4th place, TS 보안 허점을 찾아라!
     - 우수논문상, 한국융합보안학회 추계학술대회
+- 2024
+    - 4th place, 우리콘
 
 ### Bug Reports
 - 2023
