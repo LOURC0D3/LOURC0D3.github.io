@@ -19,6 +19,9 @@ jobs:
 
     steps:
       - uses: actions/checkout@master
+        with:
+          submodules: recursive
+
     
       - name: Clean Directory
         run: |
