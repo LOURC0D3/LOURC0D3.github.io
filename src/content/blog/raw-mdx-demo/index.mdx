@@ -1,0 +1,130 @@
+---
+title: "Raw MDX 사용 데모"
+description: "mdx 코드블록으로 만들 수 있는 컴포넌트 패턴 모음"
+date: 2026-05-14
+tags: ["demo", "mdx"]
+---
+import Callout from '@/components/callout.astro'
+import Link from '@/components/link.astro'
+
+이 글은 노션에서 `mdx` 언어로 코드블록 만들어서 적은 게 어떻게 렌더링되는지 보여주는 데모입니다.
+
+## 1. 여러 단락 들어간 Callout
+
+`callout-warning` 매크로는 한 단락만 가능. mdx로 적으면 여러 단락 가능.
+
+<Callout variant="warning" title="Affected versions">
+
+다음 버전이 영향을 받습니다:
+
+- 1.0.0 ~ 1.5.3
+- 2.0.0 ~ 2.3.5
+
+패치는 **2.3.6**, **1.5.4** 에 포함됨. 업그레이드 권장.
+
+</Callout>
+
+## 2. Callout 안에 코드블록
+
+<Callout variant="solution" title="Final exploit">
+
+PoC payload:
+
+```python
+from pwn import *
+context.arch = 'amd64'
+
+payload = b"A" * 72 + p64(0xdeadbeef)
+io.sendline(payload)
+io.interactive()
+```
+
+실행 결과:
+
+```
+[+] flag: flag\{example_flag\}
+```
+
+</Callout>
+
+## 3. defaultOpen={false} — 접힌 상태로 시작
+
+CTF flag처럼 사용자가 클릭해야 보이게.
+
+<Callout variant="solution" title="Click to reveal flag" defaultOpen={false}>
+
+flag\{example_writeup_flag\}
+
+</Callout>
+
+## 4. 연속된 Callout — 문제/풀이 구조
+
+<Callout variant="problem">
+
+원본 코드에서 `strcpy` 호출이 입력 길이 검증 없이 수행됨. stack canary가 있지만 leak 가능 경로 존재.
+
+</Callout>
+
+<Callout variant="solution">
+
+1. format string vuln 으로 canary leak
+2. canary 자리에 leak한 값 그대로 넣음
+3. RET 주소 덮어쓰기로 control flow hijack
+
+</Callout>
+
+## 5. Link 컴포넌트
+
+자세한 분석은 <Link href="https://github.com/example/advisory" external underline>여기</Link>를 참고. 외부 링크 표시가 자동으로 붙음.
+
+## 6. JSX expression — JS 값 삽입
+
+오늘은 {new Date().getFullYear()}년 {new Date().getMonth() + 1}월 기준 최신 정보입니다.
+
+## 7. mdx 블록 안 페이로드 escape 주의
+
+<Callout variant="danger">
+
+본문에 페이로드 그대로 적으면 깨집니다. 직접 escape 필요:
+
+- `\{\{7*7\}\}` 처럼 적으면 JS expression으로 파싱되어 빌드 에러
+- `\<script\>` 도 컴포넌트로 잘못 해석됨
+
+안전한 방법:
+
+```
+{{7*7}}
+<script>alert(1)</script>
+```
+
+→ 백틱이나 코드블록 안은 자동 안전.
+
+본문에서 쓰려면 backslash escape: `\{\{7*7\}\}` → 화면엔 \{\{7\*7\}\} 로 나옴.
+
+</Callout>
+
+## 8. Variant 다양성 빠른 카탈로그
+
+<Callout variant="note">note — 일반 정보</Callout>
+
+<Callout variant="tip">tip — 팁</Callout>
+
+<Callout variant="warning">warning — 경고</Callout>
+
+<Callout variant="danger">danger — 위험</Callout>
+
+<Callout variant="important">important — 중요</Callout>
+
+<Callout variant="example">example — 예시</Callout>
+
+<Callout variant="definition">definition — 정의</Callout>
+
+<Callout variant="theorem">theorem — 정리</Callout>
+
+<Callout variant="proof">proof — 증명</Callout>
+
+<Callout variant="exercise">exercise — 연습문제</Callout>
+
+<Callout variant="answer">answer — 정답</Callout>
+
+<Callout variant="summary">summary — 요약</Callout>

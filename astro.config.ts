@@ -14,42 +14,43 @@ import remarkEmoji from 'remark-emoji'
 import remarkMath from 'remark-math'
 import { visit } from 'unist-util-visit'
 
+function meaningfulChildren(node: any) {
+  return node.children.filter(
+    (c: any) => !(c.type === 'text' && !c.value.trim()),
+  )
+}
+
 function rehypeImageFigure() {
   return (tree: any) => {
-    visit(tree, 'element', (node: any, index: any, parent: any) => {
-      if (
-        !parent ||
-        typeof index !== 'number' ||
-        node.tagName !== 'p'
-      ) {
-        return
-      }
-      const meaningful = node.children.filter(
-        (c: any) => !(c.type === 'text' && !c.value.trim()),
-      )
-      if (meaningful.length !== 2) return
-      const [img, em] = meaningful
-      if (
-        img.type !== 'element' ||
-        img.tagName !== 'img' ||
-        em.type !== 'element' ||
-        em.tagName !== 'em'
-      ) {
-        return
-      }
-      parent.children[index] = {
-        type: 'element',
-        tagName: 'figure',
-        properties: { className: ['post-figure'] },
-        children: [
-          img,
-          {
+    visit(tree, (node: any) => {
+      if (!node.children || !Array.isArray(node.children)) return
+      for (let i = 0; i < node.children.length; i++) {
+        const child = node.children[i]
+        if (child.type !== 'element' || child.tagName !== 'p') continue
+        const meaningful = meaningfulChildren(child)
+        if (
+          meaningful.length === 2 &&
+          meaningful[0].type === 'element' &&
+          meaningful[0].tagName === 'img' &&
+          meaningful[1].type === 'element' &&
+          meaningful[1].tagName === 'em'
+        ) {
+          const [img, em] = meaningful
+          node.children[i] = {
             type: 'element',
-            tagName: 'figcaption',
-            properties: {},
-            children: em.children,
-          },
-        ],
+            tagName: 'figure',
+            properties: { className: ['post-figure'] },
+            children: [
+              img,
+              {
+                type: 'element',
+                tagName: 'figcaption',
+                properties: {},
+                children: em.children,
+              },
+            ],
+          }
+        }
       }
     })
   }
