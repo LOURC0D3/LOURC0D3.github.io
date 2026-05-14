@@ -1,0 +1,21 @@
+---
+interface Props {
+  /** GitHub gist identifier in the form "USERNAME/GIST_ID" */
+  id: string
+}
+
+const { id } = Astro.props
+const src = `https://gist.github.com/${id}.js`
+---
+
+<div class="gist-embed my-6">
+  <script is:inline src={src}></script>
+  <noscript>
+    <p class="text-muted-foreground text-sm">
+      View the gist on GitHub:
+      <a href={`https://gist.github.com/${id}`} target="_blank" rel="noopener noreferrer">
+        gist.github.com/{id}
+      </a>
+    </p>
+  </noscript>
+</div>
