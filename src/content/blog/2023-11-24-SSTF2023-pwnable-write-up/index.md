@@ -2,7 +2,7 @@
 title: "SSTF2023 pwnable write-up"
 description: "SSTF2023 Pwnable, Escape, Heapster 문제들의 OOB, UAF, 힙·스택泄漏 취약점을 이용해 libc, heap, ret 주소를 유출하고 one‑gadget으로 쉘을 얻는 익스플로잇을 제시한다."
 date: 2023-11-24
-tags: ["pwnable"]
+tags: ["pwnable", "CTF", "SSTF2023"]
 ---
 
 ## **2 Outs in the Ninth Inning**

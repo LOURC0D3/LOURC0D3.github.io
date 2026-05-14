@@ -2,7 +2,7 @@
 title: "CODEGATE2023 Quals babysandbox write-up"
 description: "이 게시물은 seccomp 필터를 이용해 %n을 사용 가능하게 만든 뒤, 포맷 스트링 취약점을 활용해 target 값을 0x1337로 변조하여 플래그를 획득하는 방법을 설명한다."
 date: 2023-06-18
-tags: ["pwnable", "seccomp", "FSB"]
+tags: ["pwnable", "seccomp", "FSB", "CTF", "CODEGATE2023"]
 ---
 
 ## 문제 분석

@@ -2,7 +2,7 @@
 title: "pwnable.kr brain fuck write-up"
 description: "소스코드 분석 --- brainfuck 언어에서 [, ] 명령어가 제외된 것을 확인할 수 있다.<br 바이너리 안에서 포인터 값을 조작하며 쉘을 획득할 수 있을 것 같다. 명령어에 대한 설명은 다음과 같다. | 문자 | 의미 | |:----|:----| | | 포인터…"
 date: 2023-01-15
-tags: ["pwnable"]
+tags: ["pwnable", "wargame", "pwnable.kr"]
 ---
 
 ## 소스코드 분석

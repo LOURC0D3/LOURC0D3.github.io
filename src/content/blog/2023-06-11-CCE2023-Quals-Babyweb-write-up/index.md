@@ -2,7 +2,7 @@
 title: "CCE2023 Quals Babyweb write-up"
 description: "취약점 분석 먼저 제공된 파일 중 index.php을 보면 GET 파라미터로 넘어온 값을 include 한다는 것을 알 수 있다. 이를 통해 LFI 취약점을 트리거 할 수 있는데, php 내용을 어디에 쓸 수 있을 지가 고민이었다. www.conf의 내용을 보면 se…"
 date: 2023-06-11
-tags: ["LFI2RCE", "webhacking"]
+tags: ["LFI2RCE", "webhacking", "CTF", "CCE2023"]
 ---
 
 ### 취약점 분석

@@ -2,7 +2,7 @@
 title: "YISF2022 TTT write-up"
 description: "The page presents a C implementation of a Tic‑Tac‑Toe AI with exhaustive tree‑search and a Python script that automates gameplay to achieve 500 wins and retrieve the hidden flag."
 date: 2023-06-29
-tags: ["MISC"]
+tags: ["MISC", "CTF", "YISF2022"]
 ---
 
 ## 문제 파일
