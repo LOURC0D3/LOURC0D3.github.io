@@ -20,6 +20,7 @@ tags: ["LFI2RCE", "webhacking", "CTF", "CCE2023"]
         header("Location: /?page=1");
     }
 ?>
+
 ```
 
 
@@ -29,7 +30,7 @@ tags: ["LFI2RCE", "webhacking", "CTF", "CCE2023"]
 `www.conf`의 내용을 보면 `session.upload_progress.enabled`가 1로 설정되어 있으므로, `PHP_SESSION_UPLOAD_PROGRESS`를 통해 php 코드를 업로드 할 수 있다.
 
 
-```plain text
+```
 [www]
 user = www-data
 group = www-data
@@ -46,6 +47,7 @@ php_admin_value[memory_limit] = 32M
 php_admin_value[max_execution_time] = 10s
 php_admin_value[opcache.enable] = 0
 request_terminate_timeout = 15s
+
 ```
 
 
