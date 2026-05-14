@@ -55,6 +55,77 @@ function rehypeImageFigure() {
   }
 }
 
+function isEmOnlyParagraph(node: any) {
+  if (!node || node.type !== 'element' || node.tagName !== 'p') return false
+  const meaningful = node.children.filter(
+    (c: any) => !(c.type === 'text' && !c.value.trim()),
+  )
+  return (
+    meaningful.length === 1 &&
+    meaningful[0].type === 'element' &&
+    meaningful[0].tagName === 'em'
+  )
+}
+
+function findFrameFigure(div: any): any {
+  if (!div || div.type !== 'element' || !Array.isArray(div.children)) return null
+  return div.children.find(
+    (c: any) =>
+      c.type === 'element' &&
+      c.tagName === 'figure' &&
+      Array.isArray(c.properties?.className) &&
+      c.properties.className.includes('frame'),
+  )
+}
+
+function rehypeCodeFigure() {
+  return (tree: any) => {
+    visit(tree, (node: any) => {
+      if (!node.children || !Array.isArray(node.children)) return
+      for (let i = 0; i < node.children.length; i++) {
+        const child = node.children[i]
+        let figure = null
+        if (
+          child.type === 'element' &&
+          child.tagName === 'figure' &&
+          Array.isArray(child.properties?.className) &&
+          child.properties.className.includes('frame')
+        ) {
+          figure = child
+        } else if (
+          child.type === 'element' &&
+          child.tagName === 'div'
+        ) {
+          figure = findFrameFigure(child)
+        }
+        if (!figure) continue
+
+        let j = i + 1
+        while (
+          j < node.children.length &&
+          node.children[j].type === 'text' &&
+          !node.children[j].value.trim()
+        ) {
+          j++
+        }
+        if (j >= node.children.length) continue
+        const next = node.children[j]
+        if (!isEmOnlyParagraph(next)) continue
+        const em = next.children.find(
+          (c: any) => c.type === 'element' && c.tagName === 'em',
+        )
+        figure.children.push({
+          type: 'element',
+          tagName: 'figcaption',
+          properties: { className: ['post-code-caption'] },
+          children: em.children,
+        })
+        node.children.splice(j, 1)
+      }
+    })
+  }
+}
+
 import { pluginCollapsibleSections } from '@expressive-code/plugin-collapsible-sections'
 import { pluginLineNumbers } from '@expressive-code/plugin-line-numbers'
 import type { ExpressiveCodeTheme } from 'rehype-expressive-code'
@@ -147,6 +218,7 @@ export default defineConfig({
           inline: 'tailing-curly-colon',
         },
       ],
+      rehypeCodeFigure,
     ],
     remarkPlugins: [remarkMath, remarkEmoji],
   },
