@@ -153,8 +153,14 @@
       @apply text-muted-foreground mt-2 text-center text-xs italic;
     }
 
+    :where(.expressive-code:has(+ .post-code-caption)):not(
+        :where(.not-prose, .not-prose *)
+      ) {
+      @apply mb-0!;
+    }
+
     :where(.post-code-caption):not(:where(.not-prose, .not-prose *)) {
-      @apply text-muted-foreground! mt-2! mb-6 text-center! text-xs! italic;
+      @apply text-muted-foreground! mt-1! mb-6 text-center! text-xs! italic;
     }
 
     :where(pre):not(:where(.not-prose, .not-prose *)) {
