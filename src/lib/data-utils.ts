@@ -1,10 +1,6 @@
 import { getCollection, render, type CollectionEntry } from 'astro:content'
 import { readingTime, calculateWordCountFromHtml } from '@/lib/utils'
 
-export async function getAllAuthors(): Promise<CollectionEntry<'authors'>[]> {
-  return await getCollection('authors')
-}
-
 export async function getAllPosts(): Promise<CollectionEntry<'blog'>[]> {
   const posts = await getCollection('blog')
   return posts
@@ -19,15 +15,6 @@ export async function getAllPostsAndSubposts(): Promise<
   return posts
     .filter((post) => !post.data.draft)
     .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
-}
-
-export async function getAllProjects(): Promise<CollectionEntry<'projects'>[]> {
-  const projects = await getCollection('projects')
-  return projects.sort((a, b) => {
-    const dateA = a.data.startDate?.getTime() || 0
-    const dateB = b.data.startDate?.getTime() || 0
-    return dateB - dateA
-  })
 }
 
 export async function getAllTags(): Promise<Map<string, number>> {
@@ -191,21 +178,8 @@ export async function getParentPost(
   return allPosts.find((post) => post.id === parentId) || null
 }
 
-export async function parseAuthors(authorIds: string[] = []) {
-  if (!authorIds.length) return []
-
-  const allAuthors = await getAllAuthors()
-  const authorMap = new Map(allAuthors.map((author) => [author.id, author]))
-
-  return authorIds.map((id) => {
-    const author = authorMap.get(id)
-    return {
-      id,
-      name: author?.data?.name || id,
-      avatar: author?.data?.avatar || '/static/logo.png',
-      isRegistered: !!author,
-    }
-  })
+export async function parseAuthors(_authorIds: string[] = []) {
+  return [] as Array<{ id: string; name: string; avatar: string; isRegistered: boolean }>
 }
 
 export async function getPostById(
