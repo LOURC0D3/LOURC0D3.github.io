@@ -1,4 +1,4 @@
-import { defineConfig } from 'astro/config'
+import { defineConfig, passthroughImageService } from 'astro/config'
 
 import mdx from '@astrojs/mdx'
 import react from '@astrojs/react'
@@ -63,6 +63,9 @@ import tailwindcss from '@tailwindcss/vite'
 
 export default defineConfig({
   site: 'https://blog.lourcode.kr',
+  image: {
+    service: passthroughImageService(),
+  },
   integrations: [mdx(), react(), sitemap(), icon()],
   vite: {
     plugins: [tailwindcss()],
