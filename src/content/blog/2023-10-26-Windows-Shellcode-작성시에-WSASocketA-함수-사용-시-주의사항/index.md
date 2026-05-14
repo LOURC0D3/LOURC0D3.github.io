@@ -1,9 +1,8 @@
 ---
 title: "Windows Shellcode 작성시에 WSASocketA 함수 사용 시 주의사항"
-description: "리버스쉘에 접속하는 쉘코드를 작성하고 있었는데 왜인지는 모르겠으나 자꾸만 WSASocketA 함수에서 -1이 반환되었다. WSAGetLastError를 통해 확인해보면 10022(WSAEINVAL) 오류라고 하는데 인수가 잘못되었다고 한다. 바이너리로 만들어서 확인해…"
+description: "WSASocketA 함수를 쉘코드에서 사용하려면 호출 전 rsp를 16바이트 정렬하고 스택 상단에 32바이트 여유 공간을 확보해야 하며, 이를 위해 esp를 2바이트 감소시키는 등 스택 정렬을 맞추는 것이 필수적이다."
 date: 2023-10-26
 tags: ["Windows"]
-categories: ["etc"]
 ---
 
 리버스쉘에 접속하는 쉘코드를 작성하고 있었는데 왜인지는 모르겠으나 자꾸만 WSASocketA 함수에서 -1이 반환되었다.

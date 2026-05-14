@@ -1,9 +1,8 @@
 ---
 title: "Integrating Jekyll-based Github pages with Notion pages"
-description: "본 게시글의 한국어 버전은 여기에서 확인하실 수 있습니다. {: .prompt-info } Introduction Recently, I discovered an interesting Repository that provides a blog template that a…"
+description: "Integrating Notion pages with Jekyll on GitHub Pages via a custom import script and GitHub Actions enables automatic blog updates through a refresh button without using cron jobs."
 date: 2024-05-08
 tags: ["Github Actions"]
-categories: ["DevOps", "Development"]
 ---
 
 > 본 게시글의 한국어 버전은 [여기](https://lourcode.kr/posts/Jekyll-기반-Github-Pages와-Notion-Page-연동/)에서 확인하실 수 있습니다.

@@ -1,9 +1,8 @@
 ---
 title: "CODEGATE2023 Quals babysandbox write-up"
-description: "문제 분석 --- 입력 받은 seccomp 필터를 바이너리에 적용한 후에 FSB를 트리거 할 수 있게 해준다. target을 0x1337로 변조하면 플래그를 출력해주지만, printfchk 함수는 %n을 사용하지 못한다. <br 그러나 read-only 영역에서는 %…"
+description: "이 게시물은 seccomp 필터를 이용해 %n을 사용 가능하게 만든 뒤, 포맷 스트링 취약점을 활용해 target 값을 0x1337로 변조하여 플래그를 획득하는 방법을 설명한다."
 date: 2023-06-18
 tags: ["pwnable", "seccomp", "FSB"]
-categories: ["CTF", "CODEGATE2023"]
 ---
 
 ## 문제 분석

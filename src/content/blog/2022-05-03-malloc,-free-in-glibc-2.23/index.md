@@ -3,7 +3,6 @@ title: "malloc, free in glibc 2.23"
 description: "libcmalloc --- intmalloc --- fastbin --- - 구현 코드 - 실습 small bin --- - 구현 코드 - 실습 large bin --- - 구현 코드 - 실습 unsorted bin --- unsorted bin - last rema…"
 date: 2022-05-03
 tags: ["pwnable", "Computer Science"]
-categories: ["Research"]
 ---
 
 ## __libc_malloc

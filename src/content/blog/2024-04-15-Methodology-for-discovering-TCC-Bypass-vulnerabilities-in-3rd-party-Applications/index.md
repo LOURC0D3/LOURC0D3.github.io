@@ -1,9 +1,8 @@
 ---
 title: "Methodology for discovering TCC Bypass vulnerabilities in 3rd-party Applications"
-description: "본 게시글은 Responsible Vulnerability Disclosure 이후 공개하였으며, 게시글에 언급된 모든 취약점들은 제보 조치 이후 90일이 지난 취약점임을 알려드립니다.<br This post published after Responsible Vuln…"
+description: "macOS 제3자 앱에서 런타임 플래그, DYLD 환경변수, 엔틀리먼트, LaunchAgent, 라이브러리 프록시 등을 이용해 TCC 권한을 탈취·남용하는 다중 우회 기법을 제시한다"
 date: 2024-04-15
 tags: ["OSX", "TCC"]
-categories: ["Research", "bugbounty"]
 ---
 
 > 본 게시글은 **Responsible Vulnerability Disclosure** 이후 공개하였으며, 게시글에 언급된 모든 취약점들은 제보 조치 이후 90일이 지난 취약점임을 알려드립니다.<br>

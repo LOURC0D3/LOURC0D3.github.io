@@ -1,9 +1,8 @@
 ---
 title: "Twice the Bits, Twice the Trouble: Vulnerabilities Induced by Migrating to 64-Bit Platforms 번역 및 요약"
-description: "- 원문 - https://intellisec.de/pubs/2016-ccs.pdf 0. 서론 - 어떤 플랫폼에서 안전하다고 판단된 코드라도 다른 플랫폼에서는 취약할 수 있으므로 코드의 마이그레이션은 취약점이 발생될 수 있다. - 해당 논문에서는 32bit에서 예상대…"
+description: "The article explains how migrating code from 32‑bit to 64‑bit architectures introduces new integer‑related vulnerabilities—such as truncations, overflows, signedness issues, and pointer‑casting problems—by detailing their causes, examples, and impact on security."
 date: 2023-08-09
 tags: ["pwnable", "Integer issues", "Computer Science"]
-categories: ["Research", "Paper"]
 ---
 - 원문
     - [https://intellisec.de/pubs/2016-ccs.pdf](https://intellisec.de/pubs/2016-ccs.pdf)

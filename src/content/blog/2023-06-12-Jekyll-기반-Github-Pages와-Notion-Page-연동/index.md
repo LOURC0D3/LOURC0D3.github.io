@@ -3,7 +3,6 @@ title: "Jekyll 기반 Github Pages와 Notion Page 연동"
 description: "For the English version of this post, see here. {: .prompt-info } 개요 최근에 Notion과 Next.js를 연동하여 Notion Page를 자동으로 import 해주는 블로그 템플릿을 제공하는 흥미로운 Reposi…"
 date: 2023-06-12
 tags: ["Github Actions"]
-categories: ["Development", "DevOps"]
 ---
 
 > For the English version of this post, see [here](https://lourcode.kr/posts/Integrating-Jekyll-based-Github-pages-with-Notion-pages/).
