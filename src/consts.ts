@@ -1,7 +1,7 @@
 import type { IconMap, SocialLink, Site } from '@/types'
 
 export const SITE: Site = {
-  title: 'LOURCODE',
+  title: 'LOURCODE.kr',
   description:
     'I specialize in offensive cybersecurity research. I am also interested in software vulnerability analysis such as IoT, iOS, Windows, and open source software.',
   href: 'https://blog.lourcode.kr',
