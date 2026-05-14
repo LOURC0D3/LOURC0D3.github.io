@@ -153,10 +153,8 @@
       @apply text-muted-foreground mt-2 text-center text-xs italic;
     }
 
-    :where(figure.frame > figcaption.post-code-caption):not(
-        :where(.not-prose, .not-prose *)
-      ) {
-      @apply text-muted-foreground mt-2 px-2 pb-2 text-center text-xs italic;
+    :where(.post-code-caption):not(:where(.not-prose, .not-prose *)) {
+      @apply text-muted-foreground! mt-2! mb-6 text-center! text-xs! italic;
     }
 
     :where(pre):not(:where(.not-prose, .not-prose *)) {

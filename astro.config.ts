@@ -115,13 +115,12 @@ function rehypeCodeFigure() {
         const em = next.children.find(
           (c: any) => c.type === 'element' && c.tagName === 'em',
         )
-        figure.children.push({
+        node.children[j] = {
           type: 'element',
-          tagName: 'figcaption',
+          tagName: 'p',
           properties: { className: ['post-code-caption'] },
           children: em.children,
-        })
-        node.children.splice(j, 1)
+        }
       }
     })
   }
