@@ -2,13 +2,13 @@ name: "Build and Deploy"
 on:
   repository_dispatch:
     types: [RUN_WORKFLOW_DISPATCH]
-      
+  workflow_dispatch:
+
 permissions:
   contents: write
   pages: write
   id-token: write
 
-# Allow one concurrent deployment
 concurrency:
   group: "pages"
   cancel-in-progress: true
@@ -16,82 +16,61 @@ concurrency:
 jobs:
   importer:
     runs-on: ubuntu-latest
-
     steps:
       - uses: actions/checkout@v4
+
+      - name: Clean previous blog content
+        run: rm -rf src/content/blog/*
+
+      - uses: oven-sh/setup-bun@v2
         with:
-          submodules: recursive
+          bun-version: latest
 
-    
-      - name: Clean Directory
-        run: |
-          for file in assets/img/*
-          do
-              if [[ $file != "assets/img/favicons" ]]
-              then
-                  rm -rf "$file"
-              fi
-          done
-          rm -rf _posts/*
-      
-      - uses: actions/setup-node@v3
-        with:
-          node-version: "17"
+      - name: Install dependencies
+        run: bun install --frozen-lockfile
 
-      - run: npm install
-
-      - run: node _scripts/notion-import.js
+      - name: Import from Notion
+        run: node _scripts/notion-import.js
         env:
           NOTION_TOKEN: ${{ secrets.NOTION_TOKEN }}
           DATABASE_ID: ${{ secrets.DATABASE_ID }}
 
-      - uses: stefanzweifel/git-auto-commit-action@v4
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - uses: stefanzweifel/git-auto-commit-action@v5
         with:
           commit_message: "[배포] Notion 변경 사항 저장"
           branch: main
           commit_user_name: importer-bot 🤖
           commit_user_email: actions@github.com
           commit_author: importer-bot 🤖 <actions@github.com>
- 
+
   build:
     needs: importer
     runs-on: ubuntu-latest
-
-    steps:           
+    steps:
       - name: Checkout
         uses: actions/checkout@v4
         with:
           ref: main
           fetch-depth: 1
-          # submodules: true
-          # If using the 'assets' git submodule from Chirpy Starter, uncomment above
-          # (See: https://github.com/cotes2020/chirpy-starter/tree/main/assets)
 
       - name: Setup Pages
         id: pages
         uses: actions/configure-pages@v4
 
-      - name: Setup Ruby
-        uses: ruby/setup-ruby@v1
+      - uses: oven-sh/setup-bun@v2
         with:
-          ruby-version: '3.1' # reads from a '.ruby-version' or '.tools-version' file if 'ruby-version' is omitted
-          bundler-cache: true
+          bun-version: latest
+
+      - name: Install dependencies
+        run: bun install --frozen-lockfile
 
       - name: Build site
-        run: bundle exec jekyll b -d "_site${{ steps.pages.outputs.base_path }}"
-        env:
-          JEKYLL_ENV: "production"
-
-      - name: Test site
-        run: |
-          bundle exec htmlproofer _site --disable-external --check-html --allow_hash_href
+        run: bun run build
 
       - name: Upload site artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: "_site${{ steps.pages.outputs.base_path }}"
+          path: "dist"
 
   deploy:
     environment:

@@ -1,6 +1,0 @@
-[submodule "assets/lib"]
-	path = assets/lib
-	url = https://github.com/cotes2020/chirpy-static-assets.git
-[submodule "_scripts"]
-	path = _scripts
-	url = https://github.com/LOURC0D3/jekyll-with-notion-script.git

@@ -1,0 +1,26 @@
+---
+import Breadcrumbs from '@/components/breadcrumbs.astro'
+import PageHead from '@/components/page-head.astro'
+import Layout from '@/layouts/layout.astro'
+
+const pdfUrl = '/resume/ChaninKim_CV.pdf'
+---
+
+<Layout class="max-w-4xl">
+  <PageHead slot="head" title="About" />
+  <Breadcrumbs items={[{ label: 'About', icon: 'lucide:info' }]} />
+
+  <section>
+    <object
+      data={pdfUrl}
+      type="application/pdf"
+      class="w-full"
+      style="height: 90vh;"
+    >
+      <p>
+        PDF를 표시할 수 없습니다.
+        <a href={pdfUrl} class="underline">여기를 클릭하여 다운로드</a>하세요.
+      </p>
+    </object>
+  </section>
+</Layout>

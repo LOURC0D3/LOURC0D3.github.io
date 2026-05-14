@@ -1,0 +1,58 @@
+---
+import BlogCard from '@/components/blog-card.astro'
+import Link from '@/components/link.astro'
+import PageHead from '@/components/page-head.astro'
+import { buttonVariants } from '@/components/ui/button'
+import { SITE } from '@/consts'
+import Layout from '@/layouts/layout.astro'
+import { getRecentPosts } from '@/lib/data-utils'
+
+const blog = await getRecentPosts(SITE.featuredPostCount)
+---
+
+<Layout class="max-w-3xl">
+  <PageHead slot="head" title="Home" />
+  <section class="rounded-lg border">
+    <div class="flex flex-col space-y-1.5 p-6">
+      <h3 class="text-3xl leading-none font-medium">{SITE.title}</h3>
+      <p class="text-muted-foreground text-sm">
+        Chan In Kim &bull; <span class="font-medium">Security Researcher</span>
+      </p>
+    </div>
+    <div class="p-6 pt-0">
+      <p class="text-muted-foreground mb-2 text-sm">
+        {SITE.description}
+      </p>
+      <p class="text-muted-foreground text-sm">
+        취약점 분석, CVE 리서치, CTF write-up을 기록합니다. 자세한 이력은 <Link
+          href="/about"
+          class="text-foreground"
+          underline>About</Link
+        > 페이지에서 확인할 수 있습니다.
+      </p>
+    </div>
+  </section>
+  <section class="flex flex-col gap-y-4">
+    <h2 class="text-2xl font-medium">Latest posts</h2>
+    <ul class="flex flex-col gap-y-4">
+      {
+        blog.map((post) => (
+          <li>
+            <BlogCard entry={post} />
+          </li>
+        ))
+      }
+    </ul>
+    <div class="flex justify-center">
+      <Link
+        href="/posts"
+        class={buttonVariants({ variant: 'ghost' }) + ' group'}
+      >
+        See all posts <span
+          class="ml-1.5 transition-transform group-hover:translate-x-1"
+          >&rarr;</span
+        >
+      </Link>
+    </div>
+  </section>
+</Layout>
