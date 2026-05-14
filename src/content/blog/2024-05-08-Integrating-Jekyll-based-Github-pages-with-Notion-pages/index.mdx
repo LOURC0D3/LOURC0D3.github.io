@@ -4,10 +4,15 @@ description: "Integrating Notion pages with Jekyll on GitHub Pages via a custom 
 date: 2024-05-08
 tags: ["Github Actions"]
 ---
+import Callout from '@/components/callout.astro'
 
-> 본 게시글의 한국어 버전은 [여기](https://lourcode.kr/posts/Jekyll-기반-Github-Pages와-Notion-Page-연동/)에서 확인하실 수 있습니다.
-{: .prompt-info }
 
+
+<Callout variant="note">
+
+본 게시글의 한국어 버전은 [여기](https://lourcode.kr/posts/Jekyll-기반-Github-Pages와-Notion-Page-연동/)에서 확인하실 수 있습니다.
+
+</Callout>
 
 ## Introduction
 
@@ -21,26 +26,26 @@ However, since the current blog is closer to the design I preferred, I decided t
 Normally, I would write a post in Notion, export it to Markdown, edit it a bit, and then upload it to my blog, but now I just write it in Notion and click the button to automatically upload it to my blog, so it's very easy.
 
 
-<br>
+<br />
 
 
 This was developed by referring to a previously developed blog linking Jekyll and Notion.
 I fixed some errors and added features in the blog I referenced.
 
 
-<br>
+<br />
 
 
 Below is the finished version.
 
 
-![0](./0.png)_%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA_2023-06-12_%E1%84%8B%E1%85%A9%E1%84%92%E1%85%AE_5.25.44.png_
+![0](./0.png)
 
 
 Just by pressing the refresh button, the post is automatically uploaded to the blog.
 
 
-<br>
+<br />
 
 
 Now let’s know how to implement it.
@@ -56,20 +61,20 @@ After creating a new API integration from the link below, keep the Secret value 
 
 - [https://www.notion.so/my-integrations](https://www.notion.so/my-integrations)
 
-![1](./1.png)_%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA_2023-06-12_%E1%84%8B%E1%85%A9%E1%84%92%E1%85%AE_5.17.00.png_
+![1](./1.png)
 
 
 Next, create a page to write a blog post. You can use the template below.
 
 - [Notion Template](https://lourcode.notion.site/Blog-Template-d6d587e11ac04f2abcdba4412dae5387)
 
-<br>
+<br />
 
 
 Add the API integration to the page created above as follows:
 
 
-![2](./2.png)_%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA_2023-06-12_%E1%84%8B%E1%85%A9%E1%84%92%E1%85%AE_5.21.12.png_
+![2](./2.png)
 
 
 Now we need to know the ID for the database. You can get the database ID by copying the page link.
@@ -84,7 +89,7 @@ After you go to the DB page and click Copy Link, you can get a link that looks l
 Save the `database_id` above.
 
 
-<br>
+<br />
 
 
 Now all we have to do in Notion is done.
@@ -99,16 +104,16 @@ First, we need to register an environment variable in Github Secret. Just regist
 Key name is set as follows:
 
 
-![3](./3.png)_%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA_2023-06-12_%E1%84%8B%E1%85%A9%E1%84%92%E1%85%AE_6.23.57.png_
+![3](./3.png)
 
 
-<br>
+<br />
 
 
 Next, a total of two scripts are needed to read the workflow file and Notion page contents.
 
 
-<br>
+<br />
 
 
 First, it is a import script.
@@ -117,10 +122,10 @@ First, it is a import script.
 `_scripts/notion-import.js`
 
 
-<script src="https://gist.github.com/LOURC0D3/17792881fa7d8a49ffea566b5a17ea8f.js"></script>
+\<script src="https://gist.github.com/LOURC0D3/17792881fa7d8a49ffea566b5a17ea8f.js">\</script>
 
 
-<br>
+<br />
 
 
 Specifies dependencies for the above Javascript file.
@@ -143,7 +148,7 @@ Write it in the `package.json` location.
 ```
 
 
-<br>
+<br />
 
 
 Next is the workflow.
@@ -267,7 +272,7 @@ jobs:
 Using Github's dispatch, you can update posts by pressing a button.
 
 
-<br>
+<br />
 
 
 First, you need to create a Github AccessToken.
@@ -282,7 +287,7 @@ For scope, select `repo`, `workflow`, or `admin:repo_hook`.
 Store this token safely.
 
 
-<br>
+<br />
 
 
 Notion can embed HTML, so we can send POST messages through HTML.
@@ -302,7 +307,7 @@ You can also check the code for the page below, so you can use it with confidenc
 
 - [https://github.com/LOURC0D3/notion-tools-embeds](https://github.com/LOURC0D3/notion-tools-embeds)
 
-<br>
+<br />
 
 
 Change `USERNAME`, `REPO_NAME`, and `GITHUB_ACCESS_TOKEN` in the code as follows and then generate the link.
@@ -385,7 +390,7 @@ For `ACCESS_TOKEN`, simply write the token created above.
 ```
 
 
-<br>
+<br />
 
 
 Now connect the link through embed on the Notion page.
@@ -394,7 +399,7 @@ Now connect the link through embed on the Notion page.
 If you have followed along successfully, you can check that the blog is updated through the button once completed!
 
 
-![4](./4.gif)_%E1%84%92%E1%85%AA%E1%84%86%E1%85%A7%E1%86%AB-%E1%84%80%E1%85%B5%E1%84%85%E1%85%A9%E1%86%A8-2023-06-12-%E1%84%8B%E1%85%A9%E1%84%92%E1%85%AE-6.37.44.gif_
+![4](./4.gif)
 
 
 ## Why not use cron scheduler
@@ -403,7 +408,7 @@ If you have followed along successfully, you can check that the blog is updated 
 Previously, I used the update button and cron scheduler to update posts, but one day, an email like this arrived.
 
 
-![5](./5.png)_%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA_2024-05-08_%E1%84%8B%E1%85%A9%E1%84%92%E1%85%AE_3.35.04.png_
+![5](./5.png)
 
 
 We know when a post will be updated. Therefore, it was determined that the cron scheduler was not needed and the function was deprecated.
@@ -418,7 +423,7 @@ I integrated Notion and Github pages using Github Actions.
 Actions are always very confusing, so I end up digging through them for a long time.
 
 
-<br>
+<br />
 
 
 All codes related to building the blog are posted [here](https://github.com/LOURC0D3/Jekyll-with-Notion-Template/tree/main).

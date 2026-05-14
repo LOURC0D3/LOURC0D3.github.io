@@ -150,7 +150,7 @@ p.interactive()
 
 
 
-![0](./0.png)_1.png_
+![0](./0.png)
 
 
 
